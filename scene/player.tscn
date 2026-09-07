@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dginutuhv808s" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://c7b2ctodgu5ej" path="res://assets/images/player/Player.png" id="1_xo3ru"]
+[ext_resource type="AudioStream" uid="uid://8vc1mu553d7f" path="res://assets/audio/Sword Swing.wav" id="3_fvtld"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hjaqi"]
 atlas = ExtResource("1_xo3ru")
@@ -226,7 +227,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s4jxa")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_down",
 "speed": 8.0
 }, {
@@ -243,7 +244,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2fvbb")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_right",
 "speed": 8.0
 }, {
@@ -260,7 +261,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_34jf3")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_up",
 "speed": 8.0
 }, {
@@ -427,5 +428,9 @@ script = ExtResource("1_hjaqi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=316275739]
 position = Vector2(-2, -4)
 sprite_frames = SubResource("SpriteFrames_4ebqx")
-animation = &"dying"
-frame_progress = 0.92775244
+animation = &"attack_up"
+
+[node name="SwingSword" type="AudioStreamPlayer2D" parent="." unique_id=963523385]
+stream = ExtResource("3_fvtld")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
