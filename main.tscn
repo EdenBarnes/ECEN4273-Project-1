@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dg4ywxpsft5lt"]
+
+[ext_resource type="PackedScene" uid="uid://qp1bm4yq55x7" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://gqy2arulhisc" path="res://enemy_spawner.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D" unique_id=549834261]
+
+[node name="EnemySpawner2" parent="." unique_id=1682588879 instance=ExtResource("2_0xm2m")]
+position = Vector2(300, 0)
+spawn_interval = 1.0
+max_enemies = 20
+
+[node name="Player" parent="." unique_id=1057855715 instance=ExtResource("1_ig7tw")]
+
+[node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_0xm2m")]
+position = Vector2(-300, 0)
+spawn_interval = 1.0
+max_enemies = 20
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1161727192]
+zoom = Vector2(3, 3)
+
+[node name="EnemySpawner3" parent="." unique_id=845828637 instance=ExtResource("2_0xm2m")]
+position = Vector2(0, 150)
+spawn_interval = 1.0
+max_enemies = 20
+
+[node name="EnemySpawner4" parent="." unique_id=23448611 instance=ExtResource("2_0xm2m")]
+position = Vector2(0, -150)
+spawn_interval = 1.0
+max_enemies = 20
