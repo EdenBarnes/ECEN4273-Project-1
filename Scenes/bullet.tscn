@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c25jqhspcwn4k"]
 
 [ext_resource type="Texture2D" uid="uid://dqode4hwi57ke" path="res://resources/sprites/FX/All_Fire_Bullet_Pixel_16x16.png" id="1_v7oki"]
-[ext_resource type="Script" uid="uid://bkaf0ai26uufa" path="res://bullet.gd" id="1_v8qja"]
+[ext_resource type="Script" uid="uid://bkaf0ai26uufa" path="res://Scripts/bullet.gd" id="1_v8qja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yujqa"]
 size = Vector2(4, 4)

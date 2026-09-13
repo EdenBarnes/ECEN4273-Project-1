@@ -1,31 +1,43 @@
 extends CharacterBody2D
 
-const BULLET_SCENE = preload("res://bullet.tscn")
+const BULLET_SCENE = preload("res://Scenes/bullet.tscn")
 
 @onready var anim_tree: AnimationTree = $Sprite2D/AnimationTree
 @onready var anim_player: AnimationPlayer = $Sprite2D/AnimationPlayer
 @onready var state_machine: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 @onready var hurt_timer: Timer = $HurtTimer
 
-@export var speed := 50.0
-
-@export var hurt_duration := 0.5
-
-@export var max_health := 100
-var current_health := max_health
+var speed: float = 50.0
+var hurt_duration: float = 0.5
+var max_health: int = 100
+var current_health: int = 100
 
 var movement_direction := Vector2.DOWN
 var facing_direction := Vector2.DOWN
 var is_locked := false
 var is_dead := false
 
+
 func _ready():
+	# Load values from GameSettings
+	speed = GameSettings.PLAYER_SPEED
+	hurt_duration = GameSettings.PLAYER_HURT_DURATION
+	max_health = GameSettings.PLAYER_MAX_HEALTH
+	current_health = max_health
+
+	# Player size
+	scale = Vector2.ONE * GameSettings.PLAYER_SIZE
+
 	anim_tree.active = true
+
 	hurt_timer.one_shot = true
 	hurt_timer.wait_time = hurt_duration
 	hurt_timer.timeout.connect(_on_hurt_timer_timeout)
 
-func _physics_process(delta: float) -> void:
+	# Spawn player in middle of window
+	position = get_viewport_rect().size / 2.0
+
+func _physics_process(_delta: float) -> void:
 	if is_locked:
 		return
 
@@ -63,11 +75,12 @@ func take_damage(amount: int):
 	travel_to("hurt");
 	
 	hurt_timer.start()
-	
+
 func _on_hurt_timer_timeout():
 	if !is_dead:
 		is_locked = false
 		
+
 func die():
 	is_locked = true
 	is_dead = true
