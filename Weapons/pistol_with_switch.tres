@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://to0eryk04k17"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_af8yj"]
+[ext_resource type="Texture2D" uid="uid://vpnkxp6ucglx" path="res://resources/Game Assets/Guns/Starter pistol.png" id="2_lyset"]
+
+[resource]
+script = ExtResource("1_af8yj")
+weapon_texture = ExtResource("2_lyset")
+damage = 20
+bullet_speed = 700.0
+fire_rate = 0.05
+magazine_size = 50
+reload_time = 2.0
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+gun_visual_offset = Vector2(15, 1)
+muzzle_position = Vector2(9, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 30.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

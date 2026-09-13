@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dvxppia2e5khl"]
 
 [ext_resource type="Script" uid="uid://b0n3kw8yd8efy" path="res://Scenes/gun.gd" id="1_oqrbh"]
-[ext_resource type="Resource" uid="uid://qm6g0uxvduw7" path="res://Weapons/pistol.tres" id="2_t6ynv"]
+[ext_resource type="Resource" uid="uid://duhrfs0tp7ytb" path="res://Weapons/minigun.tres" id="2_bsipy"]
 [ext_resource type="Script" uid="uid://dpkqqr26y87oh" path="res://Scenes/aim_cone.gd" id="3_t6ynv"]
 [ext_resource type="Texture2D" uid="uid://bma6o08en81uu" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (1).png" id="4_bsipy"]
 [ext_resource type="Texture2D" uid="uid://dj6qi5scs1vh7" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (2).png" id="5_ftlo2"]
@@ -30,7 +30,7 @@ animations = [{
 
 [node name="Gun" type="Node2D" unique_id=378236700]
 script = ExtResource("1_oqrbh")
-weapon_data = ExtResource("2_t6ynv")
+weapon_data = ExtResource("2_bsipy")
 
 [node name="GunPivot" type="Node2D" parent="." unique_id=1871070980]
 
