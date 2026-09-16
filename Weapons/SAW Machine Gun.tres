@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cthteocgooio6"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_xdusu"]
+[ext_resource type="Texture2D" uid="uid://6na8eyelnf06" path="res://resources/Game Assets/Guns/SAW Machine Gun.png" id="2_xdusu"]
+
+[resource]
+script = ExtResource("1_xdusu")
+weapon_texture = ExtResource("2_xdusu")
+damage = 25
+bullet_speed = 700.0
+fire_rate = 0.02
+magazine_size = 100
+reload_time = 2.5
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.3
+gun_scale = 1.2
+gun_visual_offset = Vector2(6, 4)
+muzzle_position = Vector2(16, -2)
+muzzle_flash_scale = 0.25
+aim_cone_length = 25.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

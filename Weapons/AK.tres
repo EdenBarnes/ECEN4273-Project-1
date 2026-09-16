@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bdo0irxjcnmpg"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_bkg3u"]
+[ext_resource type="Texture2D" uid="uid://ssotbfoq2v8d" path="res://resources/Game Assets/Guns/AK Rifle.png" id="2_bkg3u"]
+
+[resource]
+script = ExtResource("1_bkg3u")
+weapon_texture = ExtResource("2_bkg3u")
+damage = 35
+bullet_speed = 600.0
+fire_rate = 0.25
+magazine_size = 30
+reload_time = 2.0
+spread_angle = 15.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.35
+gun_scale = 1.25
+gun_visual_offset = Vector2(7, 2)
+muzzle_position = Vector2(17, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 30.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

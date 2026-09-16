@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dlh8vsbht33cq"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_sbfmo"]
+[ext_resource type="Texture2D" uid="uid://ckwc8j27h2su6" path="res://resources/Game Assets/Guns/P90 Smg.png" id="2_sbfmo"]
+
+[resource]
+script = ExtResource("1_sbfmo")
+weapon_texture = ExtResource("2_sbfmo")
+damage = 30
+bullet_speed = 600.0
+fire_rate = 0.08
+magazine_size = 50
+reload_time = 0.7
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.35
+gun_scale = 1.1
+gun_visual_offset = Vector2(4, 3)
+muzzle_position = Vector2(13, -1)
+muzzle_flash_scale = 0.2
+aim_cone_length = 25.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

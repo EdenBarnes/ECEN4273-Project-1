@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3y4t0g4kkn8h" path="res://Scripts/player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://cri676v80pdf3" path="res://resources/sprites/Prototype_Character/Yellow/walk.png" id="1_onrkg"]
+[ext_resource type="Resource" uid="uid://qm6g0uxvduw7" path="res://Weapons/pistol.tres" id="2_3smsa"]
 [ext_resource type="Texture2D" uid="uid://udirm8yx83ix" path="res://resources/sprites/Prototype_Character/Yellow/idle.png" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://dshmatklso3t3" path="res://resources/sprites/Prototype_Character/Yellow/hurt.png" id="3_hqtel"]
 [ext_resource type="Texture2D" uid="uid://25wg4vm1wosf" path="res://resources/sprites/Prototype_Character/Yellow/death.png" id="3_sweqy"]
@@ -1302,6 +1303,7 @@ size = Vector2(22, 28)
 
 [node name="Player" type="CharacterBody2D" unique_id=1057855715 groups=["player"]]
 script = ExtResource("1_i3pqv")
+starting_weapon = ExtResource("2_3smsa")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1458304483]
 position = Vector2(72, 2)
@@ -1332,9 +1334,6 @@ shape = SubResource("RectangleShape2D_yujqa")
 [node name="HurtTimer" type="Timer" parent="." unique_id=214020229]
 
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1377066217]
-one_shot = true
-
-[node name="InvulnerabilityTimer" type="Timer" parent="InvulnerabilityTimer" unique_id=1647311650]
 one_shot = true
 
 [node name="WeaponHolder" type="Node2D" parent="." unique_id=656471027]

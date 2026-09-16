@@ -184,15 +184,16 @@ func attack(character: CharacterBody2D):
 func die():
 	is_locked = true
 	is_dead = true
-
 	velocity = Vector2.ZERO
 
 	collision_shape.set_deferred("disabled", true)
 
+	# Put corpse sprite behind player
+	$Sprite2D.z_index = -1
+
 	travel_to("death")
 
 	await get_tree().create_timer(5.0).timeout
-
 	queue_free()
 
 
