@@ -1,6 +1,8 @@
 extends Node2D
 
 const ENEMY_SCENE = preload("res://Scenes/enemy.tscn")
+const Spirnt_SCENE = preload("res://Scenes/Sprinter.tscn")
+const Big_SCENE = preload("res://Scenes/BigGuy.tscn")
 
 @onready var spawn_timer: Timer = $SpawnTimer
 
@@ -30,13 +32,27 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func spawn_enemy() -> void:
-	var enemy = ENEMY_SCENE.instantiate()
+	
+	var zomb = randi_range(1,10)
+	
+	match zomb:
 
 	# Add enemy to the current game scene
-	get_tree().current_scene.add_child(enemy)
-
+		1,2,3,4,5:
+			var enemy = ENEMY_SCENE.instantiate()
+			get_tree().current_scene.add_child(enemy)
+			enemy.global_position = get_random_spawn_position()
+	
+		6,7,8:
+			var Sprint = Spirnt_SCENE.instantiate()
+			get_tree().current_scene.add_child(Sprint)
+			Sprint.global_position = get_random_spawn_position()
+		9,10:
+			var bigguy = Big_SCENE.instantiate()
+			get_tree().current_scene.add_child(bigguy)
+			bigguy.global_position = get_random_spawn_position()
 	# Give enemy a random position outside the screen
-	enemy.global_position = get_random_spawn_position()
+	
 
 
 func get_random_spawn_position() -> Vector2:
