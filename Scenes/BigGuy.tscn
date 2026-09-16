@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b7rkyc3pt7kou"]
 
 [ext_resource type="Texture2D" uid="uid://bkdhcvoyy42s1" path="res://resources/sprites/Prototype_Character/Red/idle.png" id="1_7k104"]
-[ext_resource type="Script" uid="uid://byrnk3pxpp50t" path="res://Scenes/big_guy.gd" id="1_souxr"]
+[ext_resource type="Script" uid="uid://byrnk3pxpp50t" path="res://Scripts/big_guy.gd" id="1_souxr"]
 [ext_resource type="Texture2D" uid="uid://dsvti7x8qjika" path="res://resources/sprites/Prototype_Character/Red/walk.png" id="2_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://2c4ggcv123s3" path="res://resources/sprites/Prototype_Character/Red/death.png" id="2_iifgy"]
 [ext_resource type="Texture2D" uid="uid://cp8ghp85mdvrh" path="res://resources/sprites/Prototype_Character/Red/hurt.png" id="2_qi2p4"]
@@ -1308,6 +1308,7 @@ script = ExtResource("1_souxr")
 shape = SubResource("RectangleShape2D_jsssl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1052436603]
+modulate = Color(0, 0.1240337, 0.99999934, 1)
 texture = ExtResource("1_7k104")
 hframes = 2
 vframes = 3
