@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b0d0cnrqgkkoa"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_awb11"]
+[ext_resource type="Texture2D" uid="uid://gkjhh1saumun" path="res://resources/Game Assets/Guns/Small Machine Gun.png" id="2_awb11"]
+
+[resource]
+script = ExtResource("1_awb11")
+weapon_texture = ExtResource("2_awb11")
+damage = 20
+bullet_speed = 600.0
+fire_rate = 0.1
+magazine_size = 40
+reload_time = 2.0
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.2
+gun_scale = 1.1
+gun_visual_offset = Vector2(8, 4)
+muzzle_position = Vector2(20, -2)
+muzzle_flash_scale = 0.25
+aim_cone_length = 25.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

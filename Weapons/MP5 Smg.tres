@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://byqx5qc34k75n"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_0i7ib"]
+[ext_resource type="Texture2D" uid="uid://ldr8t436yrlx" path="res://resources/Game Assets/Guns/MP5 Smg.png" id="2_0i7ib"]
+
+[resource]
+script = ExtResource("1_0i7ib")
+weapon_texture = ExtResource("2_0i7ib")
+damage = 30
+bullet_speed = 600.0
+fire_rate = 0.1
+magazine_size = 25
+reload_time = 0.7
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.35
+gun_visual_offset = Vector2(4, 4)
+muzzle_position = Vector2(13, -1)
+muzzle_flash_scale = 0.2
+aim_cone_length = 25.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cfc430rv8kcc2"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_2r0ct"]
+[ext_resource type="Texture2D" uid="uid://cct7uctc5h8sk" path="res://resources/Game Assets/Guns/Big Sniper.png" id="2_2r0ct"]
+
+[resource]
+script = ExtResource("1_2r0ct")
+weapon_texture = ExtResource("2_2r0ct")
+damage = 100
+bullet_speed = 700.0
+fire_rate = 0.6
+pierce = 2
+magazine_size = 10
+reload_time = 2.0
+spread_angle = 35.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.25
+gun_scale = 1.1
+gun_visual_offset = Vector2(12, 3)
+muzzle_position = Vector2(23, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 30.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

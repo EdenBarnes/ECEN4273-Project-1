@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dwiy38snj8kox"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_plpev"]
+[ext_resource type="Texture2D" uid="uid://dxybyaw0g7dot" path="res://resources/Game Assets/Guns/AR Rifle.png" id="2_plpev"]
+
+[resource]
+script = ExtResource("1_plpev")
+weapon_texture = ExtResource("2_plpev")
+damage = 30
+bullet_speed = 600.0
+fire_rate = 0.2
+magazine_size = 35
+reload_time = 2.0
+spread_angle = 25.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.4
+gun_scale = 1.1
+gun_visual_offset = Vector2(8, 4)
+muzzle_position = Vector2(20, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 30.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

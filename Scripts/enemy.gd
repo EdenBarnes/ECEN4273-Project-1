@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var state_machine: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var attack_timer: Timer = $AttackTimer
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 var speed: float
@@ -183,11 +184,16 @@ func attack(character: CharacterBody2D):
 func die():
 	is_locked = true
 	is_dead = true
+	velocity = Vector2.ZERO
+
+	collision_shape.set_deferred("disabled", true)
+
+	# Put corpse sprite behind player
+	$Sprite2D.z_index = -1
 
 	travel_to("death")
 
 	await get_tree().create_timer(5.0).timeout
-
 	queue_free()
 
 

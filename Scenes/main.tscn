@@ -4,6 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://gqy2arulhisc" path="res://Scenes/enemy_spawner.tscn" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://c734cn1vhmew4" path="res://Scenes/background.gd" id="2_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://dxy2gdj13se7x" path="res://resources/Game Assets/texture216.png" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://b3uifxuqat6co" path="res://Scenes/Gun Box.tscn" id="3_21xkr"]
+[ext_resource type="Script" uid="uid://ladkgew66tn7" path="res://Scenes/game_boundary.gd" id="5_kry3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
+size = Vector2(1583, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+size = Vector2(1583, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
+size = Vector2(1583, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xadyu"]
+size = Vector2(1583, 62)
 
 [node name="Main" type="Node2D" unique_id=549834261]
 
@@ -11,6 +25,7 @@
 layer = -1
 
 [node name="Background" type="TextureRect" parent="BackgroundCan" unique_id=801085999]
+modulate = Color(0.82606, 0.82606006, 0.82606, 1)
 offset_right = 1560.0
 offset_bottom = 856.0
 texture = ExtResource("3_8gbba")
@@ -18,8 +33,30 @@ expand_mode = 1
 stretch_mode = 1
 script = ExtResource("2_jjvhh")
 
+[node name="Gun Box" parent="." unique_id=2096251236 instance=ExtResource("3_21xkr")]
+position = Vector2(-67, 93)
+
 [node name="Player" parent="." unique_id=1057855715 instance=ExtResource("1_bo1nx")]
-position = Vector2(-118, 111)
+position = Vector2(-184, 123)
 
 [node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_8gbba")]
 position = Vector2(-117, 199)
+
+[node name="GameBoundary" type="StaticBody2D" parent="." unique_id=295758232 groups=["boundary"]]
+script = ExtResource("5_kry3j")
+
+[node name="Top" type="CollisionShape2D" parent="GameBoundary" unique_id=799104180]
+position = Vector2(712, -42)
+shape = SubResource("RectangleShape2D_kry3j")
+
+[node name="Bottom" type="CollisionShape2D" parent="GameBoundary" unique_id=97071893]
+position = Vector2(714, -182)
+shape = SubResource("RectangleShape2D_21xkr")
+
+[node name="Left" type="CollisionShape2D" parent="GameBoundary" unique_id=290120800]
+position = Vector2(714, -111)
+shape = SubResource("RectangleShape2D_6bp64")
+
+[node name="Right" type="CollisionShape2D" parent="GameBoundary" unique_id=504567778]
+position = Vector2(712, -254)
+shape = SubResource("RectangleShape2D_xadyu")
