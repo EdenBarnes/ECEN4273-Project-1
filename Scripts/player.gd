@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 # ============================================
 # PLAYER NODES
 # ============================================
@@ -12,7 +11,6 @@ extends CharacterBody2D
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
-
 # ============================================
 # WEAPON NODES
 # ============================================
@@ -21,14 +19,12 @@ extends CharacterBody2D
 @onready var current_gun = $WeaponHolder/Gun
 @onready var aim_cone: Node2D = $WeaponHolder/Gun/AimCone
 
-
 # ============================================
 # STARTING WEAPON
 # ============================================
 
 @export_category("Starting Weapon")
 @export var starting_weapon: WeaponData
-
 
 # ============================================
 # WEAPON INVENTORY
@@ -38,7 +34,6 @@ var weapon_slot_1: WeaponInstance = null
 var weapon_slot_2: WeaponInstance = null
 
 var current_weapon_slot: int = 0
-
 
 # ============================================
 # PLAYER STATS
@@ -51,7 +46,6 @@ var invulnerability_duration: float = 2.0
 var max_health: int = 100
 var current_health: int = 100
 
-
 # ============================================
 # PLAYER STATE
 # ============================================
@@ -61,7 +55,6 @@ var facing_direction := Vector2.DOWN
 
 var is_locked := false
 var is_dead := false
-
 
 # ============================================
 # READY
@@ -82,13 +75,11 @@ func _ready() -> void:
 
 	scale = Vector2.ONE * GameSettings.PLAYER_SIZE
 
-
 	# ============================================
 	# ANIMATION SETUP
 	# ============================================
 
 	anim_tree.active = true
-
 
 	# ============================================
 	# HURT TIMER SETUP
@@ -99,7 +90,6 @@ func _ready() -> void:
 	hurt_timer.timeout.connect(_on_hurt_timer_timeout)
 
 	invulnerability_timer.one_shot = true
-
 
 	# ============================================
 	# STARTING INVENTORY
@@ -112,11 +102,9 @@ func _ready() -> void:
 	# Slot 2 starts empty.
 	weapon_slot_2 = null
 
-
 	# Equip the starting weapon.
 	if weapon_slot_1:
 		equip_weapon(1)
-
 
 	# ============================================
 	# PLAYER START POSITION
@@ -124,16 +112,13 @@ func _ready() -> void:
 
 	position = get_viewport_rect().size / 2.0
 
-
 # ============================================
 # PHYSICS PROCESS
 # ============================================
 
 func _physics_process(_delta: float) -> void:
-
 	if is_locked:
 		return
-
 
 	# ============================================
 	# WEAPON SWITCHING
@@ -146,7 +131,6 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("weapon_2"):
 		equip_weapon(2)
 
-
 	# Mouse wheel.
 	if Input.is_action_just_pressed("weapon_next"):
 		switch_weapon(1)
@@ -154,15 +138,12 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("weapon_previous"):
 		switch_weapon(-1)
 
-
 	# ============================================
 	# AIM INPUT
 	# ============================================
 
 	var is_aiming := Input.is_action_pressed("aim")
-
 	current_gun.set_aiming(is_aiming)
-
 
 	# ============================================
 	# MOVEMENT INPUT
@@ -172,7 +153,6 @@ func _physics_process(_delta: float) -> void:
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down")
 	)
-
 
 	# ============================================
 	# AIMING
@@ -188,29 +168,34 @@ func _physics_process(_delta: float) -> void:
 	# Rotate weapon holder toward mouse.
 	weapon_holder.rotation = facing_direction.angle()
 
-
 	# Flip/update the gun.
 	current_gun.update_visual(facing_direction)
 
+	# ============================================
+	# WEAPON DRAW ORDER
+	# ============================================
+
+	# Only put the weapon behind the player when
+	# the player is facing mostly upward/backward.
+	if facing_direction.y < -0.5:
+		weapon_holder.z_index = -1
+	else:
+		weapon_holder.z_index = 1
 
 	# ============================================
 	# AIM CONE
 	# ============================================
 
 	if current_gun.weapon_data:
-
 		aim_cone.spread_angle = (
 			current_gun.get_current_spread()
 		)
-
 		aim_cone.cone_length = (
 			current_gun.weapon_data.aim_cone_length
 		)
-
 		aim_cone.cone_start_distance = (
 			current_gun.weapon_data.aim_cone_start_distance
 		)
-
 
 	# ============================================
 	# MOVEMENT SPEED
@@ -219,30 +204,22 @@ func _physics_process(_delta: float) -> void:
 	var current_speed := speed
 
 	if is_aiming and current_gun.weapon_data:
-
 		current_speed *= (
 			current_gun.weapon_data.aim_move_speed_multiplier
 		)
-
 
 	# ============================================
 	# MOVEMENT
 	# ============================================
 
 	if input_vector != Vector2.ZERO:
-
 		movement_direction = input_vector.normalized()
-
 		velocity = movement_direction * current_speed
-
 		travel_to("walk")
 
 	else:
-
 		velocity = Vector2.ZERO
-
 		travel_to("idle")
-
 
 	# ============================================
 	# SHOOTING
@@ -251,14 +228,12 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
 		current_gun.shoot(facing_direction)
 
-
 	# ============================================
 	# RELOADING
 	# ============================================
 
 	if Input.is_action_just_pressed("reload"):
 		current_gun.reload()
-
 
 	move_and_slide()
 
@@ -268,24 +243,17 @@ func _physics_process(_delta: float) -> void:
 # ============================================
 
 func equip_weapon(slot: int) -> void:
-
 	var new_weapon: WeaponInstance = null
-
 
 	# ============================================
 	# GET WEAPON FROM SLOT
 	# ============================================
 
 	if slot == 1:
-
 		new_weapon = weapon_slot_1
-
 	elif slot == 2:
-
 		new_weapon = weapon_slot_2
-
 	else:
-
 		return
 
 
@@ -296,14 +264,12 @@ func equip_weapon(slot: int) -> void:
 	if new_weapon == null:
 		return
 
-
 	# ============================================
 	# DON'T RE-EQUIP CURRENT SLOT
 	# ============================================
 
 	if current_weapon_slot == slot:
 		return
-
 
 	# ============================================
 	# SAVE CURRENT WEAPON STATE
@@ -312,13 +278,11 @@ func equip_weapon(slot: int) -> void:
 	if current_weapon_slot != 0:
 		current_gun.save_weapon_state()
 
-
 	# ============================================
 	# EQUIP NEW WEAPON
 	# ============================================
 
 	current_weapon_slot = slot
-
 	current_gun.equip_weapon(new_weapon)
 
 
@@ -333,54 +297,40 @@ func switch_weapon(_direction: int) -> void:
 	# ============================================
 
 	if current_weapon_slot == 0:
-
 		if weapon_slot_1 != null:
 			equip_weapon(1)
 
 		elif weapon_slot_2 != null:
 			equip_weapon(2)
-
 		return
-
 
 	# ============================================
 	# BOTH SLOTS HAVE WEAPONS
 	# ============================================
 
 	if weapon_slot_1 != null and weapon_slot_2 != null:
-
 		if current_weapon_slot == 1:
-
 			equip_weapon(2)
 
 		elif current_weapon_slot == 2:
-
 			equip_weapon(1)
-
 		return
-
 
 	# ============================================
 	# ONLY SLOT 1 HAS A WEAPON
 	# ============================================
 
 	if weapon_slot_1 != null:
-
 		equip_weapon(1)
-
 		return
-
 
 	# ============================================
 	# ONLY SLOT 2 HAS A WEAPON
 	# ============================================
 
 	if weapon_slot_2 != null:
-
 		equip_weapon(2)
-
 		return
-
 
 # ============================================
 # ADD WEAPON TO INVENTORY
@@ -391,22 +341,18 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 	if new_weapon_data == null:
 		return false
 
-
 	# ============================================
 	# GET CURRENTLY HELD WEAPON
 	# ============================================
 
 	var held_weapon: WeaponInstance = get_current_weapon()
 
-
 	# ============================================
 	# DON'T PICK UP SAME WEAPON
 	# ============================================
 
 	if held_weapon != null:
-
 		if held_weapon.weapon_data == new_weapon_data:
-
 			return false
 
 
@@ -415,13 +361,10 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 	# ============================================
 
 	if weapon_slot_1 == null:
-
 		weapon_slot_1 = WeaponInstance.new(
 			new_weapon_data
 		)
-
 		equip_weapon(1)
-
 		return true
 
 
@@ -430,13 +373,10 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 	# ============================================
 
 	if weapon_slot_2 == null:
-
 		weapon_slot_2 = WeaponInstance.new(
 			new_weapon_data
 		)
-
 		equip_weapon(2)
-
 		return true
 
 
@@ -451,23 +391,16 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 		WeaponInstance.new(new_weapon_data)
 	)
 
-
 	# ============================================
 	# REPLACE SLOT 1
 	# ============================================
 
 	if current_weapon_slot == 1:
-
 		weapon_slot_1 = new_weapon_instance
-
-
 		# Reset the current slot so equip_weapon()
 		# knows this is a new weapon.
 		current_weapon_slot = 0
-
-
 		equip_weapon(1)
-
 		return true
 
 
@@ -476,15 +409,10 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 	# ============================================
 
 	elif current_weapon_slot == 2:
-
 		weapon_slot_2 = new_weapon_instance
-
 		current_weapon_slot = 0
-
 		equip_weapon(2)
-
 		return true
-
 
 	return false
 
@@ -496,17 +424,13 @@ func add_weapon(new_weapon_data: WeaponData) -> bool:
 func get_current_weapon() -> WeaponInstance:
 
 	if current_weapon_slot == 1:
-
 		return weapon_slot_1
 
 
 	if current_weapon_slot == 2:
-
 		return weapon_slot_2
 
-
 	return null
-
 
 # ============================================
 # DAMAGE
@@ -517,13 +441,10 @@ func take_damage(amount: int) -> void:
 	if is_dead:
 		return
 
-
 	if not invulnerability_timer.is_stopped():
 		return
 
-
 	current_health -= amount
-
 
 	invulnerability_timer.start(
 		invulnerability_duration
@@ -531,18 +452,12 @@ func take_damage(amount: int) -> void:
 
 
 	if current_health <= 0:
-
 		die()
-
 		return
 
-
 	is_locked = true
-
 	travel_to("hurt")
-
 	hurt_timer.start()
-
 
 # ============================================
 # HURT TIMER
