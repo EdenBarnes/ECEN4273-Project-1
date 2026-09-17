@@ -1,96 +1,94 @@
 extends Area2D
 
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+# ============================================
+# BULLET SETTINGS
+# ============================================
 
 var speed: float = 400.0
 var damage: int = 50
-
 var pierce: int = 0
 var bounces: int = 0
 
 var direction := Vector2.RIGHT
-
 var lifetime: float = 10.0
 
+# ============================================
+# MAP SIZE
+# ============================================
+
+var map_size: Vector2 = Vector2(
+	1536.0,
+	1024.0
+)
+
+# ============================================
+# READY
+# ============================================
 
 func _ready() -> void:
 	scale = Vector2.ONE * GameSettings.BULLET_SIZE
-
 	body_entered.connect(_on_body_entered)
-
 	sprite.play("default")
 
+# ============================================
+# BULLET MOVEMENT
+# ============================================
 
 func _process(delta: float) -> void:
-	# Move bullet
 	global_position += direction * speed * delta
-
-	# Check screen boundary
-	check_boundary()
-
-	# Bullet lifetime
+	check_map_boundary()
 	lifetime -= delta
-
 	if lifetime <= 0.0:
 		queue_free()
 
+# ============================================
+# MAP BOUNDARY
+# ============================================
 
-func check_boundary() -> void:
-	var screen_size = get_viewport_rect().size
-
-	var hit_boundary := false
-
+func check_map_boundary() -> void:
+	var hit_boundary: bool = false
 
 	# ============================================
-	# LEFT WALL
+	# LEFT EDGE
 	# ============================================
 
 	if global_position.x <= 0.0:
 		global_position.x = 0.0
-
 		direction.x = abs(direction.x)
-
 		hit_boundary = true
 
-
 	# ============================================
-	# RIGHT WALL
+	# RIGHT EDGE
 	# ============================================
 
-	elif global_position.x >= screen_size.x:
-		global_position.x = screen_size.x
-
+	elif global_position.x >= map_size.x:
+		global_position.x = map_size.x
 		direction.x = -abs(direction.x)
-
 		hit_boundary = true
 
-
 	# ============================================
-	# TOP WALL
+	# TOP EDGE
 	# ============================================
 
 	if global_position.y <= 0.0:
 		global_position.y = 0.0
-
 		direction.y = abs(direction.y)
-
 		hit_boundary = true
 
-
 	# ============================================
-	# BOTTOM WALL
+	# BOTTOM EDGE
 	# ============================================
 
-	elif global_position.y >= screen_size.y:
-		global_position.y = screen_size.y
-
+	elif global_position.y >= map_size.y:
+		global_position.y = map_size.y
 		direction.y = -abs(direction.y)
-
 		hit_boundary = true
 
-
 	# ============================================
-	# HANDLE BOUNCE COUNT
+	# HANDLE BOUNCE
 	# ============================================
 
 	if hit_boundary:
@@ -99,25 +97,30 @@ func check_boundary() -> void:
 		else:
 			queue_free()
 
+# ============================================
+# BULLET COLLISION
+# ============================================
 
 func _on_body_entered(body) -> void:
 
-	# Ignore the game boundary.
-	# Bullet bouncing is handled by check_boundary().
+	# Ignore the physical map boundary.
+	# Bullet bouncing is handled above.
 	if body.is_in_group("boundary"):
 		return
 
-
 	# ============================================
-	# HIT ENEMY
+	# DAMAGE
 	# ============================================
 
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
 
+		# ========================================
+		# PIERCING
+		# ========================================
+
 		if pierce > 0:
 			pierce -= 1
 		else:
 			queue_free()
-
 		return

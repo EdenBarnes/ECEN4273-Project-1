@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b2m6pbdpsaksw"]
+
+[node name="Cabin" type="StaticBody2D" unique_id=875657510]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=413636816]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2037407117]

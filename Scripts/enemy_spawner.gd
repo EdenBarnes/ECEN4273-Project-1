@@ -1,87 +1,180 @@
 extends Node2D
 
+
+# ============================================
+# ENEMY SCENES
+# ============================================
+
 const ENEMY_SCENE = preload("res://Scenes/enemy.tscn")
-const Spirnt_SCENE = preload("res://Scenes/Sprinter.tscn")
-const Big_SCENE = preload("res://Scenes/BigGuy.tscn")
+const SPRINTER_SCENE = preload("res://Scenes/Sprinter.tscn")
+const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
+
+
+# ============================================
+# NODES
+# ============================================
 
 @onready var spawn_timer: Timer = $SpawnTimer
 
+# ============================================
+# MAP SETTINGS
+# ============================================
+
+@export_category("Map Settings")
+
+@export var map_size: Vector2 = Vector2(
+	1536.0,
+	1024.0
+)
+
+# How far inside the map edge enemies spawn.
+# This keeps them from spawning inside the wall.
+@export var edge_padding: float = 10.0
+
+# ============================================
+# SPAWNER SETTINGS
+# ============================================
+
 var spawn_interval: float
 var max_enemies: int
-var spawn_distance: float
 
+# ============================================
+# READY
+# ============================================
 
 func _ready() -> void:
-	# Load values from the global GameSettings script
+	# Load values from GameSettings.
 	spawn_interval = GameSettings.ENEMY_SPAWN_INTERVAL
 	max_enemies = GameSettings.MAX_ENEMIES
-	spawn_distance = GameSettings.ENEMY_SPAWN_DISTANCE
-
-	# Set up spawn timer
+	# Set up spawn timer.
 	spawn_timer.wait_time = spawn_interval
-	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	spawn_timer.timeout.connect(
+		_on_spawn_timer_timeout
+	)
 	spawn_timer.start()
 
+# ============================================
+# SPAWN TIMER
+# ============================================
 
 func _on_spawn_timer_timeout() -> void:
-	# Do not spawn more enemies if we reached the maximum
-	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
+	# Don't exceed maximum enemy count.
+	if (
+		get_tree().get_nodes_in_group("enemies").size()
+		>= max_enemies
+	):
 		return
 
 	spawn_enemy()
 
+# ============================================
+# SPAWN ENEMY
+# ============================================
 
 func spawn_enemy() -> void:
-	
-	var zomb = randi_range(1,10)
-	
-	match zomb:
+	# Roll 1-10 to determine zombie type.
+	var zomb: int = randi_range(1, 10)
+	# Get random position along one of the
+	# four edges of the entire map.
+	var spawn_position: Vector2 = (
+		get_random_spawn_position()
+	)
 
-	# Add enemy to the current game scene
-		1,2,3,4,5:
-			var enemy = ENEMY_SCENE.instantiate()
-			get_tree().current_scene.add_child(enemy)
-			enemy.global_position = get_random_spawn_position()
-	
-		6,7,8:
-			var Sprint = Spirnt_SCENE.instantiate()
-			get_tree().current_scene.add_child(Sprint)
-			Sprint.global_position = get_random_spawn_position()
-		9,10:
-			var bigguy = Big_SCENE.instantiate()
-			get_tree().current_scene.add_child(bigguy)
-			bigguy.global_position = get_random_spawn_position()
-	# Give enemy a random position outside the screen
-	
+	# ============================================
+	# NORMAL ZOMBIE - 50%
+	# ============================================
 
+	if zomb <= 5:
+		var enemy = ENEMY_SCENE.instantiate()
+		get_tree().current_scene.add_child(enemy)
+		enemy.global_position = spawn_position
+
+	# ============================================
+	# SPRINTER - 30%
+	# ============================================
+
+	elif zomb <= 8:
+		var sprinter = SPRINTER_SCENE.instantiate()
+		get_tree().current_scene.add_child(sprinter)
+		sprinter.global_position = spawn_position
+
+	# ============================================
+	# BIG GUY - 20%
+	# ============================================
+
+	else:
+		var big_guy = BIG_SCENE.instantiate()
+		get_tree().current_scene.add_child(big_guy)
+		big_guy.global_position = spawn_position
+
+# ============================================
+# RANDOM MAP EDGE POSITION
+# ============================================
 
 func get_random_spawn_position() -> Vector2:
-	var screen_size = get_viewport_rect().size
 
-	# Pick a random side:
+	# Pick one of the four map edges.
+	#
 	# 0 = Top
 	# 1 = Right
 	# 2 = Bottom
 	# 3 = Left
-	var side = randi_range(0, 3)
 
-	var spawn_position = Vector2.ZERO
+	var side: int = randi_range(0, 3)
+	var spawn_position: Vector2 = Vector2.ZERO
 
 	match side:
-		0: # Top
-			spawn_position.x = randf_range(0.0, screen_size.x)
-			spawn_position.y = -spawn_distance
+	
+		# ========================================
+		# TOP
+		# ========================================
 
-		1: # Right
-			spawn_position.x = screen_size.x + spawn_distance
-			spawn_position.y = randf_range(0.0, screen_size.y)
+		0:
+			spawn_position.x = randf_range(
+				edge_padding,
+				map_size.x - edge_padding
+			)
 
-		2: # Bottom
-			spawn_position.x = randf_range(0.0, screen_size.x)
-			spawn_position.y = screen_size.y + spawn_distance
+			spawn_position.y = edge_padding
 
-		3: # Left
-			spawn_position.x = -spawn_distance
-			spawn_position.y = randf_range(0.0, screen_size.y)
+		# ========================================
+		# RIGHT
+		# ========================================
+
+		1:
+			spawn_position.x = (
+				map_size.x - edge_padding
+			)
+
+			spawn_position.y = randf_range(
+				edge_padding,
+				map_size.y - edge_padding
+			)
+
+		# ========================================
+		# BOTTOM
+		# ========================================
+
+		2:
+			spawn_position.x = randf_range(
+				edge_padding,
+				map_size.x - edge_padding
+			)
+
+			spawn_position.y = (
+				map_size.y - edge_padding
+			)
+
+		# ========================================
+		# LEFT
+		# ========================================
+
+		3:
+			spawn_position.x = edge_padding
+
+			spawn_position.y = randf_range(
+				edge_padding,
+				map_size.y - edge_padding
+			)
 
 	return spawn_position

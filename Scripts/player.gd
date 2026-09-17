@@ -159,29 +159,17 @@ func _physics_process(_delta: float) -> void:
 	# ============================================
 
 	var mouse_pos: Vector2 = get_global_mouse_position()
+	facing_direction = (mouse_pos - global_position).normalized()
 
-	facing_direction = (
-		mouse_pos - global_position
-	).normalized()
-
-
-	# Rotate weapon holder toward mouse.
 	weapon_holder.rotation = facing_direction.angle()
-
-	# Flip/update the gun.
 	current_gun.update_visual(facing_direction)
 
-	# ============================================
-	# WEAPON DRAW ORDER
-	# ============================================
-
-	# Only put the weapon behind the player when
-	# the player is facing mostly upward/backward.
+	# Gun goes behind player when facing upward.
+	# This does not interfere with world Y-sorting.
 	if facing_direction.y < -0.5:
-		weapon_holder.z_index = -1
+		weapon_holder.show_behind_parent = true
 	else:
-		weapon_holder.z_index = 1
-
+		weapon_holder.show_behind_parent = false
 	# ============================================
 	# AIM CONE
 	# ============================================
