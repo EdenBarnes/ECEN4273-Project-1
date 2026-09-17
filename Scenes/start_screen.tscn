@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://56ham174grgk"]
+
+[ext_resource type="Script" uid="uid://bnq0v1tv73gdt" path="res://Scripts/start_screen.gd" id="1_60ddj"]
+[ext_resource type="Texture2D" uid="uid://p0cvqp1sx1pc" path="res://resources/Game Assets/Main Menu.png" id="2_5e717"]
+[ext_resource type="AudioStream" uid="uid://c0arq7kt0h1bu" path="res://resources/Audio/theme music.wav" id="3_60ddj"]
+
+[node name="StartScreen" type="Control" unique_id=1630470683]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_60ddj")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=110532896]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5e717")
+
+[node name="Start" type="VBoxContainer" parent="." unique_id=343567241]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 376.0
+offset_right = 499.0
+offset_bottom = 419.0
+scale = Vector2(5.48, 4.6399975)
+
+[node name="Start" type="Button" parent="Start" unique_id=735969694]
+layout_mode = 2
+text = "Start"
+
+[node name="Exit" type="Button" parent="Start" unique_id=677647136]
+layout_mode = 2
+text = "EXIT
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1952410455]
+stream = ExtResource("3_60ddj")
+autoplay = true
