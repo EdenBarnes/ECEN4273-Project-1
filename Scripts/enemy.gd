@@ -467,6 +467,10 @@ func die() -> void:
 		5.0
 	).timeout
 
+	var wave_manager = get_tree().get_first_node_in_group("wave_manager")
+	if wave_manager:
+		wave_manager.on_enemy_died()
+	
 	queue_free()
 
 

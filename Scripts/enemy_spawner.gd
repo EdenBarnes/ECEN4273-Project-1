@@ -1,84 +1,70 @@
 extends Node2D
 
-
 # ============================================
 # ENEMY SCENES
 # ============================================
-
 const ENEMY_SCENE = preload("res://Scenes/enemy.tscn")
 const SPRINTER_SCENE = preload("res://Scenes/Sprinter.tscn")
 const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
 
-
 # ============================================
 # NODES
 # ============================================
-
 @onready var enemies_container: Node2D = $"../YSortWorld/Enemies"
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var water: CollisionPolygon2D = $"../GameBoundary/Water"
 
-@export_category("Waves")
-@export var Wave_Data: Waves2
+# Leave this empty! The WaveManager will fill it in.
+var wave_Data: Resource 
+
+# Use a local variable to count spawns so you don't corrupt your .tres file
+var enemies_left_to_spawn: int = 0 
+
 # ============================================
 # MAP SETTINGS
 # ============================================
-
 @export_category("Map Settings")
-
-@export var map_size: Vector2 = Vector2(
-	1536.0,
-	1024.0
-)
-
-# How far inside the map edge enemies spawn.
+@export var map_size: Vector2 = Vector2(1536.0, 1024.0)
 @export var edge_padding: float = 10.0
-
-
-# ============================================
-# SPAWNER SETTINGS
-# ============================================
-
-var spawn_interval: float
-var max_enemies: int
-
 
 # ============================================
 # READY
 # ============================================
-
 func _ready() -> void:
+	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	# Notice we DO NOT start the timer here anymore. 
+	# The WaveManager will tell it when to start.
 
-	# Load values from GameSettings.
-	spawn_interval = GameSettings.ENEMY_SPAWN_INTERVAL
-	max_enemies = GameSettings.MAX_ENEMIES
-
-	# Set up spawn timer.
-	spawn_timer.wait_time = spawn_interval
-
-	spawn_timer.timeout.connect(
-		_on_spawn_timer_timeout
-	)
-
+# ============================================
+# NEW FUNCTION: CALLED BY WAVE MANAGER
+# ============================================
+func start_spawning_wave(new_wave_data: Resource) -> void:
+	wave_Data = new_wave_data
+	
+	# Read the data from your .tres file (using the exact inspector name)
+	enemies_left_to_spawn = wave_Data.SpawnMaxEne
+	
+	# Update the timer to use the wave's specific spawn interval
+	spawn_timer.wait_time = wave_Data.SpawnInterval
+	
 	spawn_timer.start()
-
 
 # ============================================
 # SPAWN TIMER
 # ============================================
-
 func _on_spawn_timer_timeout() -> void:
-
-	# Don't exceed maximum enemy count.
-	if (
-		get_tree().get_nodes_in_group("enemies").size()
-		>= max_enemies
-	):
+	# Stop spawning if we've spawned all enemies for this wave
+	if enemies_left_to_spawn <= 0:
+		spawn_timer.stop()
 		return
 
+	# Check against the global max enemy cap (from GameSettings)
+	if get_tree().get_nodes_in_group("enemies").size() >= GameSettings.MAX_ENEMIES:
+		return
+
+	# Spawn the enemy and reduce our local counter
 	spawn_enemy()
-
-
+	enemies_left_to_spawn -= 1
 # ============================================
 # SPAWN ENEMY
 # ============================================
@@ -86,52 +72,50 @@ func _on_spawn_timer_timeout() -> void:
 func spawn_enemy() -> void:
 
 	# Roll 1-10 to determine zombie type.
-	var zomb: int = randi_range(1, 100)
+		var zomb: int = randi_range(1, 100)
 
 	# Get random position along one of
 	# the four edges of the map.
-	var spawn_position: Vector2 = (
-		get_random_spawn_position()
-	)
+		var spawn_position: Vector2 = (get_random_spawn_position())
 
 
 	# ============================================
 	# NORMAL ZOMBIE - 50%
 	# ============================================
 
-	if zomb <= Wave_Data.normalper:
+		if zomb <= wave_Data.normalper:
 
-		var enemy = ENEMY_SCENE.instantiate()
+			var enemy = ENEMY_SCENE.instantiate()
 
-		enemies_container.add_child(enemy)
+			enemies_container.add_child(enemy)
 
-		enemy.global_position = spawn_position
+			enemy.global_position = spawn_position
 
 
 	# ============================================
 	# SPRINTER - 30%
 	# ============================================
 
-	elif zomb <= Wave_Data.Sprintper + Wave_Data.normalper:
+		elif zomb <= wave_Data.Sprintper + wave_Data.normalper:
 
-		var sprinter = SPRINTER_SCENE.instantiate()
+			var sprinter = SPRINTER_SCENE.instantiate()
 
-		enemies_container.add_child(sprinter)
+			enemies_container.add_child(sprinter)
 
-		sprinter.global_position = spawn_position
+			sprinter.global_position = spawn_position
 
 
 	# ============================================
 	# BIG GUY - 20%
 	# ============================================
 
-	elif zomb <= Wave_Data.Sprintper + Wave_Data.normalper + Wave_Data.bigper:
+		elif zomb <= wave_Data.Sprintper + wave_Data.normalper + wave_Data.bigper:
 
-		var big_guy = BIG_SCENE.instantiate()
+			var big_guy = BIG_SCENE.instantiate()
 
-		enemies_container.add_child(big_guy)
+			enemies_container.add_child(big_guy)
 
-		big_guy.global_position = spawn_position
+			big_guy.global_position = spawn_position
 
 
 # ============================================

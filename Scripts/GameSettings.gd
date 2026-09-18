@@ -2,7 +2,7 @@ extends Node
 
  
 
-var wave_Data = load("res://Waves/WaveOne.tres")
+var wave_Data = load("res://Waves/Wave1.tres")
 # ============================================
 # PLAYER SETTINGS
 # ============================================
@@ -11,7 +11,7 @@ var PLAYER_SPEED: float = 150.0
 var PLAYER_SIZE: float = 1.0
 var PLAYER_MAX_HEALTH: int = 100
 var PLAYER_INVULNERABILITY_DURATION: float = 2.0
-
+var PLAYER_HURT_DURATION: float = 0.1
 # ============================================
 # ENEMY SETTINGS
 # ============================================
