@@ -14,7 +14,9 @@ const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
 # NODES
 # ============================================
 
+@onready var enemies_container: Node2D = $"../YSortWorld/Enemies"
 @onready var spawn_timer: Timer = $SpawnTimer
+@onready var water: CollisionPolygon2D = $"../GameBoundary/Water"
 
 # ============================================
 # MAP SETTINGS
@@ -28,8 +30,8 @@ const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
 )
 
 # How far inside the map edge enemies spawn.
-# This keeps them from spawning inside the wall.
 @export var edge_padding: float = 10.0
+
 
 # ============================================
 # SPAWNER SETTINGS
@@ -38,26 +40,33 @@ const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
 var spawn_interval: float
 var max_enemies: int
 
+
 # ============================================
 # READY
 # ============================================
 
 func _ready() -> void:
+
 	# Load values from GameSettings.
 	spawn_interval = GameSettings.ENEMY_SPAWN_INTERVAL
 	max_enemies = GameSettings.MAX_ENEMIES
+
 	# Set up spawn timer.
 	spawn_timer.wait_time = spawn_interval
+
 	spawn_timer.timeout.connect(
 		_on_spawn_timer_timeout
 	)
+
 	spawn_timer.start()
+
 
 # ============================================
 # SPAWN TIMER
 # ============================================
 
 func _on_spawn_timer_timeout() -> void:
+
 	# Don't exceed maximum enemy count.
 	if (
 		get_tree().get_nodes_in_group("enemies").size()
@@ -67,51 +76,104 @@ func _on_spawn_timer_timeout() -> void:
 
 	spawn_enemy()
 
+
 # ============================================
 # SPAWN ENEMY
 # ============================================
 
 func spawn_enemy() -> void:
+
 	# Roll 1-10 to determine zombie type.
 	var zomb: int = randi_range(1, 10)
-	# Get random position along one of the
-	# four edges of the entire map.
+
+	# Get random position along one of
+	# the four edges of the map.
 	var spawn_position: Vector2 = (
 		get_random_spawn_position()
 	)
+
 
 	# ============================================
 	# NORMAL ZOMBIE - 50%
 	# ============================================
 
 	if zomb <= 5:
+
 		var enemy = ENEMY_SCENE.instantiate()
-		get_tree().current_scene.add_child(enemy)
+
+		enemies_container.add_child(enemy)
+
 		enemy.global_position = spawn_position
+
 
 	# ============================================
 	# SPRINTER - 30%
 	# ============================================
 
 	elif zomb <= 8:
+
 		var sprinter = SPRINTER_SCENE.instantiate()
-		get_tree().current_scene.add_child(sprinter)
+
+		enemies_container.add_child(sprinter)
+
 		sprinter.global_position = spawn_position
+
 
 	# ============================================
 	# BIG GUY - 20%
 	# ============================================
 
 	else:
+
 		var big_guy = BIG_SCENE.instantiate()
-		get_tree().current_scene.add_child(big_guy)
+
+		enemies_container.add_child(big_guy)
+
 		big_guy.global_position = spawn_position
+
 
 # ============================================
 # RANDOM MAP EDGE POSITION
 # ============================================
 
+# ============================================
+# GET VALID RANDOM SPAWN POSITION
+# ============================================
+
 func get_random_spawn_position() -> Vector2:
+
+	# Try up to 50 times to find a spawn
+	# position that is not inside the water.
+	for attempt in range(50):
+
+		var spawn_position: Vector2 = (
+			get_random_edge_position()
+		)
+
+		# If this position is not in the water,
+		# use it.
+		if not is_position_in_water(
+			spawn_position
+		):
+			return spawn_position
+
+	# If no valid position was found after
+	# 50 attempts, use the center of the map.
+	print(
+		"WARNING: Could not find valid enemy spawn position."
+	)
+
+	return Vector2(
+		map_size.x / 2.0,
+		map_size.y / 2.0
+	)
+
+
+# ============================================
+# RANDOM MAP EDGE POSITION
+# ============================================
+
+func get_random_edge_position() -> Vector2:
 
 	# Pick one of the four map edges.
 	#
@@ -124,7 +186,7 @@ func get_random_spawn_position() -> Vector2:
 	var spawn_position: Vector2 = Vector2.ZERO
 
 	match side:
-	
+
 		# ========================================
 		# TOP
 		# ========================================
@@ -136,6 +198,7 @@ func get_random_spawn_position() -> Vector2:
 			)
 
 			spawn_position.y = edge_padding
+
 
 		# ========================================
 		# RIGHT
@@ -151,6 +214,7 @@ func get_random_spawn_position() -> Vector2:
 				map_size.y - edge_padding
 			)
 
+
 		# ========================================
 		# BOTTOM
 		# ========================================
@@ -165,6 +229,7 @@ func get_random_spawn_position() -> Vector2:
 				map_size.y - edge_padding
 			)
 
+
 		# ========================================
 		# LEFT
 		# ========================================
@@ -178,3 +243,21 @@ func get_random_spawn_position() -> Vector2:
 			)
 
 	return spawn_position
+
+
+# ============================================
+# CHECK IF POSITION IS IN WATER
+# ============================================
+
+func is_position_in_water(
+	spawn_position: Vector2
+) -> bool:
+
+	var local_position: Vector2 = (
+		water.to_local(spawn_position)
+	)
+
+	return Geometry2D.is_point_in_polygon(
+		local_position,
+		water.polygon
+	)

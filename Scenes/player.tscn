@@ -1305,7 +1305,7 @@ size = Vector2(22, 5)
 size = Vector2(22, 28)
 
 [node name="Player" type="CharacterBody2D" unique_id=1057855715 groups=["player"]]
-collision_mask = 10
+collision_mask = 8
 up_direction = Vector2(0, 1)
 script = ExtResource("1_i3pqv")
 starting_weapon = ExtResource("2_3smsa")
@@ -1339,7 +1339,7 @@ shape = SubResource("RectangleShape2D_xadyu")
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1611489389]
 position = Vector2(0, -14)
 collision_layer = 16
-collision_mask = 2
+collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox" unique_id=761131958]
 position = Vector2(-1, 0)

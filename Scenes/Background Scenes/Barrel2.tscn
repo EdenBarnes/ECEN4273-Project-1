@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://17q3nxi65r1i"]
+
+[ext_resource type="Texture2D" uid="uid://dc1qsqygpor0q" path="res://resources/Background/Single background Assets/Barrel 2.png" id="1_l6n3c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xadyu"]
+radius = 9.998424
+height = 39.999985
+
+[node name="Barrel2" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -9)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_l6n3c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=698135330]
+position = Vector2(0.99999994, -1)
+rotation = -1.5715833
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CapsuleShape2D_xadyu")

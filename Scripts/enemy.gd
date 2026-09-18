@@ -441,31 +441,31 @@ func die() -> void:
 
 	velocity = Vector2.ZERO
 
+	# Disable physical movement collision.
 	collision_shape.set_deferred(
 		"disabled",
 		true
 	)
 
-	# Stop attacking after death.
+	# Stop the enemy from detecting anything.
 	attack_hitbox.set_deferred(
 		"monitoring",
 		false
 	)
 
+	# Stop bullets from detecting the enemy's hitbox.
+	attack_hitbox.set_deferred(
+		"monitorable",
+		false
+	)
+
 	player_hurtbox = null
 
-
-	# Put corpse sprite behind player.
-	$Sprite2D.z_index = -1
-
-
 	travel_to("death")
-
 
 	await get_tree().create_timer(
 		5.0
 	).timeout
-
 
 	queue_free()
 

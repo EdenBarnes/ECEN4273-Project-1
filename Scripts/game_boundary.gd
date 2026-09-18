@@ -15,6 +15,7 @@ extends StaticBody2D
 # ============================================
 
 @export_category("Map Settings")
+@export var top_boundary_offset: float = 20.0
 
 # Size of the background/map image.
 @export var map_size: Vector2 = Vector2(
@@ -43,9 +44,9 @@ func setup_boundaries() -> void:
 	# ============================================
 
 	top.position = Vector2(
-		map_size.x / 2.0,
-		-wall_thickness / 2.0
-	)
+	map_size.x / 2.0,
+	top_boundary_offset - wall_thickness / 2.0
+)
 
 	top.shape.size = Vector2(
 		map_size.x + wall_thickness * 2.0,

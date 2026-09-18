@@ -1304,7 +1304,7 @@ size = Vector2(12, 14)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1441784336 groups=["enemies"]]
 collision_layer = 2
-collision_mask = 9
+collision_mask = 8
 script = ExtResource("1_souxr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723469502]
@@ -1312,7 +1312,7 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_jsssl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1052436603]
-modulate = Color(0, 0.1240337, 0.99999934, 1)
+modulate = Color(0.46619505, 0.63468105, 0.99999756, 1)
 position = Vector2(0, -7)
 texture = ExtResource("1_7k104")
 hframes = 2
@@ -1329,11 +1329,11 @@ parameters/hurt/blend_position = Vector2(0, 0)
 parameters/idle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
 
-[node name="AttachHitBox" type="Area2D" parent="." unique_id=1052598927]
-collision_layer = 0
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1052598927]
+collision_layer = 16
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachHitBox" unique_id=1454141183]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1454141183]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_souxr")
 
