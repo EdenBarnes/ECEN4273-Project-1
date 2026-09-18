@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 
 # ============================================
@@ -7,6 +7,7 @@ extends Area2D
 
 @onready var box_sprite: AnimatedSprite2D = $BoxSprite
 @onready var weapon_display: AnimatedSprite2D = $WeaponDisplay
+@onready var interaction_area: Area2D = $InteractionArea
 
 
 # ============================================
@@ -72,8 +73,8 @@ var current_roll_id: int = 0
 # ============================================
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
+	interaction_area.body_entered.connect(_on_body_entered)
+	interaction_area.body_exited.connect(_on_body_exited)
 
 	box_sprite.animation_finished.connect(
 		_on_box_animation_finished

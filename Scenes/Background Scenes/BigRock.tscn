@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://yqyob6vo5iet"]
+
+[ext_resource type="Texture2D" uid="uid://bre2qlys2ew1w" path="res://resources/Background/Single background Assets/Big Rocks.png" id="1_s68xf"]
+
+[node name="Rock" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_s68xf")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=880128683]
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(6, 16, 14, 10, 26, 12, 36, 10, 42, 6, 44, 0, 42, -4, 38, -8, 32, -10, 24, -16, 14, -20, 2, -22, -8, -18, -22, -18, -30, -16, -38, -12, -42, -6, -44, 0, -42, 8, -34, 12, -28, 12, -20, 12, -12, 14, -4, 16)

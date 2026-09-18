@@ -160,15 +160,15 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ggsi"]
-size = Vector2(102, 67)
+size = Vector2(102, 41.5)
 
-[node name="Gun Box" type="Area2D" unique_id=2096251236]
+[node name="Gun Box" type="Node2D" unique_id=1238963525]
 script = ExtResource("1_bwbx6")
 possible_weapons = Array[ExtResource("2_blxpg")]([ExtResource("3_0ggsi"), ExtResource("4_4v35w"), ExtResource("5_kdrp6"), ExtResource("6_qsq1q"), ExtResource("7_6gue2"), ExtResource("8_qoy0d"), ExtResource("9_7wohc"), ExtResource("10_od81c"), ExtResource("11_jtav5"), ExtResource("4_knq5v"), ExtResource("13_7vsr5"), ExtResource("14_n5jex"), ExtResource("15_8uoyp"), ExtResource("16_rsoaf"), ExtResource("17_b4xx6")])
 roll_count = 6
 
 [node name="BoxSprite" type="AnimatedSprite2D" parent="." unique_id=1685099327]
-position = Vector2(-2.1814814, 1)
+position = Vector2(-2, -16)
 scale = Vector2(0.16925047, 0.14381145)
 sprite_frames = SubResource("SpriteFrames_xadyu")
 animation = &"opening"
@@ -176,12 +176,23 @@ frame = 5
 frame_progress = 1.0
 
 [node name="WeaponDisplay" type="AnimatedSprite2D" parent="." unique_id=1597280299]
-position = Vector2(0, -8)
+position = Vector2(0, -25.000002)
 scale = Vector2(1.2506582, 1.2238562)
 sprite_frames = SubResource("SpriteFrames_dxr5g")
 animation = &"weapons"
-frame = 5
-frame_progress = 0.9504216
+frame = 13
+frame_progress = 0.3808926
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1937567633]
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1182509002]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1937567633]
 shape = SubResource("RectangleShape2D_0ggsi")
+
+[node name="Hitbox" type="StaticBody2D" parent="." unique_id=245567279]
+position = Vector2(-102, 34)
+collision_layer = 8
+collision_mask = 7
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Hitbox" unique_id=1258915137]
+position = Vector2(-1, 0)
+polygon = PackedVector2Array(77, -37, 72, -32, 77, -30, 127, -30, 134, -32, 129, -37, 122, -44, 85, -44)

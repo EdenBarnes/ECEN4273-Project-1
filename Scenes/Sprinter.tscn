@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cp8ghp85mdvrh" path="res://resources/sprites/Prototype_Character/Red/hurt.png" id="2_qi2p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsssl"]
-size = Vector2(12, 14)
+size = Vector2(12, 2)
 
 [sub_resource type="Animation" id="Animation_4gyqm"]
 length = 0.001
@@ -1299,16 +1299,21 @@ states/walk/position = Vector2(373.4696, 164)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_iifgy"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_epg4t"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_3yqyl"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_wujgv"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_hb8ge"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_e1ltt"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_dxifv"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_pwjut"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_n0g06"), "walk", "death", SubResource("AnimationNodeStateMachineTransition_ar8e5"), "death", "End", SubResource("AnimationNodeStateMachineTransition_doop2")]
 graph_offset = Vector2(136.7084, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g61ib"]
+size = Vector2(12, 14)
+
 [node name="Sprinter" type="CharacterBody2D" unique_id=1441784336 groups=["enemies"]]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 8
 script = ExtResource("1_g61ib")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723469502]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_jsssl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1052436603]
-modulate = Color(2.1418184e-06, 0.56846994, 7.70092e-07, 1)
+modulate = Color(0, 0.97347945, 0, 1)
+position = Vector2(0, -7)
 texture = ExtResource("1_7k104")
 hframes = 2
 vframes = 3
@@ -1323,6 +1328,14 @@ parameters/death/blend_position = Vector2(0, 0)
 parameters/hurt/blend_position = Vector2(0, 0)
 parameters/idle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1162429611]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1051602988]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_g61ib")
 
 [node name="HurtTimer" type="Timer" parent="." unique_id=1106259471]
 

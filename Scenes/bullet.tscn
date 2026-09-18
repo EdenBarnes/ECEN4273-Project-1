@@ -44,16 +44,18 @@ animations = [{
 
 [node name="Bullet" type="Area2D" unique_id=846575616]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 24
 script = ExtResource("1_v8qja")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1941654871]
-position = Vector2(0, -1)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_yujqa")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1498363330]
+position = Vector2(0, -1)
 rect = Rect2(-2, -3, 4, 4)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1317605269]
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_jsssl")
 frame_progress = 0.923349

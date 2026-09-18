@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://opoly5kuk3hd"]
+
+[ext_resource type="Texture2D" uid="uid://c2e5uc2h6fdjv" path="res://resources/Background/Single background Assets/Big grass.png" id="1_80n13"]
+
+[node name="Big Grass" type="Sprite2D" unique_id=1136508815]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -7)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_80n13")
