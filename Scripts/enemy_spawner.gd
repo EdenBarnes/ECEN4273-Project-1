@@ -18,6 +18,8 @@ const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var water: CollisionPolygon2D = $"../GameBoundary/Water"
 
+@export_category("Waves")
+@export var Wave_Data: Waves2
 # ============================================
 # MAP SETTINGS
 # ============================================
@@ -84,7 +86,7 @@ func _on_spawn_timer_timeout() -> void:
 func spawn_enemy() -> void:
 
 	# Roll 1-10 to determine zombie type.
-	var zomb: int = randi_range(1, 10)
+	var zomb: int = randi_range(1, 100)
 
 	# Get random position along one of
 	# the four edges of the map.
@@ -97,7 +99,7 @@ func spawn_enemy() -> void:
 	# NORMAL ZOMBIE - 50%
 	# ============================================
 
-	if zomb <= 5:
+	if zomb <= Wave_Data.normalper:
 
 		var enemy = ENEMY_SCENE.instantiate()
 
@@ -110,7 +112,7 @@ func spawn_enemy() -> void:
 	# SPRINTER - 30%
 	# ============================================
 
-	elif zomb <= 8:
+	elif zomb <= Wave_Data.Sprintper + Wave_Data.normalper:
 
 		var sprinter = SPRINTER_SCENE.instantiate()
 
@@ -123,7 +125,7 @@ func spawn_enemy() -> void:
 	# BIG GUY - 20%
 	# ============================================
 
-	else:
+	elif zomb <= Wave_Data.Sprintper + Wave_Data.normalper + Wave_Data.bigper:
 
 		var big_guy = BIG_SCENE.instantiate()
 
