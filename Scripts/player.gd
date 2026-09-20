@@ -47,6 +47,20 @@ var max_health: int = 100
 var current_health: int = 100
 
 # ============================================
+# DASH
+# ============================================
+
+var dash_time: float = 0.0
+var dash_recharge_time: float = 0.0
+
+var current_dashes: int = 0
+
+var is_dashing: bool = false
+var dash_locked: bool = false
+
+var dash_direction: Vector2 = Vector2.DOWN
+
+# ============================================
 # PLAYER STATE
 # ============================================
 
@@ -74,6 +88,8 @@ func _ready() -> void:
 	current_health = max_health
 
 	scale = Vector2.ONE * GameSettings.PLAYER_SIZE
+	
+	current_dashes = GameSettings.PLAYER_MAX_DASHES
 
 	# ============================================
 	# ANIMATION SETUP
@@ -116,7 +132,7 @@ func _ready() -> void:
 # PHYSICS PROCESS
 # ============================================
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_locked:
 		return
 
@@ -124,14 +140,12 @@ func _physics_process(_delta: float) -> void:
 	# WEAPON SWITCHING
 	# ============================================
 
-	# Number keys.
 	if Input.is_action_just_pressed("weapon_1"):
 		equip_weapon(1)
 
 	if Input.is_action_just_pressed("weapon_2"):
 		equip_weapon(2)
 
-	# Mouse wheel.
 	if Input.is_action_just_pressed("weapon_next"):
 		switch_weapon(1)
 
@@ -142,17 +156,23 @@ func _physics_process(_delta: float) -> void:
 	# AIM INPUT
 	# ============================================
 
-	var is_aiming := Input.is_action_pressed("aim")
+	var is_aiming: bool = Input.is_action_pressed("aim")
 	current_gun.set_aiming(is_aiming)
 
 	# ============================================
 	# MOVEMENT INPUT
 	# ============================================
 
-	var input_vector := Vector2(
+	var input_vector: Vector2 = Vector2(
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down")
 	)
+
+	# ============================================
+	# DASH
+	# ============================================
+
+	update_dash(delta)
 
 	# ============================================
 	# AIMING
@@ -164,44 +184,46 @@ func _physics_process(_delta: float) -> void:
 	weapon_holder.rotation = facing_direction.angle()
 	current_gun.update_visual(facing_direction)
 
-	# Gun goes behind player when facing upward.
-	# This does not interfere with world Y-sorting.
 	if facing_direction.y < -0.5:
 		weapon_holder.show_behind_parent = true
 	else:
 		weapon_holder.show_behind_parent = false
+
 	# ============================================
 	# AIM CONE
 	# ============================================
 
 	if current_gun.weapon_data:
-		aim_cone.spread_angle = (
-			current_gun.get_current_spread()
-		)
-		aim_cone.cone_length = (
-			current_gun.weapon_data.aim_cone_length
-		)
-		aim_cone.cone_start_distance = (
-			current_gun.weapon_data.aim_cone_start_distance
-		)
+		aim_cone.spread_angle = current_gun.get_current_spread()
+		aim_cone.cone_length = current_gun.weapon_data.aim_cone_length
+		aim_cone.cone_start_distance = current_gun.weapon_data.aim_cone_start_distance
 
 	# ============================================
 	# MOVEMENT SPEED
 	# ============================================
 
-	var current_speed := speed
+	var current_speed: float = speed
+
+	if is_dashing:
+		current_speed *= GameSettings.PLAYER_DASH_MULTIPLIER
 
 	if is_aiming and current_gun.weapon_data:
-		current_speed *= (
-			current_gun.weapon_data.aim_move_speed_multiplier
-		)
+		current_speed *= current_gun.weapon_data.aim_move_speed_multiplier
 
 	# ============================================
 	# MOVEMENT
 	# ============================================
 
 	if input_vector != Vector2.ZERO:
+		# Update last movement direction
 		movement_direction = input_vector.normalized()
+
+		velocity = movement_direction * current_speed
+		travel_to("walk")
+
+	elif is_dashing:
+		# No input while dashing:
+		# continue in the last movement direction
 		velocity = movement_direction * current_speed
 		travel_to("walk")
 
@@ -225,6 +247,76 @@ func _physics_process(_delta: float) -> void:
 
 	move_and_slide()
 
+# ============================================
+# DASH
+# ============================================
+
+func update_dash(delta: float) -> void:
+	var wants_to_dash: bool = Input.is_action_pressed("sprint")
+
+	# ============================================
+	# RECHARGE DASHES
+	# ============================================
+
+	if current_dashes < GameSettings.PLAYER_MAX_DASHES:
+		dash_recharge_time += delta
+
+		if dash_recharge_time >= GameSettings.PLAYER_DASH_RECHARGE:
+			dash_recharge_time = 0.0
+			current_dashes += 1
+
+			if current_dashes > GameSettings.PLAYER_MAX_DASHES:
+				current_dashes = GameSettings.PLAYER_MAX_DASHES
+
+	# Full charges do not need a recharge timer
+	else:
+		dash_recharge_time = 0.0
+
+	# ============================================
+	# RELEASE DASH BUTTON
+	# ============================================
+
+	if not wants_to_dash:
+		dash_locked = false
+
+	# ============================================
+	# CURRENT DASH
+	# ============================================
+
+	if is_dashing:
+		dash_time -= delta
+
+		if dash_time <= 0.0:
+			dash_time = 0.0
+			is_dashing = false
+
+			# If we ran completely out of charges,
+			# Shift must be released before using more
+			if current_dashes <= 0:
+				dash_locked = true
+
+		return
+
+	# ============================================
+	# START NEXT DASH
+	# ============================================
+
+	if wants_to_dash and current_dashes > 0 and not dash_locked:
+		start_dash()
+
+
+# ============================================
+# START DASH
+# ============================================
+
+func start_dash() -> void:
+	current_dashes -= 1
+
+	is_dashing = true
+	dash_time = GameSettings.PLAYER_DASH_DURATION
+
+	# Lock dash to last movement direction
+	dash_direction = movement_direction
 
 # ============================================
 # EQUIP WEAPON
@@ -425,19 +517,29 @@ func get_current_weapon() -> WeaponInstance:
 # ============================================
 
 func take_damage(amount: int) -> void:
-
 	if is_dead:
 		return
 
 	if not invulnerability_timer.is_stopped():
 		return
 
+	# ============================================
+	# DASH IMMUNITY
+	# ============================================
+
+	if is_dashing:
+		var immunity_roll: float = randf()
+
+		if immunity_roll <= GameSettings.PLAYER_DASH_IMMUNITY_CHANCE:
+			return
+
+	# ============================================
+	# TAKE DAMAGE
+	# ============================================
+
 	current_health -= amount
 
-	invulnerability_timer.start(
-		invulnerability_duration
-	)
-
+	invulnerability_timer.start(invulnerability_duration)
 
 	if current_health <= 0:
 		die()

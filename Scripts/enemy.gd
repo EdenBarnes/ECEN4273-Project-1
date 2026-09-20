@@ -7,16 +7,17 @@ extends CharacterBody2D
 
 @onready var anim_tree: AnimationTree = $Sprite2D/AnimationTree
 @onready var anim_player: AnimationPlayer = $Sprite2D/AnimationPlayer
-
-@onready var state_machine: AnimationNodeStateMachinePlayback = (
-	anim_tree["parameters/playback"]
-)
+@onready var state_machine: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var attack_timer: Timer = $AttackTimer
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
+
+@onready var avoid_left: RayCast2D = $AvoidLeft
+@onready var avoid_center: RayCast2D = $AvoidCenter
+@onready var avoid_right: RayCast2D = $AvoidRight
 
 
 # ============================================
@@ -36,18 +37,21 @@ var current_health: int
 var separation_radius: float
 var separation_strength: float
 
+var obstacle_avoid_distance: float
+var obstacle_avoid_strength: float
+
 
 # ============================================
 # MOVEMENT
 # ============================================
 
-var movement_direction := Vector2.DOWN
-var facing_direction := Vector2.DOWN
+var movement_direction: Vector2 = Vector2.DOWN
+var facing_direction: Vector2 = Vector2.DOWN
 
-var is_locked := false
-var is_dead := false
+var is_locked: bool = false
+var is_dead: bool = false
 
-var player: CharacterBody2D
+var player: CharacterBody2D = null
 
 
 # ============================================
@@ -62,11 +66,7 @@ var player_hurtbox: Area2D = null
 # ============================================
 
 func _ready() -> void:
-
-	# ============================================
-	# LOAD GLOBAL ENEMY SETTINGS
-	# ============================================
-
+	# Enemy settings
 	speed = GameSettings.ENEMY_SPEED
 	hurt_duration = GameSettings.ENEMY_HURT_DURATION
 
@@ -80,65 +80,36 @@ func _ready() -> void:
 	separation_radius = GameSettings.ENEMY_SEPARATION_RADIUS
 	separation_strength = GameSettings.ENEMY_SEPARATION_STRENGTH
 
+	obstacle_avoid_distance = GameSettings.ENEMY_OBSTACLE_AVOID_DISTANCE
+	obstacle_avoid_strength = GameSettings.ENEMY_OBSTACLE_AVOID_STRENGTH
 
-	# ============================================
-	# ENEMY SIZE
-	# ============================================
-
+	# Enemy size
 	scale = Vector2.ONE * GameSettings.ENEMY_SIZE
 
-
-	# ============================================
-	# ANIMATION
-	# ============================================
-
+	# Animation
 	anim_tree.active = true
 
-
-	# ============================================
-	# HURT TIMER
-	# ============================================
-
+	# Hurt timer
 	hurt_timer.one_shot = true
 	hurt_timer.wait_time = hurt_duration
+	hurt_timer.timeout.connect(_on_hurt_timer_timeout)
 
-	hurt_timer.timeout.connect(
-		_on_hurt_timer_timeout
-	)
-
-
-	# ============================================
-	# ATTACK TIMER
-	# ============================================
-
+	# Attack timer
 	attack_timer.one_shot = true
 	attack_timer.wait_time = attack_duration
+	attack_timer.timeout.connect(_on_attack_timer_timeout)
 
-	attack_timer.timeout.connect(
-		_on_attack_timer_timeout
-	)
+	# Attack hitbox
+	attack_hitbox.area_entered.connect(_on_attack_hitbox_entered)
+	attack_hitbox.area_exited.connect(_on_attack_hitbox_exited)
 
+	# Obstacle avoidance
+	avoid_left.enabled = true
+	avoid_center.enabled = true
+	avoid_right.enabled = true
 
-	# ============================================
-	# ATTACK HITBOX
-	# ============================================
-
-	attack_hitbox.area_entered.connect(
-		_on_attack_hitbox_entered
-	)
-
-	attack_hitbox.area_exited.connect(
-		_on_attack_hitbox_exited
-	)
-
-
-	# ============================================
-	# FIND PLAYER
-	# ============================================
-
-	player = get_tree().get_first_node_in_group(
-		"player"
-	)
+	# Find player
+	player = get_tree().get_first_node_in_group("player")
 
 
 # ============================================
@@ -146,135 +117,123 @@ func _ready() -> void:
 # ============================================
 
 func _physics_process(_delta: float) -> void:
-
 	if is_locked:
 		return
 
-
 	if player:
+		var player_offset: Vector2 = player.global_position - global_position
+		var enemy_separation: Vector2 = get_separation_vector(separation_radius) * separation_strength
+		var player_separation: Vector2 = get_player_separation(attack_distance) * separation_strength
+		var desired_direction: Vector2 = Vector2.ZERO
 
-		var player_offset: Vector2 = (
-			player.global_position
-			- global_position
-		)
+		# Move toward player
+		if player_offset.length() >= attack_distance:
+			desired_direction = player_offset.normalized() + enemy_separation
 
-		var enemy_separation: Vector2 = (
-			get_separation_vector(
-				separation_radius
-			)
-			* separation_strength
-		)
-
-		var player_separation: Vector2 = (
-			get_player_separation(
-				attack_distance
-			)
-			* separation_strength
-		)
-
-
-		# ========================================
-		# MOVE TOWARD PLAYER
-		# ========================================
-
-		if (
-			player_offset.length()
-			>= attack_distance
-		):
-
-			velocity = (
-				player_offset.normalized() * speed
-				+ enemy_separation
-			).normalized() * speed * (
-				current_health * 1.0
-				/ max_health
-			)
-
-
-		# ========================================
-		# CLOSE TO PLAYER
-		# ========================================
-
+		# Close to player
 		else:
+			desired_direction = player_separation + enemy_separation
 
-			velocity = (
-				player_separation
-				+ enemy_separation
-			).normalized() * speed * (
-				current_health * 1.0
-				/ max_health
-			)
+		# Obstacle avoidance
+		if desired_direction != Vector2.ZERO:
+			desired_direction = desired_direction.normalized()
 
+			var obstacle_avoidance: Vector2 = get_obstacle_avoidance(desired_direction)
+			desired_direction = (desired_direction + obstacle_avoidance).normalized()
 
-		# ========================================
-		# FACING DIRECTION
-		# ========================================
+			var health_speed_multiplier: float = float(current_health) / float(max_health)
+			velocity = desired_direction * speed * health_speed_multiplier
+		else:
+			velocity = Vector2.ZERO
 
+		# Facing direction
 		if velocity.length() > 0.0:
 			facing_direction = velocity.normalized()
 
-
-	# ============================================
-	# ANIMATION
-	# ============================================
-
-	if velocity.length() != 0.0:
-
+	# Animation
+	if velocity.length() > 0.0:
 		movement_direction = velocity.normalized()
-
 		travel_to("walk")
-
 	else:
-
 		travel_to("idle")
 
-
 	move_and_slide()
+
+
+# ============================================
+# OBSTACLE AVOIDANCE
+# ============================================
+
+func get_obstacle_avoidance(move_direction: Vector2) -> Vector2:
+	if move_direction == Vector2.ZERO:
+		return Vector2.ZERO
+
+	var left_direction: Vector2 = move_direction.rotated(deg_to_rad(-30.0))
+	var right_direction: Vector2 = move_direction.rotated(deg_to_rad(30.0))
+
+	# Point rays in movement direction
+	avoid_center.target_position = move_direction * obstacle_avoid_distance
+	avoid_left.target_position = left_direction * obstacle_avoid_distance
+	avoid_right.target_position = right_direction * obstacle_avoid_distance
+
+	avoid_center.force_raycast_update()
+	avoid_left.force_raycast_update()
+	avoid_right.force_raycast_update()
+
+	var center_blocked: bool = avoid_center.is_colliding()
+	var left_blocked: bool = avoid_left.is_colliding()
+	var right_blocked: bool = avoid_right.is_colliding()
+
+	var avoidance: Vector2 = Vector2.ZERO
+
+	# Nothing ahead
+	if not center_blocked and not left_blocked and not right_blocked:
+		return Vector2.ZERO
+
+	# Left side blocked, steer right
+	if left_blocked and not right_blocked:
+		avoidance = move_direction.rotated(deg_to_rad(90.0))
+
+	# Right side blocked, steer left
+	elif right_blocked and not left_blocked:
+		avoidance = move_direction.rotated(deg_to_rad(-90.0))
+
+	# Center blocked
+	elif center_blocked:
+		if not left_blocked:
+			avoidance = move_direction.rotated(deg_to_rad(-90.0))
+
+		elif not right_blocked:
+			avoidance = move_direction.rotated(deg_to_rad(90.0))
+
+		# Everything is blocked, pick a side
+		else:
+			avoidance = move_direction.rotated(deg_to_rad(90.0))
+
+	return avoidance * obstacle_avoid_strength
 
 
 # ============================================
 # ENEMY SEPARATION
 # ============================================
 
-func get_separation_vector(
-	radius: float
-) -> Vector2:
+func get_separation_vector(radius: float) -> Vector2:
+	var push: Vector2 = Vector2.ZERO
+	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemies")
 
-	var push := Vector2.ZERO
-
-	var enemies = (
-		get_tree().get_nodes_in_group(
-			"enemies"
-		)
-	)
-
-
-	for other in enemies:
-
+	for other: Node in enemies:
 		if other == self:
 			continue
 
+		if not other is Node2D:
+			continue
 
-		var dist: float = (
-			global_position.distance_to(
-				other.global_position
-			)
-		)
-
+		var other_enemy: Node2D = other as Node2D
+		var dist: float = global_position.distance_to(other_enemy.global_position)
 
 		if dist < radius and dist > 0.0:
-
-			var away: Vector2 = (
-				global_position
-				- other.global_position
-			).normalized()
-
-			push += (
-				away
-				* (radius - dist)
-				/ radius
-			)
-
+			var away: Vector2 = (global_position - other_enemy.global_position).normalized()
+			push += away * (radius - dist) / radius
 
 	return push
 
@@ -283,34 +242,15 @@ func get_separation_vector(
 # PLAYER SEPARATION
 # ============================================
 
-func get_player_separation(
-	radius: float
-) -> Vector2:
-
+func get_player_separation(radius: float) -> Vector2:
 	if not player:
 		return Vector2.ZERO
 
-
-	var dist: float = (
-		global_position.distance_to(
-			player.global_position
-		)
-	)
-
+	var dist: float = global_position.distance_to(player.global_position)
 
 	if dist < radius and dist > 0.0:
-
-		var away: Vector2 = (
-			global_position
-			- player.global_position
-		).normalized()
-
-		return (
-			away
-			* (radius - dist)
-			/ radius
-		)
-
+		var away: Vector2 = (global_position - player.global_position).normalized()
+		return away * (radius - dist) / radius
 
 	return Vector2.ZERO
 
@@ -320,25 +260,18 @@ func get_player_separation(
 # ============================================
 
 func take_damage(amount: int) -> void:
-
 	if is_dead:
 		return
 
-
 	current_health -= amount
 
-
 	if current_health <= 0:
-
 		die()
-
 		return
 
-
 	is_locked = true
-
+	velocity = Vector2.ZERO
 	travel_to("hurt")
-
 	hurt_timer.start()
 
 
@@ -347,7 +280,6 @@ func take_damage(amount: int) -> void:
 # ============================================
 
 func _on_hurt_timer_timeout() -> void:
-
 	if not is_dead:
 		is_locked = false
 
@@ -356,19 +288,11 @@ func _on_hurt_timer_timeout() -> void:
 # ATTACK HITBOX ENTERED
 # ============================================
 
-func _on_attack_hitbox_entered(
-	area: Area2D
-) -> void:
-
+func _on_attack_hitbox_entered(area: Area2D) -> void:
 	if area.name != "Hurtbox":
 		return
 
-
 	player_hurtbox = area
-
-
-	# Attack immediately when touching
-	# the player's Hurtbox.
 	attack_player()
 
 
@@ -376,10 +300,7 @@ func _on_attack_hitbox_entered(
 # ATTACK HITBOX EXITED
 # ============================================
 
-func _on_attack_hitbox_exited(
-	area: Area2D
-) -> void:
-
+func _on_attack_hitbox_exited(area: Area2D) -> void:
 	if area == player_hurtbox:
 		player_hurtbox = null
 
@@ -389,32 +310,19 @@ func _on_attack_hitbox_exited(
 # ============================================
 
 func attack_player() -> void:
-
 	if is_dead:
 		return
-
 
 	if player_hurtbox == null:
 		return
 
-
 	if not attack_timer.is_stopped():
 		return
 
+	var character: Node = player_hurtbox.get_parent()
 
-	var character = (
-		player_hurtbox.get_parent()
-	)
-
-
-	if character.has_method(
-		"take_damage"
-	):
-
-		character.take_damage(
-			attack_damage
-		)
-
+	if character.has_method("take_damage"):
+		character.take_damage(attack_damage)
 		attack_timer.start()
 
 
@@ -423,9 +331,6 @@ func attack_player() -> void:
 # ============================================
 
 func _on_attack_timer_timeout() -> void:
-
-	# If the player is still inside the
-	# attack hitbox, attack again.
 	if player_hurtbox != null:
 		attack_player()
 
@@ -435,42 +340,30 @@ func _on_attack_timer_timeout() -> void:
 # ============================================
 
 func die() -> void:
+	if is_dead:
+		return
 
 	is_locked = true
 	is_dead = true
-
 	velocity = Vector2.ZERO
 
-	# Disable physical movement collision.
-	collision_shape.set_deferred(
-		"disabled",
-		true
-	)
+	# Disable movement collision
+	collision_shape.set_deferred("disabled", true)
 
-	# Stop the enemy from detecting anything.
-	attack_hitbox.set_deferred(
-		"monitoring",
-		false
-	)
-
-	# Stop bullets from detecting the enemy's hitbox.
-	attack_hitbox.set_deferred(
-		"monitorable",
-		false
-	)
+	# Disable attack/hurt hitbox
+	attack_hitbox.set_deferred("monitoring", false)
+	attack_hitbox.set_deferred("monitorable", false)
 
 	player_hurtbox = null
-
 	travel_to("death")
 
-	await get_tree().create_timer(
-		5.0
-	).timeout
+	await get_tree().create_timer(5.0).timeout
 
-	var wave_manager = get_tree().get_first_node_in_group("wave_manager")
-	if wave_manager:
+	var wave_manager: Node = get_tree().get_first_node_in_group("wave_manager")
+
+	if wave_manager != null and wave_manager.has_method("on_enemy_died"):
 		wave_manager.on_enemy_died()
-	
+
 	queue_free()
 
 
@@ -478,23 +371,8 @@ func die() -> void:
 # ANIMATION STATE
 # ============================================
 
-func travel_to(
-	state_name: String
-) -> void:
+func travel_to(state_name: String) -> void:
+	if state_machine.get_current_node() != state_name:
+		state_machine.travel(state_name)
 
-	if (
-		state_machine.get_current_node()
-		!= state_name
-	):
-
-		state_machine.travel(
-			state_name
-		)
-
-
-	anim_tree.set(
-		"parameters/"
-		+ state_name
-		+ "/blend_position",
-		facing_direction
-	)
+	anim_tree.set("parameters/" + state_name + "/blend_position", facing_direction)

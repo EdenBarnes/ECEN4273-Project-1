@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://b6p7uakagms5u" path="res://Scenes/Background Scenes/Tree.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b3uifxuqat6co" path="res://Scenes/Gun Box.tscn" id="3_21xkr"]
 [ext_resource type="PackedScene" uid="uid://c24lwu73a7pj0" path="res://Scenes/Background Scenes/DeadTree1.tscn" id="3_hibaj"]
-[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="3_pdsj5"]
-[ext_resource type="Texture2D" uid="uid://ckwc8j27h2su6" path="res://resources/Game Assets/Guns/P90 Smg.png" id="4_ee4r6"]
 [ext_resource type="PackedScene" uid="uid://20q7iee3gxli" path="res://Scenes/Background Scenes/DeadTree2.tscn" id="4_pdsj5"]
 [ext_resource type="Texture2D" uid="uid://cmxj26nsqtj52" path="res://resources/Background/Background Background.png" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://ckygy1fi3datr" path="res://Scenes/Background Scenes/MedRock.tscn" id="5_344ge"]
@@ -20,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cmvsaw6kvmur2" path="res://Scenes/Background Scenes/CampFire.tscn" id="15_fevyy"]
 [ext_resource type="PackedScene" uid="uid://b4kkcib0nn6kc" path="res://Scenes/Background Scenes/Stump2.tscn" id="16_fevyy"]
 [ext_resource type="PackedScene" uid="uid://fjp6x1xodhkq" path="res://Scenes/Background Scenes/Stump1.tscn" id="16_hibaj"]
-[ext_resource type="Script" uid="uid://cjh0m7r2sai6x" path="res://Scenes/wave_manager.gd" id="21_gt3je"]
+[ext_resource type="Script" uid="uid://cjh0m7r2sai6x" path="res://Scripts/wave_manager.gd" id="21_gt3je"]
 [ext_resource type="Resource" uid="uid://bsg68mnob1ffi" path="res://Waves/Wave1.tres" id="22_hpc6h"]
 [ext_resource type="Resource" uid="uid://cfjwbkawj07wl" path="res://Waves/Wave2.tres" id="23_kltya"]
 [ext_resource type="Resource" uid="uid://kpjhc602mnd1" path="res://Waves/Wave3.tres" id="24_e08e2"]
@@ -31,24 +29,6 @@
 [ext_resource type="Resource" uid="uid://bjf3ri0yhu3nf" path="res://Waves/Wave8.tres" id="29_k2e45"]
 [ext_resource type="Resource" uid="uid://c5yxltvdivoij" path="res://Waves/Wave9.tres" id="30_536cc"]
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
-
-[sub_resource type="Resource" id="Resource_3pmx8"]
-script = ExtResource("3_pdsj5")
-weapon_texture = ExtResource("4_ee4r6")
-damage = 30
-bullet_speed = 600.0
-fire_rate = 0.08
-magazine_size = 50
-reload_time = 0.7
-spread_angle = 40.0
-aim_move_speed_multiplier = 0.7
-aim_spread_multiplier = 0.35
-gun_scale = 1.1
-gun_visual_offset = Vector2(4, 3)
-muzzle_position = Vector2(13, -1)
-muzzle_flash_scale = 0.2
-aim_cone_length = 25.0
-metadata/_custom_type_script = "uid://dyiljw4u8w26d"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -74,7 +54,6 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortWorld" unique_id=1057855715 instance=ExtResource("1_bo1nx")]
 position = Vector2(-180, 112)
-starting_weapon = SubResource("Resource_3pmx8")
 
 [node name="WorldObjects" type="Node2D" parent="YSortWorld" unique_id=38907863]
 y_sort_enabled = true
@@ -763,6 +742,11 @@ position = Vector2(626, 279)
 [node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_8gbba")]
 position = Vector2(-117, 199)
 
+[node name="Wave Manager" type="Node" parent="." unique_id=238364091 node_paths=PackedStringArray("enemy_spawner")]
+script = ExtResource("21_gt3je")
+waves = Array[Resource]([ExtResource("22_hpc6h"), ExtResource("23_kltya"), ExtResource("24_e08e2"), ExtResource("25_neg2b"), ExtResource("26_r33sp"), ExtResource("27_hdf80"), ExtResource("28_jwpg7"), ExtResource("29_k2e45"), ExtResource("30_536cc"), ExtResource("31_aqgau")])
+enemy_spawner = NodePath("../EnemySpawner")
+
 [node name="GameBoundary" type="StaticBody2D" parent="." unique_id=295758232 groups=["boundary"]]
 collision_layer = 136
 collision_mask = 3
@@ -788,9 +772,4 @@ shape = SubResource("RectangleShape2D_xadyu")
 
 [node name="Water" type="CollisionPolygon2D" parent="GameBoundary" unique_id=430208554]
 position = Vector2(0, 1024)
-polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311, 200, -309, 218, -296, 219, -272, 310, -273, 309, -129, 364, -129, 364, -269, 425, -270, 450, -255, 453, -223, 484, -223, 499, -205, 500, -173, 541, -172, 569, -151, 569, -133, 584, -133, 605, -115, 608, -57, 646, -59, 674, -41, 678, -2, 678, 0, 0, 0)
-
-[node name="Wave Manager" type="Node" parent="." unique_id=238364091 node_paths=PackedStringArray("enemy_spawner")]
-script = ExtResource("21_gt3je")
-waves = Array[Resource]([ExtResource("22_hpc6h"), ExtResource("23_kltya"), ExtResource("24_e08e2"), ExtResource("25_neg2b"), ExtResource("26_r33sp"), ExtResource("27_hdf80"), ExtResource("28_jwpg7"), ExtResource("29_k2e45"), ExtResource("30_536cc"), ExtResource("31_aqgau")])
-enemy_spawner = NodePath("../EnemySpawner")
+polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311, 200, -309, 218, -296, 219, -272, 310, -273, 364, -269, 425, -270, 450, -255, 453, -223, 484, -223, 499, -205, 500, -173, 541, -172, 569, -151, 569, -133, 584, -133, 605, -115, 608, -57, 646, -59, 674, -41, 678, -2, 678, 0, 0, 0)

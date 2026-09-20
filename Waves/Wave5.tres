@@ -1,9 +1,15 @@
 [gd_resource type="Resource" script_class="Waves2" format=3 uid="uid://c1hrcm5r4u6j6"]
 
-[ext_resource type="Script" uid="uid://oeg837hwnv5f" path="res://Waves.gd" id="1_48wfn"]
+[ext_resource type="Script" uid="uid://oeg837hwnv5f" path="res://Scripts/Waves.gd" id="1_48wfn"]
 
 [resource]
 script = ExtResource("1_48wfn")
-Sprintper = 50
-normalper = 50
+SpawnMaxEne = 5
+StartDelay = 30.0
+Bossspawn = true
+Bosshealth = 1000
+BossSpeed = 25
+BossSize = 5
+BossDam = 50
+Bossreach = 10
 metadata/_custom_type_script = "uid://oeg837hwnv5f"

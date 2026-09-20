@@ -1308,7 +1308,8 @@ collision_mask = 8
 script = ExtResource("1_souxr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723469502]
-position = Vector2(0, -2)
+position = Vector2(0, -1)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_jsssl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1052436603]
@@ -1340,3 +1341,12 @@ shape = SubResource("RectangleShape2D_souxr")
 [node name="HurtTimer" type="Timer" parent="." unique_id=1106259471]
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=705128790]
+
+[node name="AvoidLeft" type="RayCast2D" parent="." unique_id=2085306889]
+collision_mask = 8
+
+[node name="AvoidCenter" type="RayCast2D" parent="." unique_id=1584091911]
+collision_mask = 8
+
+[node name="AvoidRight" type="RayCast2D" parent="." unique_id=555447145]
+collision_mask = 8
