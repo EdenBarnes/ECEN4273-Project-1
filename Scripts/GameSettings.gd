@@ -56,8 +56,8 @@ var MAX_ENEMIES: int = 20
 var ENEMY_SPAWN_INTERVAL: float = 0.75
 var ENEMY_SPAWN_DISTANCE: float = 50.0
 
-var ENEMY_OBSTACLE_AVOID_DISTANCE: float = 15.0
-var ENEMY_OBSTACLE_AVOID_STRENGTH: float = 0.50
+var ENEMY_OBSTACLE_AVOID_DISTANCE: float = 20.0
+var ENEMY_OBSTACLE_AVOID_STRENGTH: float = 0.75
 
 # ============================================
 # BULLET SETTINGS

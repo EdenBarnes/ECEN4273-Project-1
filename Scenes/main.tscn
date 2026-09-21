@@ -27,8 +27,40 @@
 [ext_resource type="Resource" uid="uid://caqsjepkgkpam" path="res://Waves/Wave6.tres" id="27_hdf80"]
 [ext_resource type="Resource" uid="uid://d1euucqiy0cfw" path="res://Waves/Wave7.tres" id="28_jwpg7"]
 [ext_resource type="Resource" uid="uid://bjf3ri0yhu3nf" path="res://Waves/Wave8.tres" id="29_k2e45"]
+[ext_resource type="Script" uid="uid://d2wytedmyj2mq" path="res://Scripts/weapon_display.gd" id="30_8cuat"]
 [ext_resource type="Resource" uid="uid://c5yxltvdivoij" path="res://Waves/Wave9.tres" id="30_536cc"]
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
+[ext_resource type="Texture2D" uid="uid://bunn3a80f20al" path="res://resources/Hud/Reload animation/Reload1.png" id="31_o1aky"]
+[ext_resource type="Texture2D" uid="uid://cx6qbul8gmgrd" path="res://resources/Hud/Reload animation/Reload2.png" id="32_kwxat"]
+[ext_resource type="Texture2D" uid="uid://by2wr2uf4uued" path="res://resources/Hud/Reload animation/Reload3.png" id="33_aa8k8"]
+[ext_resource type="Texture2D" uid="uid://dyyuv5moyr6sa" path="res://resources/Hud/Reload animation/Reload4.png" id="34_kqrg6"]
+[ext_resource type="Texture2D" uid="uid://w34dxefvriw3" path="res://resources/Hud/Reload animation/Reload5.png" id="35_nwwfm"]
+[ext_resource type="Texture2D" uid="uid://8slh0gfyrwfj" path="res://resources/Hud/Reload animation/Reload6.png" id="36_s8vy0"]
+[ext_resource type="Texture2D" uid="uid://7mk7d6bi0w3i" path="res://resources/Hud/Reload animation/Reload7.png" id="37_jut3y"]
+[ext_resource type="Texture2D" uid="uid://dkkpiisxjhhiy" path="res://resources/Hud/Reload animation/Reload8.png" id="38_v2nl5"]
+[ext_resource type="Texture2D" uid="uid://cg4fitofi0aes" path="res://resources/Hud/Reload animation/Reload9.png" id="39_dmskm"]
+[ext_resource type="Texture2D" uid="uid://dckpumeudgena" path="res://resources/Hud/Reload animation/Reload10.png" id="40_xdkp6"]
+[ext_resource type="Texture2D" uid="uid://i2ppe4fh8u6h" path="res://resources/Hud/Reload animation/Reload11.png" id="41_54nrm"]
+[ext_resource type="Texture2D" uid="uid://gb07vr6nbpy8" path="res://resources/Hud/Reload animation/Reload12.png" id="42_6ml46"]
+[ext_resource type="Texture2D" uid="uid://mfbk0nbjaa2d" path="res://resources/Hud/Reload animation/Reload13.png" id="43_qax2n"]
+[ext_resource type="Texture2D" uid="uid://da5d4j3yycyvj" path="res://resources/Hud/Reload animation/Reload14.png" id="44_y86h7"]
+[ext_resource type="Texture2D" uid="uid://d4hcq8pbxq78f" path="res://resources/Hud/Reload animation/Reload15.png" id="45_my4ki"]
+[ext_resource type="Texture2D" uid="uid://dnyleaoxonrw1" path="res://resources/Hud/Reload animation/Reload16.png" id="46_lx3vj"]
+[ext_resource type="Texture2D" uid="uid://d0c52mwmr56m2" path="res://resources/Hud/Reload animation/Reload17.png" id="47_ynmfv"]
+[ext_resource type="Texture2D" uid="uid://bqhuq322w51xy" path="res://resources/Hud/Reload animation/Reload18.png" id="48_cblf0"]
+[ext_resource type="Texture2D" uid="uid://f3g6yh2uj2mk" path="res://resources/Hud/Reload animation/Reload19.png" id="49_nay3j"]
+[ext_resource type="Texture2D" uid="uid://sd6euiucrfyn" path="res://resources/Hud/Reload animation/Reload20.png" id="50_ovafv"]
+[ext_resource type="Texture2D" uid="uid://wfr2yd3ivsed" path="res://resources/Hud/Reload animation/Reload21.png" id="51_owhal"]
+[ext_resource type="Texture2D" uid="uid://05lq7eabl08y" path="res://resources/Hud/Reload animation/Reload22.png" id="52_uv6w5"]
+[ext_resource type="Texture2D" uid="uid://cn48dedgw3uct" path="res://resources/Hud/Reload animation/Reload23.png" id="53_r7bbj"]
+[ext_resource type="Texture2D" uid="uid://cavhwygc724lj" path="res://resources/Hud/Reload animation/Reload24.png" id="54_e5peh"]
+[ext_resource type="Texture2D" uid="uid://djdix8bv3fl20" path="res://resources/Hud/Reload animation/Reload25.png" id="55_f6rfp"]
+[ext_resource type="Texture2D" uid="uid://dhkypuqud6yhw" path="res://resources/Hud/Reload animation/Reload26.png" id="56_sasc4"]
+[ext_resource type="Texture2D" uid="uid://b5gxcdlbt322y" path="res://resources/Hud/Reload animation/Reload27.png" id="57_pfx1i"]
+[ext_resource type="Texture2D" uid="uid://dkkrjgmxbxu3e" path="res://resources/Hud/Reload animation/Reload28.png" id="58_fg68e"]
+[ext_resource type="Texture2D" uid="uid://57ub7l1t2xee" path="res://resources/Hud/Reload animation/Reload29.png" id="59_jekl6"]
+[ext_resource type="Texture2D" uid="uid://bfb3lneq0m2v3" path="res://resources/Hud/Reload animation/Reload30.png" id="60_v1mrv"]
+[ext_resource type="FontFile" uid="uid://boxxcqndiy4j8" path="res://resources/Hud/VCR_OSD_MONO_1.001.ttf" id="61_qax2n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -41,6 +73,109 @@ size = Vector2(1583, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xadyu"]
 size = Vector2(1583, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_o1aky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_kwxat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_aa8k8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_kqrg6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_nwwfm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_s8vy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_jut3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_v2nl5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_dmskm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_xdkp6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_54nrm")
+}],
+"loop": 0,
+"name": &"ammo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_6ml46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_qax2n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_y86h7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_my4ki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_lx3vj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_ynmfv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_cblf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_nay3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ovafv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_owhal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_uv6w5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_r7bbj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_e5peh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_f6rfp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_sasc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_pfx1i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_fg68e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_jekl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_v1mrv")
+}],
+"loop": 0,
+"name": &"reload",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D" unique_id=549834261]
 
@@ -773,3 +908,63 @@ shape = SubResource("RectangleShape2D_xadyu")
 [node name="Water" type="CollisionPolygon2D" parent="GameBoundary" unique_id=430208554]
 position = Vector2(0, 1024)
 polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311, 200, -309, 218, -296, 219, -272, 310, -273, 364, -269, 425, -270, 450, -255, 453, -223, 484, -223, 499, -205, 500, -173, 541, -172, 569, -151, 569, -133, 584, -133, 605, -115, 608, -57, 646, -59, 674, -41, 678, -2, 678, 0, 0, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1264037420]
+
+[node name="HUDRoot" type="Control" parent="HUD" unique_id=290998040]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerInfo" type="Control" parent="HUD/HUDRoot" unique_id=1833018582]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="WeaponDisplay" type="Control" parent="HUD/HUDRoot/PlayerInfo" unique_id=222709619]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("30_8cuat")
+
+[node name="Ammo" type="AnimatedSprite2D" parent="HUD/HUDRoot/PlayerInfo/WeaponDisplay" unique_id=215659987]
+modulate = Color(1, 1, 1, 0.84705883)
+position = Vector2(-52, -51)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"ammo"
+
+[node name="AmmoText" type="Label" parent="HUD/HUDRoot/PlayerInfo/WeaponDisplay" unique_id=449864356]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -134.0
+offset_top = -135.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+theme_override_fonts/font = ExtResource("61_qax2n")
+theme_override_font_sizes/font_size = 65
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
