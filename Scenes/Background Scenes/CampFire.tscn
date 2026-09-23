@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cmvsaw6kvmur2"]
+
+[ext_resource type="Texture2D" uid="uid://ysbf6ig1wbce" path="res://resources/Background/Single background Assets/Camp fire.png" id="1_18tcn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xadyu"]
+radius = 20.003973
+height = 75.007904
+
+[node name="Campfire" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -9)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_18tcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=946697641]
+position = Vector2(1.1641532e-10, -5)
+rotation = 1.5723957
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CapsuleShape2D_xadyu")

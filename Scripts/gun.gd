@@ -12,7 +12,6 @@ const BULLET_SCENE = preload("res://Scenes/bullet.tscn")
 var weapon_instance: WeaponInstance = null
 var weapon_data: WeaponData = null
 
-
 # ============================================
 # NODES
 # ============================================
@@ -27,6 +26,9 @@ var weapon_data: WeaponData = null
 @onready var reload_timer: Timer = $ReloadTimer
 @onready var aim_cone: Node2D = $AimCone
 
+@onready var bullets_container: Node2D = (
+	get_tree().current_scene.get_node("YSortWorld/Bullets")
+)
 
 # ============================================
 # WEAPON STATE
@@ -332,7 +334,8 @@ func spawn_bullet(direction: Vector2) -> void:
 
 	var bullet = BULLET_SCENE.instantiate()
 
-	get_tree().current_scene.add_child(bullet)
+	# Add bullet to the Y-sorted bullet container.
+	bullets_container.add_child(bullet)
 
 
 	# ============================================
@@ -346,15 +349,19 @@ func spawn_bullet(direction: Vector2) -> void:
 	# BULLET SPREAD
 	# ============================================
 
-	var half_spread = get_current_spread() / 2.0
+	var half_spread: float = (
+		get_current_spread() / 2.0
+	)
 
-	var spread_degrees = randf_range(
+	var spread_degrees: float = randf_range(
 		-half_spread,
 		half_spread
 	)
 
-	var bullet_direction = direction.rotated(
-		deg_to_rad(spread_degrees)
+	var bullet_direction: Vector2 = (
+		direction.rotated(
+			deg_to_rad(spread_degrees)
+		)
 	)
 
 

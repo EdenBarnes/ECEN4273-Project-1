@@ -1298,15 +1298,20 @@ states/walk/node = SubResource("AnimationNodeBlendSpace2D_1jxqw")
 states/walk/position = Vector2(376.24, 162.08)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n7ghd"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_nvl01"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_ivps1"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_sweqy"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_2hs0m"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_1jxqw"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_dw050"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_b26j0"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_urp6f"), "walk", "death", SubResource("AnimationNodeStateMachineTransition_bwjto"), "death", "End", SubResource("AnimationNodeStateMachineTransition_606se")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xadyu"]
+size = Vector2(22, 5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yujqa"]
 size = Vector2(22, 28)
 
 [node name="Player" type="CharacterBody2D" unique_id=1057855715 groups=["player"]]
+collision_mask = 8
+up_direction = Vector2(0, 1)
 script = ExtResource("1_i3pqv")
 starting_weapon = ExtResource("2_3smsa")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1458304483]
-position = Vector2(72, 2)
+position = Vector2(72, -12)
 scale = Vector2(2, 2)
 texture = ExtResource("1_onrkg")
 offset = Vector2(-36, -1)
@@ -1327,7 +1332,16 @@ parameters/hurt/blend_position = Vector2(0, 0)
 parameters/idle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=761131958]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1605113646]
+position = Vector2(-1, -2.5)
+shape = SubResource("RectangleShape2D_xadyu")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1611489389]
+position = Vector2(0, -14)
+collision_layer = 16
+collision_mask = 0
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox" unique_id=761131958]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_yujqa")
 
@@ -1337,5 +1351,14 @@ shape = SubResource("RectangleShape2D_yujqa")
 one_shot = true
 
 [node name="WeaponHolder" type="Node2D" parent="." unique_id=656471027]
+position = Vector2(0, -14)
 
 [node name="Gun" parent="WeaponHolder" unique_id=378236700 instance=ExtResource("6_x3wgy")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1665623308]
+zoom = Vector2(1.25, 1.25)
+limit_left = 0
+limit_top = 0
+limit_right = 1536
+limit_bottom = 1024
+position_smoothing_speed = 1.0
