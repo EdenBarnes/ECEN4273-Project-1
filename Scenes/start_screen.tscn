@@ -4,7 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://p0cvqp1sx1pc" path="res://resources/Game Assets/Main Menu.png" id="2_5e717"]
 [ext_resource type="AudioStream" uid="uid://c0arq7kt0h1bu" path="res://resources/Audio/theme music.wav" id="3_60ddj"]
 [ext_resource type="Texture2D" uid="uid://bxcilfrcm7rf5" path="res://resources/Game Assets/Bolt1.png" id="3_mtlf8"]
+[ext_resource type="Texture2D" uid="uid://ciippcti04h0l" path="res://resources/Game Assets/Start_button_start.png" id="4_ssogg"]
+[ext_resource type="Texture2D" uid="uid://cd86qf6g7g8xd" path="res://resources/Game Assets/Start_button_clicked.png" id="5_akot6"]
 [ext_resource type="AudioStream" uid="uid://cgvc2g0re1yvv" path="res://resources/Audio/Thunder.mp3" id="5_nqnrp"]
+[ext_resource type="Texture2D" uid="uid://t6a2py7pjf4r" path="res://resources/Game Assets/Start_button_hover.png" id="6_rjuq2"]
+[ext_resource type="Texture2D" uid="uid://colbi7tvyyuky" path="res://resources/Game Assets/Exit_button_start.png" id="7_c1457"]
+[ext_resource type="Texture2D" uid="uid://c3qtbysfma1o6" path="res://resources/Game Assets/Exit_button_pressed.png" id="8_64bn7"]
+[ext_resource type="Texture2D" uid="uid://qs7a7pk734gn" path="res://resources/Game Assets/Exit_button_hover.png" id="9_357se"]
 
 [node name="StartScreen" type="Control" unique_id=1630470683]
 layout_mode = 3
@@ -55,20 +61,23 @@ color = Color(1, 1, 1, 0)
 
 [node name="Start" type="VBoxContainer" parent="." unique_id=343567241]
 layout_mode = 0
-offset_left = 453.0
+offset_left = 523.0
 offset_top = 376.0
-offset_right = 499.0
-offset_bottom = 419.0
-scale = Vector2(5.48, 4.6399975)
+offset_right = 603.0
+offset_bottom = 461.0
+scale = Vector2(2.362, 2)
 
-[node name="Start" type="Button" parent="Start" unique_id=735969694]
+[node name="Start" type="TextureButton" parent="Start" unique_id=1904377269]
 layout_mode = 2
-text = "Start"
+texture_normal = ExtResource("4_ssogg")
+texture_pressed = ExtResource("5_akot6")
+texture_hover = ExtResource("6_rjuq2")
 
-[node name="Exit" type="Button" parent="Start" unique_id=677647136]
+[node name="Exit" type="TextureButton" parent="Start" unique_id=1378180131]
 layout_mode = 2
-text = "EXIT
-"
+texture_normal = ExtResource("7_c1457")
+texture_pressed = ExtResource("8_64bn7")
+texture_hover = ExtResource("9_357se")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1952410455]
 stream = ExtResource("3_60ddj")
