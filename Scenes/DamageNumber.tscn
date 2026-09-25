@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cpcsn6gnqsfgw"]
+
+[ext_resource type="Script" uid="uid://bisqm0riqffo" path="res://Scripts/damage_number.gd" id="1_ym0hm"]
+[ext_resource type="FontFile" uid="uid://clemp8bmcdcgk" path="res://resources/Hud/Tiny56.ttf" id="2_0k1js"]
+
+[node name="DamageNumber" type="Node2D" unique_id=354947179]
+script = ExtResource("1_ym0hm")
+
+[node name="Label" type="Label" parent="." unique_id=1920018551]
+offset_right = 24.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.87734634, 3.8745256e-06, 1.2513996e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_0k1js")
+theme_override_font_sizes/font_size = 12
+text = "999"

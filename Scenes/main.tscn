@@ -42,25 +42,48 @@
 [ext_resource type="Texture2D" uid="uid://dckpumeudgena" path="res://resources/Hud/Reload animation/Reload10.png" id="40_xdkp6"]
 [ext_resource type="Texture2D" uid="uid://i2ppe4fh8u6h" path="res://resources/Hud/Reload animation/Reload11.png" id="41_54nrm"]
 [ext_resource type="Texture2D" uid="uid://gb07vr6nbpy8" path="res://resources/Hud/Reload animation/Reload12.png" id="42_6ml46"]
+[ext_resource type="Texture2D" uid="uid://bdt5t40u6bedf" path="res://resources/Hud/health/Sprite-0000.png" id="42_wl4bb"]
+[ext_resource type="Texture2D" uid="uid://bj6pcc3vhi24d" path="res://resources/Hud/health/Sprite-0001.png" id="43_6h1fc"]
 [ext_resource type="Texture2D" uid="uid://mfbk0nbjaa2d" path="res://resources/Hud/Reload animation/Reload13.png" id="43_qax2n"]
+[ext_resource type="Texture2D" uid="uid://hhi2xeqoxmb8" path="res://resources/Hud/health/Sprite-0002.png" id="44_vxl7x"]
 [ext_resource type="Texture2D" uid="uid://da5d4j3yycyvj" path="res://resources/Hud/Reload animation/Reload14.png" id="44_y86h7"]
+[ext_resource type="Texture2D" uid="uid://deo0vx2rjtlqk" path="res://resources/Hud/health/Sprite-0003.png" id="45_ihvwq"]
 [ext_resource type="Texture2D" uid="uid://d4hcq8pbxq78f" path="res://resources/Hud/Reload animation/Reload15.png" id="45_my4ki"]
+[ext_resource type="Texture2D" uid="uid://cfbkgyd3xiay0" path="res://resources/Hud/health/Sprite-0004.png" id="46_k8rh3"]
 [ext_resource type="Texture2D" uid="uid://dnyleaoxonrw1" path="res://resources/Hud/Reload animation/Reload16.png" id="46_lx3vj"]
+[ext_resource type="Texture2D" uid="uid://dus2ixw4dsvxu" path="res://resources/Hud/health/Sprite-0005.png" id="47_55idt"]
 [ext_resource type="Texture2D" uid="uid://d0c52mwmr56m2" path="res://resources/Hud/Reload animation/Reload17.png" id="47_ynmfv"]
+[ext_resource type="Texture2D" uid="uid://dsre853pqmf86" path="res://resources/Hud/health/Sprite-0006.png" id="48_87bhu"]
 [ext_resource type="Texture2D" uid="uid://bqhuq322w51xy" path="res://resources/Hud/Reload animation/Reload18.png" id="48_cblf0"]
+[ext_resource type="Texture2D" uid="uid://2wmgwjylpag8" path="res://resources/Hud/health/Sprite-0007.png" id="49_33qc4"]
 [ext_resource type="Texture2D" uid="uid://f3g6yh2uj2mk" path="res://resources/Hud/Reload animation/Reload19.png" id="49_nay3j"]
+[ext_resource type="Texture2D" uid="uid://chnel2l46ik82" path="res://resources/Hud/health/Sprite-0008.png" id="50_e6rcu"]
 [ext_resource type="Texture2D" uid="uid://sd6euiucrfyn" path="res://resources/Hud/Reload animation/Reload20.png" id="50_ovafv"]
 [ext_resource type="Texture2D" uid="uid://wfr2yd3ivsed" path="res://resources/Hud/Reload animation/Reload21.png" id="51_owhal"]
+[ext_resource type="Texture2D" uid="uid://b6mncpf86cidc" path="res://resources/Hud/health/Sprite-0009.png" id="51_p4gyq"]
+[ext_resource type="Texture2D" uid="uid://d168e01x83txi" path="res://resources/Hud/health/Sprite-0010.png" id="52_32dfi"]
 [ext_resource type="Texture2D" uid="uid://05lq7eabl08y" path="res://resources/Hud/Reload animation/Reload22.png" id="52_uv6w5"]
+[ext_resource type="Texture2D" uid="uid://b3kotc2npwb1a" path="res://resources/Hud/health/Sprite-0011.png" id="53_cf2bd"]
 [ext_resource type="Texture2D" uid="uid://cn48dedgw3uct" path="res://resources/Hud/Reload animation/Reload23.png" id="53_r7bbj"]
 [ext_resource type="Texture2D" uid="uid://cavhwygc724lj" path="res://resources/Hud/Reload animation/Reload24.png" id="54_e5peh"]
+[ext_resource type="Texture2D" uid="uid://xx0lp7wf0bi" path="res://resources/Hud/health/Sprite-0012.png" id="54_lpdpw"]
 [ext_resource type="Texture2D" uid="uid://djdix8bv3fl20" path="res://resources/Hud/Reload animation/Reload25.png" id="55_f6rfp"]
+[ext_resource type="Texture2D" uid="uid://b0rmjhgvggchx" path="res://resources/Hud/health/Sprite-0013.png" id="55_jrou0"]
+[ext_resource type="Texture2D" uid="uid://r76eqyxom6wb" path="res://resources/Hud/health/Sprite-0014.png" id="56_j2g22"]
 [ext_resource type="Texture2D" uid="uid://dhkypuqud6yhw" path="res://resources/Hud/Reload animation/Reload26.png" id="56_sasc4"]
 [ext_resource type="Texture2D" uid="uid://b5gxcdlbt322y" path="res://resources/Hud/Reload animation/Reload27.png" id="57_pfx1i"]
+[ext_resource type="Texture2D" uid="uid://cfbd6paj25jg8" path="res://resources/Hud/health/Sprite-0015.png" id="57_phube"]
 [ext_resource type="Texture2D" uid="uid://dkkrjgmxbxu3e" path="res://resources/Hud/Reload animation/Reload28.png" id="58_fg68e"]
+[ext_resource type="Texture2D" uid="uid://c8bwy73oroqmr" path="res://resources/Hud/health/Sprite-0016.png" id="58_t014q"]
 [ext_resource type="Texture2D" uid="uid://57ub7l1t2xee" path="res://resources/Hud/Reload animation/Reload29.png" id="59_jekl6"]
+[ext_resource type="Texture2D" uid="uid://c2qgkrkw3p5iv" path="res://resources/Hud/health/Sprite-0017.png" id="59_nb1ia"]
+[ext_resource type="Texture2D" uid="uid://cnlshfk6jwsf6" path="res://resources/Hud/health/Sprite-0018.png" id="60_3ahwd"]
 [ext_resource type="Texture2D" uid="uid://bfb3lneq0m2v3" path="res://resources/Hud/Reload animation/Reload30.png" id="60_v1mrv"]
+[ext_resource type="Texture2D" uid="uid://wa8f86bp01em" path="res://resources/Hud/health/Sprite-0019.png" id="61_b4xsn"]
 [ext_resource type="FontFile" uid="uid://boxxcqndiy4j8" path="res://resources/Hud/VCR_OSD_MONO_1.001.ttf" id="61_qax2n"]
+[ext_resource type="Texture2D" uid="uid://cjed8lvdgayrh" path="res://resources/Hud/health/Sprite-0020.png" id="62_ot5ec"]
+[ext_resource type="Script" uid="uid://gbjeh0nno78b" path="res://Scripts/health_display.gd" id="83_aok0f"]
+[ext_resource type="Script" uid="uid://wh2us5jojg2c" path="res://Scripts/wave_display.gd" id="84_6h1fc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -112,6 +135,74 @@ animations = [{
 }],
 "loop": 0,
 "name": &"ammo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_wl4bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_6h1fc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_vxl7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_ihvwq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_k8rh3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_55idt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_87bhu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_33qc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_e6rcu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_p4gyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_32dfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_cf2bd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_lpdpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_jrou0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_j2g22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_phube")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_t014q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_nb1ia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_3ahwd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_b4xsn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_ot5ec")
+}],
+"loop": 1,
+"name": &"health",
 "speed": 5.0
 }, {
 "frames": [{
@@ -919,7 +1010,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerInfo" type="Control" parent="HUD/HUDRoot" unique_id=1833018582]
+[node name="Ammo" type="Control" parent="HUD/HUDRoot" unique_id=1833018582]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -931,7 +1022,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="WeaponDisplay" type="Control" parent="HUD/HUDRoot/PlayerInfo" unique_id=222709619]
+[node name="WeaponDisplay" type="Control" parent="HUD/HUDRoot/Ammo" unique_id=222709619]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -944,27 +1035,135 @@ grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("30_8cuat")
 
-[node name="Ammo" type="AnimatedSprite2D" parent="HUD/HUDRoot/PlayerInfo/WeaponDisplay" unique_id=215659987]
+[node name="Ammo" type="AnimatedSprite2D" parent="HUD/HUDRoot/Ammo/WeaponDisplay" unique_id=215659987]
 modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(-52, -51)
+position = Vector2(-51, -50)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_xadyu")
 animation = &"ammo"
 
-[node name="AmmoText" type="Label" parent="HUD/HUDRoot/PlayerInfo/WeaponDisplay" unique_id=449864356]
+[node name="AmmoText" type="Label" parent="HUD/HUDRoot/Ammo/WeaponDisplay" unique_id=449864356]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -134.0
-offset_top = -135.0
+offset_left = -124.0
+offset_top = -126.0
+offset_right = 10.0
+offset_bottom = 9.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+theme_override_colors/font_color = Color(0.23392534, 0.23392552, 0.2339254, 1)
 theme_override_fonts/font = ExtResource("61_qax2n")
 theme_override_font_sizes/font_size = 65
 text = "999"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health" type="Control" parent="HUD/HUDRoot" unique_id=1331171905]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="HealthDisplay" type="Control" parent="HUD/HUDRoot/Health" unique_id=665557319]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("83_aok0f")
+
+[node name="Health" type="AnimatedSprite2D" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=2002610036]
+modulate = Color(1, 1, 1, 0.84705883)
+position = Vector2(89, -94)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"health"
+
+[node name="HealthText" type="Label" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=1304885535]
+layout_mode = 1
+offset_left = -8.0
+offset_top = -127.0
+offset_right = 126.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(0.9858839, 0.7636446, 0.74687356, 1)
+theme_override_fonts/font = ExtResource("61_qax2n")
+theme_override_font_sizes/font_size = 65
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaveInfo" type="Control" parent="HUD/HUDRoot" unique_id=1009836520]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("84_6h1fc")
+
+[node name="WaveText" type="Label" parent="HUD/HUDRoot/WaveInfo" unique_id=314561422]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("61_qax2n")
+theme_override_font_sizes/font_size = 40
+text = "WAVE X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusText" type="Label" parent="HUD/HUDRoot/WaveInfo" unique_id=501842931]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_top = 33.0
+offset_right = 94.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("61_qax2n")
+text = "Enemys Remaining: XX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossHealth" type="Control" parent="HUD/HUDRoot/WaveInfo" unique_id=813312467]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BossHealthBar" type="ProgressBar" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=564542573]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -244.25
+offset_top = 56.0
+offset_right = 244.25
+offset_bottom = 98.0
+grow_horizontal = 2
+value = 100.0
+show_percentage = false
+
+[node name="BossHealthText" type="Label" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=2120011591]
+layout_mode = 0
+offset_left = -212.0
+offset_top = 65.0
+offset_right = -155.0
+offset_bottom = 88.0
+theme_override_fonts/font = ExtResource("61_qax2n")
+text = "999999"
 vertical_alignment = 1

@@ -16,6 +16,12 @@ var bounces: int = 0
 var direction := Vector2.RIGHT
 var lifetime: float = 10.0
 
+# ============================================
+# HIT TRACKING
+# ============================================
+
+var hit_targets: Array[Node] = []
+
 
 # ============================================
 # MAP SIZE
@@ -25,6 +31,12 @@ var map_size: Vector2 = Vector2(
 	1536.0,
 	1024.0
 )
+
+# ============================================
+# DAMAGE NUMBER
+# ============================================
+
+const DAMAGE_NUMBER_SCENE = preload("res://Scenes/DamageNumber.tscn")
 
 
 # ============================================
@@ -41,6 +53,20 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 	sprite.play("default")
+
+
+# ============================================
+# SHOW DAMAGE NUMBER
+# ============================================
+
+func show_damage_number(amount: int) -> void:
+	var damage_number: Node2D = DAMAGE_NUMBER_SCENE.instantiate()
+
+	get_tree().current_scene.add_child(damage_number)
+
+	damage_number.global_position = global_position
+	damage_number.set_damage(amount)
+	damage_number.set_hit_direction(direction)
 
 
 # ============================================
@@ -173,8 +199,17 @@ func _on_area_entered(area: Area2D) -> void:
 # ============================================
 
 func damage_target(target: Node) -> void:
+	# Prevent hitting the same enemy twice
+	if target in hit_targets:
+		return
 
+	hit_targets.append(target)
+
+	# Damage enemy
 	target.take_damage(damage)
+
+	# Show damage number
+	show_damage_number(damage)
 
 	# ============================================
 	# PIERCING

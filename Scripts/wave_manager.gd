@@ -12,10 +12,7 @@ const BOSS_SCENE = preload("res://Scenes/Boss.tscn")
 # WAVE SETTINGS
 # ============================================
 
-# Drag Wave1.tres, Wave2.tres, etc. here
 @export var waves: Array[Resource]
-
-# Drag the EnemySpawner node here
 @export var enemy_spawner: Node2D
 
 
@@ -42,14 +39,26 @@ var wave_waiting: bool = false
 
 
 # ============================================
+# SIGNALS
+# ============================================
+
+signal wave_countdown_started(wave_number: int, duration: float)
+signal wave_started(wave_number: int)
+signal enemy_count_changed(enemies_remaining: int)
+
+signal boss_started(boss: Node)
+signal boss_defeated
+
+signal all_waves_completed
+
+
+# ============================================
 # READY
 # ============================================
 
 func _ready() -> void:
 	add_to_group("wave_manager")
-
-	# Prepare Wave 1
-	start_wave(0)
+	call_deferred("start_wave", 0)
 
 
 # ============================================
@@ -57,14 +66,23 @@ func _ready() -> void:
 # ============================================
 
 func start_wave(index: int) -> void:
-	# Check if all waves are complete
+	# ============================================
+	# ALL WAVES COMPLETE
+	# ============================================
+
 	if index >= waves.size():
 		print("All waves completed! You win!")
+
 		wave_active = false
 		wave_waiting = false
+
+		all_waves_completed.emit()
 		return
 
-	# Get incoming wave
+	# ============================================
+	# GET INCOMING WAVE
+	# ============================================
+
 	current_wave_index = index
 	current_wave_data = waves[current_wave_index] as Waves2
 
@@ -79,9 +97,12 @@ func start_wave(index: int) -> void:
 	wave_active = false
 	wave_waiting = true
 
+	var wave_number: int = current_wave_index + 1
 	var start_delay: float = current_wave_data.StartDelay
 
-	print("Wave ", current_wave_index + 1, " starts in ", start_delay, " seconds!")
+	print("Wave ", wave_number, " starts in ", start_delay, " seconds!")
+
+	wave_countdown_started.emit(wave_number, start_delay)
 
 	if start_delay > 0.0:
 		await get_tree().create_timer(start_delay).timeout
@@ -108,7 +129,9 @@ func start_wave(index: int) -> void:
 	boss_alive = false
 	wave_active = true
 
-	print("Wave ", current_wave_index + 1, " started!")
+	print("Wave ", wave_number, " started!")
+
+	wave_started.emit(wave_number)
 
 	# ============================================
 	# BOSS WAVE
@@ -123,6 +146,7 @@ func start_wave(index: int) -> void:
 	# NORMAL WAVE
 	# ============================================
 
+	enemy_count_changed.emit(enemies_remaining)
 	start_normal_spawning()
 
 
@@ -149,21 +173,35 @@ func spawn_boss() -> void:
 		print("ERROR: Enemy Spawner not assigned!")
 		return
 
-	# Create boss
+	# ============================================
+	# CREATE BOSS
+	# ============================================
+
 	var boss: CharacterBody2D = BOSS_SCENE.instantiate()
 
-	# Add boss to enemies container
 	enemies_container.add_child(boss)
 
-	# Set boss position
+	# ============================================
+	# SET BOSS POSITION
+	# ============================================
+
 	boss.global_position = enemy_spawner.get_random_spawn_position()
 
-	# Boss is alive
+	# ============================================
+	# BOSS IS ALIVE
+	# ============================================
+
 	boss_alive = true
 
 	print("Boss spawned!")
 
-	# Start regular enemies
+	# Tell HUD which boss to track
+	boss_started.emit(boss)
+
+	# ============================================
+	# START REGULAR ENEMIES
+	# ============================================
+
 	start_normal_spawning()
 
 
@@ -175,22 +213,34 @@ func on_enemy_died() -> void:
 	if not wave_active:
 		return
 
-	# Lower enemy count
-	enemies_remaining -= 1
+	# ============================================
+	# NORMAL WAVE
+	# ============================================
 
-	if enemies_remaining < 0:
-		enemies_remaining = 0
+	if not boss_wave:
+		enemies_remaining -= 1
+		enemies_remaining = maxi(enemies_remaining, 0)
 
-	print("Enemies remaining: ", enemies_remaining)
+		print("Enemies remaining: ", enemies_remaining)
 
-	# Boss wave
-	if boss_wave:
-		check_boss_wave_complete()
+		enemy_count_changed.emit(enemies_remaining)
+
+		if enemies_remaining <= 0:
+			complete_wave()
+
 		return
 
-	# Normal wave
-	if enemies_remaining <= 0:
-		complete_wave()
+	# ============================================
+	# BOSS WAVE
+	# ============================================
+
+	# While boss is alive, HUD continues to say:
+	# "KILL THE BOSS"
+	if boss_alive:
+		return
+
+	# Once boss is dead, count actual living enemies.
+	check_boss_wave_complete()
 
 
 # ============================================
@@ -207,16 +257,27 @@ func on_boss_died() -> void:
 	if not boss_alive:
 		return
 
-	# Boss is dead
+	# ============================================
+	# BOSS IS DEAD
+	# ============================================
+
 	boss_alive = false
 
 	print("Boss defeated!")
 
-	# Stop new enemies
+	boss_defeated.emit()
+
+	# ============================================
+	# STOP NEW ENEMIES
+	# ============================================
+
 	if enemy_spawner != null and enemy_spawner.has_method("stop_spawning"):
 		enemy_spawner.stop_spawning()
 
-	# Check wave
+	# ============================================
+	# CHECK REMAINING ENEMIES
+	# ============================================
+
 	check_boss_wave_complete()
 
 
@@ -225,7 +286,6 @@ func on_boss_died() -> void:
 # ============================================
 
 func check_boss_wave_complete() -> void:
-	# Boss must be dead
 	if boss_alive:
 		return
 
@@ -236,17 +296,27 @@ func check_boss_wave_complete() -> void:
 		if enemy == null:
 			continue
 
-		# Ignore boss
 		if enemy.is_in_group("boss"):
 			continue
 
-		# Ignore enemies already dying
 		if enemy.get("is_dead") == true:
 			continue
 
 		living_enemies += 1
 
-	# Finish boss wave when all regular enemies are gone
+	# ============================================
+	# UPDATE HUD COUNT
+	# ============================================
+
+	enemies_remaining = living_enemies
+	enemy_count_changed.emit(enemies_remaining)
+
+	print("Enemies remaining after boss: ", enemies_remaining)
+
+	# ============================================
+	# FINISH BOSS WAVE
+	# ============================================
+
 	if living_enemies <= 0:
 		complete_wave()
 
@@ -263,9 +333,15 @@ func complete_wave() -> void:
 
 	print("Wave ", current_wave_index + 1, " cleared!")
 
-	# Stop spawner
+	# ============================================
+	# STOP SPAWNER
+	# ============================================
+
 	if enemy_spawner != null and enemy_spawner.has_method("stop_spawning"):
 		enemy_spawner.stop_spawning()
 
-	# Prepare incoming wave
+	# ============================================
+	# PREPARE NEXT WAVE
+	# ============================================
+
 	start_wave(current_wave_index + 1)
