@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ECEN4273 Project 1"
-run/main_scene="uid://dg4ywxpsft5lt"
+run/main_scene="uid://dcusi6h6p2n8d"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
