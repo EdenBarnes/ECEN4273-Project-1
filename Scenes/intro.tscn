@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dcusi6h6p2n8d"]
+
+[ext_resource type="Script" uid="uid://qh3h3kltl3m8" path="res://Scripts/intro.gd" id="1_b226h"]
+[ext_resource type="Texture2D" uid="uid://u2srxo4taatm" path="res://resources/Game Assets/Intro_sceen.png" id="2_duh1u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alxvg"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geirw"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwjxs"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsiac"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bmuq"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn7w8"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(5760, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26wi"]
+atlas = ExtResource("2_duh1u")
+region = Rect2(6912, 0, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duh1u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alxvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geirw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwjxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsiac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bmuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn7w8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26wi")
+}],
+"loop": 0,
+"name": &"intro",
+"speed": 5.0
+}]
+
+[node name="Intro" type="Control" unique_id=240016485]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b226h")
+
+[node name="Background" type="ColorRect" parent="." unique_id=886211126]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Titlecard" type="AnimatedSprite2D" parent="." unique_id=510624968]
+position = Vector2(576, 324)
+sprite_frames = SubResource("SpriteFrames_duh1u")
+animation = &"intro"
+frame = 6
+frame_progress = 1.0
+
+[node name="Fade" type="ColorRect" parent="." unique_id=1786452457]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
