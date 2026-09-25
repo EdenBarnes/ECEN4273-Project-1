@@ -6,11 +6,21 @@ const BULLET_SCENE = preload("res://Scenes/bullet.tscn")
 
 
 # ============================================
+# SIGNALS
+# ============================================
+
+signal ammo_changed(current_ammo: int, magazine_size: int)
+signal reload_started(reload_time: float)
+signal reload_finished
+signal weapon_changed
+
+# ============================================
 # CURRENT WEAPON
 # ============================================
 
 var weapon_instance: WeaponInstance = null
 var weapon_data: WeaponData = null
+
 
 # ============================================
 # NODES
@@ -26,9 +36,8 @@ var weapon_data: WeaponData = null
 @onready var reload_timer: Timer = $ReloadTimer
 @onready var aim_cone: Node2D = $AimCone
 
-@onready var bullets_container: Node2D = (
-	get_tree().current_scene.get_node("YSortWorld/Bullets")
-)
+@onready var bullets_container: Node2D = get_tree().current_scene.get_node("YSortWorld/Bullets")
+
 
 # ============================================
 # WEAPON STATE
@@ -39,9 +48,12 @@ var is_reloading: bool = false
 var is_aiming: bool = false
 
 
+# ============================================
+# READY
+# ============================================
+
 func _ready() -> void:
 	fire_timer.one_shot = true
-
 	reload_timer.one_shot = true
 	reload_timer.timeout.connect(_on_reload_finished)
 
@@ -57,23 +69,29 @@ func equip_weapon(new_weapon: WeaponInstance) -> void:
 	if new_weapon == null:
 		return
 
-	# Save the old weapon before changing.
+	# Save old weapon
 	save_weapon_state()
 
-	# Cancel any reload/fire cooldown from the old weapon.
+	# Cancel old timers
 	reload_timer.stop()
 	fire_timer.stop()
-
 	is_reloading = false
 
-	# Equip the new weapon instance.
+	# Equip weapon
 	weapon_instance = new_weapon
 	weapon_data = weapon_instance.weapon_data
 
-	# Restore this weapon's ammo.
+	# Restore ammo
 	current_ammo = weapon_instance.current_ammo
 
 	setup_weapon()
+
+	# ============================================
+	# UPDATE HUD
+	# ============================================
+
+	weapon_changed.emit()
+	ammo_changed.emit(current_ammo, weapon_instance.get_magazine_size())
 
 
 # ============================================
@@ -98,7 +116,6 @@ func setup_weapon() -> void:
 	if weapon_data == null:
 		return
 
-
 	# ============================================
 	# WEAPON TEXTURE
 	# ============================================
@@ -106,27 +123,20 @@ func setup_weapon() -> void:
 	if weapon_data.weapon_texture:
 		sprite.texture = weapon_data.weapon_texture
 
-
 	# ============================================
 	# WEAPON SCALE
 	# ============================================
 
 	scale = Vector2.ONE * weapon_data.gun_scale
 
-
 	# ============================================
 	# WEAPON POSITIONING
 	# ============================================
 
 	gun_pivot.position = Vector2.ZERO
-
 	gun_visual.position = weapon_data.gun_visual_offset
-
 	muzzle.position = weapon_data.muzzle_position
-
-	# Move the cone to the barrel tip.
 	aim_cone.position = gun_visual.position + muzzle.position
-
 
 	# ============================================
 	# MUZZLE FLASH
@@ -134,15 +144,11 @@ func setup_weapon() -> void:
 
 	muzzle_flash.scale = Vector2.ONE * weapon_data.muzzle_flash_scale
 
-
 	# ============================================
 	# FIRE TIMER
 	# ============================================
 
-	# Uses the WeaponInstance version so buffs
-	# can modify fire rate.
 	fire_timer.wait_time = weapon_instance.get_fire_rate()
-
 
 	# ============================================
 	# RELOAD TIMER
@@ -163,8 +169,7 @@ func get_current_spread() -> float:
 	if weapon_instance == null:
 		return 0.0
 
-	# Get spread including any buffs.
-	var spread := weapon_instance.get_spread()
+	var spread: float = weapon_instance.get_spread()
 
 	if is_aiming:
 		spread *= weapon_data.aim_spread_multiplier
@@ -231,16 +236,15 @@ func shoot(direction: Vector2) -> void:
 	if not can_shoot():
 		return
 
-
 	# ============================================
 	# USE AMMO
 	# ============================================
 
 	current_ammo -= 1
-
-	# Immediately save ammo to this weapon instance.
 	weapon_instance.current_ammo = current_ammo
 
+	# Tell HUD ammo changed
+	ammo_changed.emit(current_ammo, weapon_instance.get_magazine_size())
 
 	# ============================================
 	# FIRE COOLDOWN
@@ -249,21 +253,18 @@ func shoot(direction: Vector2) -> void:
 	fire_timer.wait_time = weapon_instance.get_fire_rate()
 	fire_timer.start()
 
-
 	# ============================================
 	# MUZZLE FLASH
 	# ============================================
 
 	play_muzzle_flash()
 
-
 	# ============================================
 	# SPAWN BULLETS
 	# ============================================
 
-	for i in range(weapon_data.bullets_per_shot):
+	for _i: int in range(weapon_data.bullets_per_shot):
 		spawn_bullet(direction)
-
 
 	# ============================================
 	# AUTO RELOAD
@@ -287,7 +288,6 @@ func reload() -> void:
 	if is_reloading:
 		return
 
-	# Don't reload a full magazine.
 	if current_ammo >= weapon_instance.get_magazine_size():
 		return
 
@@ -296,17 +296,25 @@ func reload() -> void:
 	reload_timer.wait_time = weapon_data.reload_time
 	reload_timer.start()
 
+	# Tell HUD to begin reload animation
+	reload_started.emit(weapon_data.reload_time)
+
+
+# ============================================
+# RELOAD FINISHED
+# ============================================
 
 func _on_reload_finished() -> void:
 	if weapon_instance == null:
 		return
 
 	current_ammo = weapon_instance.get_magazine_size()
-
-	# Save the new ammo amount.
 	weapon_instance.current_ammo = current_ammo
-
 	is_reloading = false
+
+	# Tell HUD actual reload finished
+	ammo_changed.emit(current_ammo, weapon_instance.get_magazine_size())
+	reload_finished.emit()
 
 
 # ============================================
@@ -334,9 +342,8 @@ func spawn_bullet(direction: Vector2) -> void:
 
 	var bullet = BULLET_SCENE.instantiate()
 
-	# Add bullet to the Y-sorted bullet container.
+	# Add bullet to Y-sorted bullet container
 	bullets_container.add_child(bullet)
-
 
 	# ============================================
 	# BULLET SPAWN POSITION
@@ -344,35 +351,19 @@ func spawn_bullet(direction: Vector2) -> void:
 
 	bullet.global_position = muzzle.global_position
 
-
 	# ============================================
 	# BULLET SPREAD
 	# ============================================
 
-	var half_spread: float = (
-		get_current_spread() / 2.0
-	)
-
-	var spread_degrees: float = randf_range(
-		-half_spread,
-		half_spread
-	)
-
-	var bullet_direction: Vector2 = (
-		direction.rotated(
-			deg_to_rad(spread_degrees)
-		)
-	)
-
+	var half_spread: float = get_current_spread() / 2.0
+	var spread_degrees: float = randf_range(-half_spread, half_spread)
+	var bullet_direction: Vector2 = direction.rotated(deg_to_rad(spread_degrees))
 
 	# ============================================
 	# BULLET STATS
 	# ============================================
 
 	bullet.direction = bullet_direction
-
-	# These now use the WeaponInstance so
-	# buffs stay attached to this specific gun.
 	bullet.speed = weapon_instance.get_bullet_speed()
 	bullet.damage = weapon_instance.get_damage()
 	bullet.pierce = weapon_instance.get_pierce()

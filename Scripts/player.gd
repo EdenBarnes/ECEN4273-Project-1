@@ -11,6 +11,8 @@ extends CharacterBody2D
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
+signal health_changed(current_health: int, max_health: int)
+
 # ============================================
 # WEAPON NODES
 # ============================================
@@ -538,6 +540,7 @@ func take_damage(amount: int) -> void:
 	# ============================================
 
 	current_health -= amount
+	health_changed.emit(current_health, max_health)
 
 	invulnerability_timer.start(invulnerability_duration)
 

@@ -356,21 +356,27 @@ func die() -> void:
 	is_dead = true
 	velocity = Vector2.ZERO
 
+	# Disable collisions
 	collision_shape.set_deferred("disabled", true)
-
 	attack_hitbox.set_deferred("monitoring", false)
 	attack_hitbox.set_deferred("monitorable", false)
 
-	player_hurtbox = null
-
-	travel_to("death")
-
-	await get_tree().create_timer(5.0).timeout
+	# ============================================
+	# NOTIFY WAVE MANAGER IMMEDIATELY
+	# ============================================
 
 	var wave_manager: Node = get_tree().get_first_node_in_group("wave_manager")
 
 	if wave_manager != null and wave_manager.has_method("on_enemy_died"):
 		wave_manager.on_enemy_died()
+
+	# ============================================
+	# DEATH ANIMATION
+	# ============================================
+
+	travel_to("death")
+
+	await get_tree().create_timer(5.0).timeout
 
 	queue_free()
 

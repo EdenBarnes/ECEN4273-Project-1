@@ -45,6 +45,8 @@ var next_stun_threshold: float = 0.75
 var flash_duration: float = 0.08
 var is_flashing: bool = false
 
+signal health_changed(current_health: int, max_health: int)
+
 
 # ============================================
 # MOVEMENT
@@ -281,6 +283,8 @@ func take_damage(amount: int) -> void:
 
 	var previous_health: int = current_health
 	current_health -= amount
+	
+	health_changed.emit(current_health, max_health)
 
 	# Flash every hit
 	flash_boss()

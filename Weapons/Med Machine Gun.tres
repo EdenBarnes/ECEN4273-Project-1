@@ -17,5 +17,5 @@ gun_scale = 1.2
 gun_visual_offset = Vector2(5, 4)
 muzzle_position = Vector2(18, -2)
 muzzle_flash_scale = 0.25
-aim_cone_length = 40.0
+aim_cone_length = 25.0
 metadata/_custom_type_script = "uid://dyiljw4u8w26d"
