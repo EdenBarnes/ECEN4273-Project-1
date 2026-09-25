@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://b3uifxuqat6co"]
+
+[ext_resource type="Script" uid="uid://bfetvs0s53sod" path="res://Scripts/box.gd" id="1_bwbx6"]
+[ext_resource type="Texture2D" uid="uid://wtb5g3k0qg2a" path="res://resources/Game Assets/The Box/Box Closed.png" id="2_1p1or"]
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="2_blxpg"]
+[ext_resource type="Resource" uid="uid://qm6g0uxvduw7" path="res://Weapons/pistol.tres" id="3_0ggsi"]
+[ext_resource type="Texture2D" uid="uid://bv3j8y3wqa23i" path="res://resources/Game Assets/The Box/Box Opened.png" id="3_w3grf"]
+[ext_resource type="Resource" uid="uid://7c76mprbvnba" path="res://Weapons/Long Rifle.tres" id="4_4v35w"]
+[ext_resource type="Resource" uid="uid://d2r7m2jsof6mj" path="res://Weapons/awp.tres" id="4_knq5v"]
+[ext_resource type="Texture2D" uid="uid://4tfqajq3ndve" path="res://resources/Game Assets/The Box/Box Open 5.png" id="4_u6ur3"]
+[ext_resource type="Texture2D" uid="uid://bmucg13kgy5q5" path="res://resources/Game Assets/The Box/Box Open 4.png" id="5_k4oan"]
+[ext_resource type="Resource" uid="uid://duhrfs0tp7ytb" path="res://Weapons/minigun.tres" id="5_kdrp6"]
+[ext_resource type="Texture2D" uid="uid://bapfdli57nwpr" path="res://resources/Game Assets/The Box/Box Open 3.png" id="6_3fdo8"]
+[ext_resource type="Resource" uid="uid://dlh8vsbht33cq" path="res://Weapons/P90 Smg.tres" id="6_qsq1q"]
+[ext_resource type="Resource" uid="uid://cwhc3dem1x20s" path="res://Weapons/Med Machine Gun.tres" id="7_6gue2"]
+[ext_resource type="Texture2D" uid="uid://nqdkef8f8ciu" path="res://resources/Game Assets/The Box/Box Open 2.png" id="7_s5u72"]
+[ext_resource type="Texture2D" uid="uid://mi0a7ctay7k0" path="res://resources/Game Assets/The Box/Box Open 1.png" id="8_blxpg"]
+[ext_resource type="Resource" uid="uid://cfc430rv8kcc2" path="res://Weapons/Big Sniper.tres" id="8_qoy0d"]
+[ext_resource type="Resource" uid="uid://dwiy38snj8kox" path="res://Weapons/AR.tres" id="9_7wohc"]
+[ext_resource type="Texture2D" uid="uid://ssotbfoq2v8d" path="res://resources/Game Assets/Guns/AK Rifle.png" id="9_8y33o"]
+[ext_resource type="Texture2D" uid="uid://dxybyaw0g7dot" path="res://resources/Game Assets/Guns/AR Rifle.png" id="10_i1q3g"]
+[ext_resource type="Resource" uid="uid://bq8poliqckdlc" path="res://Weapons/auto pistol.tres" id="10_od81c"]
+[ext_resource type="Texture2D" uid="uid://bk657lpoky88m" path="res://resources/Game Assets/Guns/Auto Pistol.png" id="11_hoyae"]
+[ext_resource type="Resource" uid="uid://byqx5qc34k75n" path="res://Weapons/MP5 Smg.tres" id="11_jtav5"]
+[ext_resource type="Texture2D" uid="uid://cct7uctc5h8sk" path="res://resources/Game Assets/Guns/Big Sniper.png" id="12_78u7d"]
+[ext_resource type="Resource" uid="uid://b60144w0hpksn" path="res://Weapons/Shotgun.tres" id="13_7vsr5"]
+[ext_resource type="Texture2D" uid="uid://b8nvevhp3j6vj" path="res://resources/Game Assets/Guns/Long Rifle.png" id="13_mg8he"]
+[ext_resource type="Texture2D" uid="uid://bc0o550mhtf7n" path="res://resources/Game Assets/Guns/Med Machine Gun.png" id="14_haa0t"]
+[ext_resource type="Resource" uid="uid://cthteocgooio6" path="res://Weapons/SAW Machine Gun.tres" id="14_n5jex"]
+[ext_resource type="Resource" uid="uid://b0d0cnrqgkkoa" path="res://Weapons/Small Machine Gun.tres" id="15_8uoyp"]
+[ext_resource type="Texture2D" uid="uid://8h4k3hhfhakt" path="res://resources/Game Assets/Guns/Minigun.png" id="15_eiy2y"]
+[ext_resource type="Texture2D" uid="uid://ldr8t436yrlx" path="res://resources/Game Assets/Guns/MP5 Smg.png" id="16_h11tu"]
+[ext_resource type="Resource" uid="uid://bdo0irxjcnmpg" path="res://Weapons/AK.tres" id="16_rsoaf"]
+[ext_resource type="Texture2D" uid="uid://ckwc8j27h2su6" path="res://resources/Game Assets/Guns/P90 Smg.png" id="17_1mm6j"]
+[ext_resource type="Resource" uid="uid://dbru6wi4du3hq" path="res://Weapons/Small Sniper.tres" id="17_b4xx6"]
+[ext_resource type="Texture2D" uid="uid://6na8eyelnf06" path="res://resources/Game Assets/Guns/SAW Machine Gun.png" id="18_c6gn3"]
+[ext_resource type="Texture2D" uid="uid://c358erw3yhnh3" path="res://resources/Game Assets/Guns/Shotgun.png" id="19_kwp8p"]
+[ext_resource type="Texture2D" uid="uid://gkjhh1saumun" path="res://resources/Game Assets/Guns/Small Machine Gun.png" id="20_7n7ym"]
+[ext_resource type="Texture2D" uid="uid://ciuf2mmb5t4q6" path="res://resources/Game Assets/Guns/Small Sniper.png" id="21_1deqt"]
+[ext_resource type="Texture2D" uid="uid://cg5fokvorvris" path="res://resources/Game Assets/Guns/Sniper Awp.png" id="22_4fbn1"]
+[ext_resource type="Texture2D" uid="uid://vpnkxp6ucglx" path="res://resources/Game Assets/Guns/Starter pistol.png" id="23_hjotf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1p1or")
+}],
+"loop": 0,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w3grf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u6ur3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k4oan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3fdo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3fdo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s5u72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s5u72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_blxpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1p1or")
+}],
+"loop": 0,
+"name": &"closing",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_blxpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s5u72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3fdo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k4oan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u6ur3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w3grf")
+}],
+"loop": 0,
+"name": &"opening",
+"speed": 15.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxr5g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_hjotf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_mg8he")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_eiy2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_1mm6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_haa0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_78u7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_i1q3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_hoyae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_h11tu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_4fbn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_kwp8p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_c6gn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_7n7ym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8y33o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_1deqt")
+}],
+"loop": 1,
+"name": &"weapons",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ggsi"]
+size = Vector2(102, 41.5)
+
+[node name="Gun Box" type="Node2D" unique_id=1238963525]
+script = ExtResource("1_bwbx6")
+possible_weapons = Array[ExtResource("2_blxpg")]([ExtResource("3_0ggsi"), ExtResource("4_4v35w"), ExtResource("5_kdrp6"), ExtResource("6_qsq1q"), ExtResource("7_6gue2"), ExtResource("8_qoy0d"), ExtResource("9_7wohc"), ExtResource("10_od81c"), ExtResource("11_jtav5"), ExtResource("4_knq5v"), ExtResource("13_7vsr5"), ExtResource("14_n5jex"), ExtResource("15_8uoyp"), ExtResource("16_rsoaf"), ExtResource("17_b4xx6")])
+roll_count = 6
+
+[node name="BoxSprite" type="AnimatedSprite2D" parent="." unique_id=1685099327]
+position = Vector2(-2, -16)
+scale = Vector2(0.16925047, 0.14381145)
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"opening"
+frame = 5
+frame_progress = 1.0
+
+[node name="WeaponDisplay" type="AnimatedSprite2D" parent="." unique_id=1597280299]
+position = Vector2(0, -25.000002)
+scale = Vector2(1.2506582, 1.2238562)
+sprite_frames = SubResource("SpriteFrames_dxr5g")
+animation = &"weapons"
+frame = 13
+frame_progress = 0.3808926
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1182509002]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1937567633]
+shape = SubResource("RectangleShape2D_0ggsi")
+
+[node name="Hitbox" type="StaticBody2D" parent="." unique_id=245567279]
+position = Vector2(-102, 34)
+collision_layer = 8
+collision_mask = 7
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Hitbox" unique_id=1258915137]
+position = Vector2(-1, 0)
+polygon = PackedVector2Array(77, -37, 72, -32, 77, -30, 127, -30, 134, -32, 129, -37, 122, -44, 85, -44)

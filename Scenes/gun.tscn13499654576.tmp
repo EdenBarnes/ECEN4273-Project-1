@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dvxppia2e5khl"]
+
+[ext_resource type="Script" uid="uid://b0n3kw8yd8efy" path="res://Scenes/gun.gd" id="1_oqrbh"]
+[ext_resource type="Resource" uid="uid://d2r7m2jsof6mj" path="res://Weapons/awp.tres" id="2_bsipy"]
+[ext_resource type="Script" uid="uid://dpkqqr26y87oh" path="res://Scenes/aim_cone.gd" id="3_t6ynv"]
+[ext_resource type="Texture2D" uid="uid://bma6o08en81uu" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (1).png" id="4_bsipy"]
+[ext_resource type="Texture2D" uid="uid://dj6qi5scs1vh7" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (2).png" id="5_ftlo2"]
+[ext_resource type="Texture2D" uid="uid://cirm81t2u4fs6" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (3).png" id="6_xlq0n"]
+[ext_resource type="Texture2D" uid="uid://d3cajk5f1sv1c" path="res://resources/Game Assets/Muzzle Flash Animation/Bullets (4).png" id="7_ae81u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bsipy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ftlo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xlq0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ae81u")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 20.0
+}]
+
+[node name="Gun" type="Node2D" unique_id=378236700]
+script = ExtResource("1_oqrbh")
+weapon_data = ExtResource("2_bsipy")
+
+[node name="GunPivot" type="Node2D" parent="." unique_id=1871070980]
+
+[node name="GunVisual" type="Node2D" parent="GunPivot" unique_id=1878633383]
+
+[node name="Sprite2D" type="Sprite2D" parent="GunPivot/GunVisual" unique_id=1393887279]
+
+[node name="MuzzlePosition" type="Marker2D" parent="GunPivot/GunVisual" unique_id=653940858]
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="GunPivot/GunVisual/MuzzlePosition" unique_id=1534610765]
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"shoot"
+
+[node name="AimCone" type="Node2D" parent="." unique_id=1742776978]
+script = ExtResource("3_t6ynv")
+
+[node name="FireTimer" type="Timer" parent="." unique_id=1684075318]
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=948974383]
+one_shot = true

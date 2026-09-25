@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Waves2" format=3 uid="uid://cfjwbkawj07wl"]
+
+[ext_resource type="Script" uid="uid://oeg837hwnv5f" path="res://Scripts/Waves.gd" id="1_prln4"]
+
+[resource]
+script = ExtResource("1_prln4")
+SpawnMaxEne = 10
+normalper = 0
+Sprintper = 100
+metadata/_custom_type_script = "uid://oeg837hwnv5f"
