@@ -341,7 +341,32 @@ func complete_wave() -> void:
 		enemy_spawner.stop_spawning()
 
 	# ============================================
+	# COLLECT REMAINING COINS
+	# ============================================
+
+	call_deferred("collect_remaining_coins")
+
+	# ============================================
 	# PREPARE NEXT WAVE
 	# ============================================
 
 	start_wave(current_wave_index + 1)
+
+
+# ============================================
+# COLLECT REMAINING COINS
+# ============================================
+
+func collect_remaining_coins() -> void:
+	await get_tree().process_frame
+
+	var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
+
+	if player == null:
+		return
+
+	var coins: Array[Node] = get_tree().get_nodes_in_group("coins")
+
+	for coin: Node in coins:
+		if coin.has_method("move_to_player"):
+			coin.move_to_player(player)

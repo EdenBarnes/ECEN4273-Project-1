@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxcilfrcm7rf5"
-path="res://.godot/imported/Bolt1.png-c626219f0fd170cbac6fef7e419d872b.ctex"
+uid="uid://qs7a7pk734gn"
+path="res://.godot/imported/Exit_button_hover.png-a369df7a1ca0b9a42c20f0eded37616d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Bolt1.png"
-dest_files=["res://.godot/imported/Bolt1.png-c626219f0fd170cbac6fef7e419d872b.ctex"]
+source_file="res://resources/Game Assets/MainMenu/Exit_button_hover.png"
+dest_files=["res://.godot/imported/Exit_button_hover.png-a369df7a1ca0b9a42c20f0eded37616d.ctex"]
 
 [params]
 

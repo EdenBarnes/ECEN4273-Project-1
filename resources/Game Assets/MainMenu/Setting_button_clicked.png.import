@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8watu88ny81o"
-path="res://.godot/imported/Setting_button_hover.png-c04ffd2eca928f2e472f2c54f005a5ad.ctex"
+uid="uid://brtcowtl21vms"
+path="res://.godot/imported/Setting_button_clicked.png-a6109d873363099a493e7ecc8c724a3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Setting_button_hover.png"
-dest_files=["res://.godot/imported/Setting_button_hover.png-c04ffd2eca928f2e472f2c54f005a5ad.ctex"]
+source_file="res://resources/Game Assets/MainMenu/Setting_button_clicked.png"
+dest_files=["res://.godot/imported/Setting_button_clicked.png-a6109d873363099a493e7ecc8c724a3b.ctex"]
 
 [params]
 

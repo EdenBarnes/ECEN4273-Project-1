@@ -9,6 +9,7 @@ extends Node2D
 @onready var weapon_display: AnimatedSprite2D = $WeaponDisplay
 @onready var interaction_area: Area2D = $InteractionArea
 
+var interaction_box: Control = null
 
 # ============================================
 # BOX SETTINGS
@@ -27,7 +28,10 @@ extends Node2D
 
 @export_category("Position Settings")
 
-@export var starting_distance_from_player: float = 40.0
+@export var spawn_locations: Array[Marker2D]
+@export var starting_location: int = 0
+
+var current_location: int = 0
 
 
 # ============================================
@@ -48,6 +52,18 @@ extends Node2D
 
 # How many weapon flashes happen before stopping.
 @export var roll_count: int = 15
+
+# ============================================
+# PRICE SETTINGS
+# ============================================
+
+@export_category("Price Settings")
+
+@export var starting_cost: int = 10
+@export var cost_increase: int = 5
+
+var current_cost: int = 0
+var has_been_opened: bool = false
 
 
 # ============================================
@@ -76,15 +92,16 @@ func _ready() -> void:
 	interaction_area.body_entered.connect(_on_body_entered)
 	interaction_area.body_exited.connect(_on_body_exited)
 
-	box_sprite.animation_finished.connect(
-		_on_box_animation_finished
-	)
+	box_sprite.animation_finished.connect(_on_box_animation_finished)
 
 	box_sprite.play("closed")
 
 	weapon_display.visible = false
 	weapon_display.stop()
 
+	current_cost = starting_cost
+
+	call_deferred("find_interaction_box")
 	call_deferred("set_starting_position")
 
 
@@ -93,15 +110,17 @@ func _ready() -> void:
 # ============================================
 
 func set_starting_position() -> void:
-	var player_node = get_tree().get_first_node_in_group("player")
-
-	if player_node == null:
+	if spawn_locations.is_empty():
+		print("ERROR: Gun Box has no spawn locations!")
 		return
 
-	global_position = player_node.global_position + Vector2(
-		0,
-		-starting_distance_from_player
-	)
+	current_location = clampi(starting_location, 0, spawn_locations.size() - 1)
+
+	if spawn_locations[current_location] == null:
+		print("ERROR: Starting Gun Box location is empty!")
+		return
+
+	global_position = spawn_locations[current_location].global_position
 
 
 # ============================================
@@ -148,17 +167,26 @@ func _process(_delta: float) -> void:
 # ============================================
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		player_in_range = true
-		player = body
+	if not body.is_in_group("player"):
+		return
+
+	player_in_range = true
+	player = body
+
+	update_interaction_text()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		player_in_range = false
+	if not body.is_in_group("player"):
+		return
 
-		if player == body:
-			player = null
+	player_in_range = false
+
+	if player == body:
+		player = null
+
+	if interaction_box != null:
+		interaction_box.hide_text()
 
 
 # ============================================
@@ -169,9 +197,33 @@ func open_box() -> void:
 	if is_opening or is_open or is_rolling or is_closing:
 		return
 
+	if player == null:
+		return
+
+	# ============================================
+	# CHECK COST
+	# ============================================
+
+	if not player.has_method("remove_coins"):
+		return
+
+	var purchase_successful: bool = player.remove_coins(current_cost)
+
+	if not purchase_successful:
+		if interaction_box != null:
+			interaction_box.show_text("Not Enough Coins")
+		return
+
+	has_been_opened = true
+
+	# ============================================
+	# OPEN BOX
+	# ============================================
+
 	is_opening = true
 
-	# Make sure an old weapon isn't visible.
+	update_interaction_text()
+
 	weapon_display.visible = false
 	selected_weapon = null
 
@@ -204,7 +256,6 @@ func _on_box_animation_finished() -> void:
 	# ============================================
 
 	elif box_sprite.animation == "closing":
-
 		is_closing = false
 		is_open = false
 
@@ -212,6 +263,14 @@ func _on_box_animation_finished() -> void:
 		selected_weapon = null
 
 		box_sprite.play("closed")
+
+		player_in_range = false
+		player = null
+
+		if interaction_box != null:
+			interaction_box.hide_text()
+
+		move_to_random_location()
 
 
 # ============================================
@@ -283,12 +342,14 @@ func start_weapon_roll() -> void:
 
 	is_rolling = false
 
+	current_cost += cost_increase
+
+	update_interaction_text()
 
 	# ============================================
 	# START OPEN TIMER
 	# ============================================
 
-	# Give this weapon roll a unique ID.
 	current_roll_id += 1
 
 	var this_roll_id: int = current_roll_id
@@ -373,6 +434,8 @@ func take_weapon() -> void:
 	# ============================================
 
 	if not weapon_added:
+		if interaction_box != null:
+			interaction_box.show_text("Same Weapon Equipped")
 		return
 
 
@@ -408,6 +471,7 @@ func close_box() -> void:
 	is_rolling = false
 	is_closing = true
 
+	update_interaction_text()
 
 	# ============================================
 	# REMOVE WEAPON DISPLAY
@@ -421,3 +485,65 @@ func close_box() -> void:
 	# ============================================
 
 	box_sprite.play("closing")
+
+# ============================================
+# UPDATE INTERACTION TEXT
+# ============================================
+
+func update_interaction_text() -> void:
+	if interaction_box == null:
+		return
+
+	if not player_in_range:
+		interaction_box.hide_text()
+		return
+
+	if is_opening or is_rolling:
+		interaction_box.show_text("Rolling...")
+		return
+
+	if is_open and selected_weapon != null:
+		interaction_box.show_text("Press \"E\" to Equip")
+		return
+
+	if is_closing:
+		interaction_box.hide_text()
+		return
+
+	if has_been_opened:
+		interaction_box.show_text("Open for " + str(current_cost) + " Coins?")
+	else:
+		interaction_box.show_text("Open for " + str(current_cost) + " Coins?\nPress \"E\" to Open")
+
+
+# ============================================
+# FIND INTERACTION BOX
+# ============================================
+
+func find_interaction_box() -> void:
+	interaction_box = get_tree().get_first_node_in_group("interaction_box") as Control
+
+	if interaction_box == null:
+		print("ERROR: Gun Box could not find InteractionBox!")
+	else:
+		print("Gun Box found InteractionBox!")
+
+
+# ============================================
+# MOVE TO RANDOM LOCATION
+# ============================================
+
+func move_to_random_location() -> void:
+	if spawn_locations.size() <= 1:
+		return
+
+	var new_location: int = current_location
+
+	while new_location == current_location:
+		new_location = randi_range(0, spawn_locations.size() - 1)
+
+	if spawn_locations[new_location] == null:
+		return
+
+	current_location = new_location
+	global_position = spawn_locations[current_location].global_position

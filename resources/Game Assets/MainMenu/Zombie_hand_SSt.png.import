@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxy2gdj13se7x"
-path="res://.godot/imported/texture216.png-0c81191a5fd99250da32db98a11adba3.ctex"
+uid="uid://1v0252srpwcc"
+path="res://.godot/imported/Zombie_hand_SSt.png-711f24b5f3a131bc0cd37a917e4f893b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/texture216.png"
-dest_files=["res://.godot/imported/texture216.png-0c81191a5fd99250da32db98a11adba3.ctex"]
+source_file="res://resources/Game Assets/MainMenu/Zombie_hand_SSt.png"
+dest_files=["res://.godot/imported/Zombie_hand_SSt.png-711f24b5f3a131bc0cd37a917e4f893b.ctex"]
 
 [params]
 

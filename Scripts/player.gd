@@ -128,7 +128,7 @@ func _ready() -> void:
 	# PLAYER START POSITION
 	# ============================================
 
-	position = get_viewport_rect().size / 2.0
+	global_position = Vector2(785, 330)
 
 # ============================================
 # PHYSICS PROCESS
@@ -596,3 +596,30 @@ func travel_to(state_name: String) -> void:
 		"parameters/" + state_name + "/blend_position",
 		facing_direction
 	)
+
+# ============================================
+# COINS
+# ============================================
+
+var coins: int = 0
+
+signal coins_changed(current_coins: int)
+
+
+func add_coins(amount: int) -> void:
+	coins += amount
+	coins_changed.emit(coins)
+
+
+func remove_coins(amount: int) -> bool:
+	if coins < amount:
+		return false
+
+	coins -= amount
+	coins_changed.emit(coins)
+
+	return true
+
+
+func get_coins() -> int:
+	return coins

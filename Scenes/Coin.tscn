@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://t0vcp3r7idr6"]
+
+[ext_resource type="Script" uid="uid://n5gqhceb56ay" path="res://Scripts/coin.gd" id="1_somhs"]
+[ext_resource type="Texture2D" uid="uid://cg6wpgkjpfy1i" path="res://resources/Game Assets/One offs/Coin.png" id="2_wjfxq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xadyu"]
+radius = 7.0
+height = 18.0
+
+[node name="Coin" type="Area2D" unique_id=883686689]
+collision_layer = 32
+script = ExtResource("1_somhs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1383754533]
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_wjfxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=761356779]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_xadyu")

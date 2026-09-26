@@ -84,6 +84,12 @@
 [ext_resource type="Texture2D" uid="uid://cjed8lvdgayrh" path="res://resources/Hud/health/Sprite-0020.png" id="62_ot5ec"]
 [ext_resource type="Script" uid="uid://gbjeh0nno78b" path="res://Scripts/health_display.gd" id="83_aok0f"]
 [ext_resource type="Script" uid="uid://wh2us5jojg2c" path="res://Scripts/wave_display.gd" id="84_6h1fc"]
+[ext_resource type="Texture2D" uid="uid://c4st7uvkumbhg" path="res://resources/Hud/Boss Health Bar/BossHealth1.png" id="85_k8rh3"]
+[ext_resource type="Texture2D" uid="uid://kc2jhkd37w8i" path="res://resources/Hud/Textbox.png" id="85_vxl7x"]
+[ext_resource type="Texture2D" uid="uid://cl0b1qtvf46qe" path="res://resources/Hud/Boss Health Bar/BossHealth2.png" id="86_55idt"]
+[ext_resource type="Script" uid="uid://rf5ojer82l16" path="res://Scripts/text_box.gd" id="87_55idt"]
+[ext_resource type="Script" uid="uid://b2w5gr0jk44vk" path="res://Scripts/coins_display.gd" id="89_33qc4"]
+[ext_resource type="Texture2D" uid="uid://cg6wpgkjpfy1i" path="res://resources/Game Assets/One offs/Coin.png" id="90_e6rcu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -279,13 +285,13 @@ texture = ExtResource("5_21xkr")
 y_sort_enabled = true
 
 [node name="Player" parent="YSortWorld" unique_id=1057855715 instance=ExtResource("1_bo1nx")]
-position = Vector2(-180, 112)
+position = Vector2(792, 320)
 
 [node name="WorldObjects" type="Node2D" parent="YSortWorld" unique_id=38907863]
 y_sort_enabled = true
 
 [node name="DeadTree" parent="YSortWorld/WorldObjects" unique_id=975194361 instance=ExtResource("3_hibaj")]
-position = Vector2(780, 158)
+position = Vector2(774, 159)
 
 [node name="DeadTree3" parent="YSortWorld/WorldObjects" unique_id=1041065522 instance=ExtResource("3_hibaj")]
 position = Vector2(626, 574)
@@ -297,7 +303,7 @@ position = Vector2(1123, 626)
 position = Vector2(1419, 849)
 
 [node name="DeadTree6" parent="YSortWorld/WorldObjects" unique_id=1306383768 instance=ExtResource("3_hibaj")]
-position = Vector2(1007, 980)
+position = Vector2(1022, 972)
 
 [node name="DeadTree7" parent="YSortWorld/WorldObjects" unique_id=449117842 instance=ExtResource("3_hibaj")]
 position = Vector2(120, 621)
@@ -372,7 +378,7 @@ position = Vector2(727, 204)
 position = Vector2(745, 453)
 
 [node name="Rock10" parent="YSortWorld/WorldObjects" unique_id=2146230093 instance=ExtResource("5_344ge")]
-position = Vector2(1116, 453)
+position = Vector2(1165, 529)
 
 [node name="Rock11" parent="YSortWorld/WorldObjects" unique_id=755081904 instance=ExtResource("5_344ge")]
 position = Vector2(1473, 333)
@@ -393,7 +399,7 @@ position = Vector2(267, 103)
 position = Vector2(640, 792)
 
 [node name="Rock12" parent="YSortWorld/WorldObjects" unique_id=1778888687 instance=ExtResource("7_hptm8")]
-position = Vector2(864, 655)
+position = Vector2(921, 607)
 
 [node name="Rock13" parent="YSortWorld/WorldObjects" unique_id=1627570638 instance=ExtResource("7_hptm8")]
 position = Vector2(674, 330)
@@ -406,7 +412,7 @@ position = Vector2(1029, 379)
 
 [node name="Big Grass" parent="YSortWorld/WorldObjects" unique_id=1136508815 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(883, 623)
+position = Vector2(869, 669)
 
 [node name="Big Grass2" parent="YSortWorld/WorldObjects" unique_id=1011674702 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -486,7 +492,7 @@ position = Vector2(910, 198)
 
 [node name="Big Grass21" parent="YSortWorld/WorldObjects" unique_id=889760527 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(976, 182)
+position = Vector2(993, 146)
 
 [node name="Big Grass22" parent="YSortWorld/WorldObjects" unique_id=1992901609 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -518,7 +524,7 @@ position = Vector2(1104, 713)
 
 [node name="Big Grass29" parent="YSortWorld/WorldObjects" unique_id=1729035351 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1177, 574)
+position = Vector2(1182, 569)
 
 [node name="Big Grass30" parent="YSortWorld/WorldObjects" unique_id=2100289995 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -654,7 +660,7 @@ position = Vector2(1392, 784)
 
 [node name="Small Grass15" parent="YSortWorld/WorldObjects" unique_id=1531392694 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1173, 747)
+position = Vector2(1301, 662)
 
 [node name="Small Grass16" parent="YSortWorld/WorldObjects" unique_id=1153919999 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -686,7 +692,7 @@ position = Vector2(1490, 532)
 
 [node name="Small Grass23" parent="YSortWorld/WorldObjects" unique_id=980093476 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1391, 470)
+position = Vector2(1388, 518)
 
 [node name="Small Grass24" parent="YSortWorld/WorldObjects" unique_id=1826870630 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -887,22 +893,22 @@ position = Vector2(432, 338)
 position = Vector2(1091, 273)
 
 [node name="Cabin4" parent="YSortWorld/WorldObjects" unique_id=1842281385 instance=ExtResource("14_h1bgf")]
-position = Vector2(1281, 711)
+position = Vector2(1225, 772)
 
 [node name="Campfire" parent="YSortWorld/WorldObjects" unique_id=2000045201 instance=ExtResource("15_fevyy")]
-position = Vector2(1361, 388)
+position = Vector2(1356, 448)
 
 [node name="Stump" parent="YSortWorld/WorldObjects" unique_id=926026617 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1302, 378)
+position = Vector2(1402, 473)
 
 [node name="Stump6" parent="YSortWorld/WorldObjects" unique_id=1088091967 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1234, 554)
+position = Vector2(1249, 606)
 
 [node name="Stump7" parent="YSortWorld/WorldObjects" unique_id=568564600 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1032, 815)
+position = Vector2(1047, 744)
 
 [node name="Stump8" parent="YSortWorld/WorldObjects" unique_id=1477505348 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -918,15 +924,15 @@ position = Vector2(250, 237)
 
 [node name="Stump2" parent="YSortWorld/WorldObjects" unique_id=2117836138 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1326, 417)
+position = Vector2(1323, 403)
 
 [node name="Stump3" parent="YSortWorld/WorldObjects" unique_id=1544917665 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1391, 420)
+position = Vector2(1395, 415)
 
 [node name="Stump4" parent="YSortWorld/WorldObjects" unique_id=1245743225 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1418, 369)
+position = Vector2(1329, 494)
 
 [node name="Stump5" parent="YSortWorld/WorldObjects" unique_id=871015497 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -946,7 +952,7 @@ position = Vector2(1385, 108)
 
 [node name="Stump14" parent="YSortWorld/WorldObjects" unique_id=415832226 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1014, 140)
+position = Vector2(974, 189)
 
 [node name="Stump15" parent="YSortWorld/WorldObjects" unique_id=53792064 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -962,8 +968,25 @@ y_sort_enabled = true
 [node name="Bullets" type="Node2D" parent="YSortWorld" unique_id=1207173388]
 y_sort_enabled = true
 
-[node name="Gun Box" parent="YSortWorld" unique_id=2096251236 instance=ExtResource("3_21xkr")]
+[node name="Coins" type="Node2D" parent="YSortWorld" unique_id=486020233]
+
+[node name="Gun Box" parent="YSortWorld" unique_id=2096251236 node_paths=PackedStringArray("spawn_locations") instance=ExtResource("3_21xkr")]
+position = Vector2(626, 278)
+spawn_locations = [NodePath("../GunBoxLocations/Location1"), NodePath("../GunBoxLocations/Location2"), NodePath("../GunBoxLocations/Location3"), NodePath("../GunBoxLocations/Location4")]
+
+[node name="GunBoxLocations" type="Node2D" parent="YSortWorld" unique_id=1283220873]
+
+[node name="Location1" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1052438292]
 position = Vector2(626, 279)
+
+[node name="Location2" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1745390846]
+position = Vector2(1115, 448)
+
+[node name="Location3" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1611885188]
+position = Vector2(607, 619)
+
+[node name="Location4" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=684160254]
+position = Vector2(1040, 843)
 
 [node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_8gbba")]
 position = Vector2(-117, 199)
@@ -1009,6 +1032,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Ammo" type="Control" parent="HUD/HUDRoot" unique_id=1833018582]
 layout_mode = 1
@@ -1036,9 +1060,8 @@ grow_vertical = 0
 script = ExtResource("30_8cuat")
 
 [node name="Ammo" type="AnimatedSprite2D" parent="HUD/HUDRoot/Ammo/WeaponDisplay" unique_id=215659987]
-modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(-51, -50)
-scale = Vector2(1.5, 1.5)
+position = Vector2(-37, -35)
+scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_xadyu")
 animation = &"ammo"
 
@@ -1049,15 +1072,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -126.0
-offset_right = 10.0
-offset_bottom = 9.0
+offset_left = -117.0
+offset_top = -113.0
+offset_right = 17.0
+offset_bottom = 22.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.23392534, 0.23392552, 0.2339254, 1)
 theme_override_fonts/font = ExtResource("61_qax2n")
-theme_override_font_sizes/font_size = 65
+theme_override_font_sizes/font_size = 45
 text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1080,21 +1103,21 @@ grow_vertical = 0
 script = ExtResource("83_aok0f")
 
 [node name="Health" type="AnimatedSprite2D" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=2002610036]
-modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(89, -94)
-scale = Vector2(1.5, 1.5)
+position = Vector2(75, -78)
+scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_xadyu")
 animation = &"health"
 
 [node name="HealthText" type="Label" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=1304885535]
 layout_mode = 1
-offset_left = -8.0
-offset_top = -127.0
-offset_right = 126.0
-offset_bottom = 8.0
+offset_left = -4.999985
+offset_top = -74.000015
+offset_right = 78.000015
+offset_bottom = -27.800003
+scale = Vector2(1.25, 1.25)
 theme_override_colors/font_color = Color(0.9858839, 0.7636446, 0.74687356, 1)
 theme_override_fonts/font = ExtResource("61_qax2n")
-theme_override_font_sizes/font_size = 65
+theme_override_font_sizes/font_size = 35
 text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1145,25 +1168,97 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BossHealthBar" type="ProgressBar" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=564542573]
+[node name="BossHealthBar" type="TextureProgressBar" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=717881542]
+modulate = Color(1, 1, 1, 0.6392157)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -244.25
-offset_top = 56.0
-offset_right = 244.25
-offset_bottom = 98.0
+offset_left = -206.5625
+offset_top = 55.0
+offset_right = 206.5625
+offset_bottom = 84.0
 grow_horizontal = 2
 value = 100.0
-show_percentage = false
+nine_patch_stretch = true
+texture_under = ExtResource("85_k8rh3")
+texture_progress = ExtResource("86_55idt")
 
 [node name="BossHealthText" type="Label" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=2120011591]
 layout_mode = 0
-offset_left = -212.0
-offset_top = 65.0
-offset_right = -155.0
-offset_bottom = 88.0
+offset_left = -123.0
+offset_top = 56.0
+offset_right = -66.0
+offset_bottom = 79.0
 theme_override_fonts/font = ExtResource("61_qax2n")
 text = "999999"
+vertical_alignment = 1
+
+[node name="TextBox" type="Control" parent="HUD/HUDRoot" unique_id=1188030009]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(20, 0)
+script = ExtResource("87_55idt")
+
+[node name="TextBoxBackground" type="Sprite2D" parent="HUD/HUDRoot/TextBox" unique_id=847509872]
+position = Vector2(20, 3)
+scale = Vector2(2, 1.5)
+texture = ExtResource("85_vxl7x")
+
+[node name="HelpfulText" type="Label" parent="HUD/HUDRoot/TextBox" unique_id=254970922]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -71.0
+offset_right = 196.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("61_qax2n")
+theme_override_font_sizes/font_size = 20
+text = "Press \"E\"
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coins" type="Control" parent="HUD/HUDRoot" unique_id=1081683645]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("89_33qc4")
+
+[node name="Coin" type="Sprite2D" parent="HUD/HUDRoot/Coins" unique_id=493996342]
+position = Vector2(19, 27)
+scale = Vector2(6, 6)
+texture = ExtResource("90_e6rcu")
+
+[node name="CoinText" type="Label" parent="HUD/HUDRoot/Coins" unique_id=2116115066]
+layout_mode = 0
+offset_left = -51.0
+offset_top = 17.0
+offset_right = 26.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0.13578653, 0.116170146, 0, 1)
+theme_override_fonts/font = ExtResource("61_qax2n")
+theme_override_font_sizes/font_size = 24
+text = "9999"
+horizontal_alignment = 2
 vertical_alignment = 1

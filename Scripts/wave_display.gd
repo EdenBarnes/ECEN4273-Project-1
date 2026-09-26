@@ -9,7 +9,7 @@ extends Control
 @onready var status_text: Label = $StatusText
 
 @onready var boss_health: Control = $BossHealth
-@onready var boss_health_bar: ProgressBar = $BossHealth/BossHealthBar
+@onready var boss_health_bar: TextureProgressBar = $BossHealth/BossHealthBar
 @onready var boss_health_text: Label = $BossHealth/BossHealthText
 
 
