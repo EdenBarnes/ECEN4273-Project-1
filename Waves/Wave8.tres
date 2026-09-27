@@ -4,6 +4,11 @@
 
 [resource]
 script = ExtResource("1_h3wyj")
-Sprintper = 50
-normalper = 50
+EneDamMult = 2
+EneSpeedMult = 1.25
+EneHealthMult = 3
+SpawnMaxEne = 65
+normalper = 40
+Sprintper = 30
+bigper = 30
 metadata/_custom_type_script = "uid://oeg837hwnv5f"

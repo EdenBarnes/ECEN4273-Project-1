@@ -4,10 +4,8 @@
 
 [resource]
 script = ExtResource("1_rpsem")
-SpawnInterval = 0.1
-SpawnMaxEne = 1
+SpawnMaxEne = 10
 StartDelay = 10.0
-Bossspawn = true
 Bosshealth = 1000
 BossSpeed = 5
 BossSize = 2

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_prln4")
-SpawnMaxEne = 10
-normalper = 0
-Sprintper = 100
+SpawnMaxEne = 15
+normalper = 90
+Sprintper = 10
 metadata/_custom_type_script = "uid://oeg837hwnv5f"
