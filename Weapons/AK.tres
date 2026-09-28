@@ -6,9 +6,8 @@
 [resource]
 script = ExtResource("1_bkg3u")
 weapon_texture = ExtResource("2_bkg3u")
-damage = 35
 bullet_speed = 600.0
-fire_rate = 0.25
+fire_rate = 0.2
 magazine_size = 30
 reload_time = 2.0
 spread_angle = 15.0

@@ -6,8 +6,10 @@
 [resource]
 script = ExtResource("1_m13r2")
 weapon_texture = ExtResource("2_m13r2")
-damage = 65
+damage = 80
 bullet_speed = 600.0
+fire_rate = 0.4
+pierce = 3
 magazine_size = 8
 reload_time = 1.5
 spread_angle = 15.0

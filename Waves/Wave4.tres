@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_og8o5")
 EneSpeedMult = 1.1
-SpawnMaxEne = 30
+SpawnMaxEne = 25
+StartDelay = 7.5
 normalper = 60
 Sprintper = 25
 bigper = 15

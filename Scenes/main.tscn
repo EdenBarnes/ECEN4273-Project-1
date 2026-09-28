@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://gqy2arulhisc" path="res://Scenes/enemy_spawner.tscn" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://b6p7uakagms5u" path="res://Scenes/Background Scenes/Tree.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b3uifxuqat6co" path="res://Scenes/Gun Box.tscn" id="3_21xkr"]
+[ext_resource type="Resource" uid="uid://dwiy38snj8kox" path="res://Weapons/AR.tres" id="3_e6rcu"]
 [ext_resource type="PackedScene" uid="uid://c24lwu73a7pj0" path="res://Scenes/Background Scenes/DeadTree1.tscn" id="3_hibaj"]
 [ext_resource type="PackedScene" uid="uid://20q7iee3gxli" path="res://Scenes/Background Scenes/DeadTree2.tscn" id="4_pdsj5"]
 [ext_resource type="Texture2D" uid="uid://cmxj26nsqtj52" path="res://resources/Background/Background Background.png" id="5_21xkr"]
@@ -286,6 +287,7 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSortWorld" unique_id=1057855715 instance=ExtResource("1_bo1nx")]
 position = Vector2(792, 320)
+starting_weapon = ExtResource("3_e6rcu")
 
 [node name="WorldObjects" type="Node2D" parent="YSortWorld" unique_id=38907863]
 y_sort_enabled = true

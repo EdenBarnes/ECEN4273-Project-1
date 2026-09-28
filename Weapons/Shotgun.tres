@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_m8y1h")
 weapon_texture = ExtResource("2_m8y1h")
-damage = 15
+damage = 30
 fire_rate = 0.4
 bullets_per_shot = 10
 magazine_size = 8
