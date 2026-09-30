@@ -408,7 +408,7 @@ position = Vector2(674, 330)
 position = Vector2(824, 39)
 
 [node name="Rock15" parent="YSortWorld/WorldObjects" unique_id=1878387821 instance=ExtResource("7_hptm8")]
-position = Vector2(1029, 379)
+position = Vector2(991, 380)
 
 [node name="Big Grass" parent="YSortWorld/WorldObjects" unique_id=1136508815 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)

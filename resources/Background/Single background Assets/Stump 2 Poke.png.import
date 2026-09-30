@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxskugfixqy4p"
-path="res://.godot/imported/Stump 2.png-1bd547ddf80424f95425e2bc5de4489d.ctex"
+uid="uid://45687fdh464l"
+path="res://.godot/imported/Stump 2 Poke.png-1b456bbfca183d99c6af656e288aceaf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Background/Single background Assets/Stump 2.png"
-dest_files=["res://.godot/imported/Stump 2.png-1bd547ddf80424f95425e2bc5de4489d.ctex"]
+source_file="res://resources/Background/Single background Assets/Stump 2 Poke.png"
+dest_files=["res://.godot/imported/Stump 2 Poke.png-1b456bbfca183d99c6af656e288aceaf.ctex"]
 
 [params]
 

@@ -5,6 +5,5 @@
 [node name="Rock" type="Node2D" unique_id=2136756238]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
-position = Vector2(-1, -6)
-scale = Vector2(0.4, 0.4)
+position = Vector2(0, -5)
 texture = ExtResource("1_6sscx")

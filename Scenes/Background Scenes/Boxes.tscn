@@ -7,12 +7,11 @@ collision_layer = 8
 collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
-position = Vector2(0, -16)
-scale = Vector2(0.4, 0.4)
+position = Vector2(0, -13)
 texture = ExtResource("1_oiq6g")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=26311215]
 position = Vector2(0.99999994, -1)
 rotation = -1.5715833
 scale = Vector2(0.4, 0.4)
-polygon = PackedVector2Array(-14.972451, -35.01179, -15.005897, 7.4881926, -5.0255737, 32.49605, 7.4744215, 32.50589, 12.490158, 12.509832, 12.521636, -27.490152)
+polygon = PackedVector2Array(-9.976388, -30.007856, -10.0058975, 7.4921274, -0.021640778, 27.499989, 4.9783573, 27.503923, 4.9901614, 12.50393, 5.0216393, -27.496056)
