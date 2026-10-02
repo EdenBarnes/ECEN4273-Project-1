@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxskugfixqy4p"
-path="res://.godot/imported/Stump 2.png-1bd547ddf80424f95425e2bc5de4489d.ctex"
+uid="uid://c4g4o2tn11veh"
+path="res://.godot/imported/PerkCoin08.png-3df8582d697f53d10844f52c9677c66c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Background/Single background Assets/Stump 2.png"
-dest_files=["res://.godot/imported/Stump 2.png-1bd547ddf80424f95425e2bc5de4489d.ctex"]
+source_file="res://resources/Game Assets/PerkCoins/PerkCoin08.png"
+dest_files=["res://.godot/imported/PerkCoin08.png-3df8582d697f53d10844f52c9677c66c.ctex"]
 
 [params]
 

@@ -1356,7 +1356,7 @@ position = Vector2(0, -14)
 [node name="Gun" parent="WeaponHolder" unique_id=378236700 instance=ExtResource("6_x3wgy")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1665623308]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(1.75, 1.75)
 limit_left = 0
 limit_top = 0
 limit_right = 1536
