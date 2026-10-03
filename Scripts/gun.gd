@@ -110,11 +110,42 @@ func save_weapon_state() -> void:
 # ============================================
 
 func setup_weapon() -> void:
+	if weapon_instance == null or weapon_data == null:
+		return
+
+	if weapon_data.weapon_texture:
+		sprite.texture = weapon_data.weapon_texture
+
+	scale = Vector2.ONE * weapon_data.gun_scale
+
+	gun_pivot.position = Vector2.ZERO
+	gun_visual.position = weapon_data.gun_visual_offset
+	muzzle.position = weapon_data.muzzle_position
+	aim_cone.position = gun_visual.position + muzzle.position
+
+	muzzle_flash.scale = Vector2.ONE * weapon_data.muzzle_flash_scale
+
+	refresh_perk_stats()
+
+
+# ============================================
+# REFRESH PERK STATS
+# ============================================
+
+func refresh_perk_stats() -> void:
 	if weapon_instance == null:
 		return
 
-	if weapon_data == null:
-		return
+	fire_timer.wait_time = weapon_instance.get_fire_rate()
+	reload_timer.wait_time = weapon_instance.get_reload_time()
+
+	var magazine_size: int = weapon_instance.get_magazine_size()
+
+	if current_ammo > magazine_size:
+		current_ammo = magazine_size
+		weapon_instance.current_ammo = current_ammo
+
+	ammo_changed.emit(current_ammo, magazine_size)
 
 	# ============================================
 	# WEAPON TEXTURE
@@ -172,7 +203,7 @@ func get_current_spread() -> float:
 	var spread: float = weapon_instance.get_spread()
 
 	if is_aiming:
-		spread *= weapon_data.aim_spread_multiplier
+		spread *= weapon_instance.get_aim_spread_multiplier()
 
 	return spread
 
@@ -263,7 +294,7 @@ func shoot(direction: Vector2) -> void:
 	# SPAWN BULLETS
 	# ============================================
 
-	for _i: int in range(weapon_data.bullets_per_shot):
+	for _i: int in range(weapon_instance.get_bullets_per_shot()):
 		spawn_bullet(direction)
 
 	# ============================================
@@ -279,10 +310,7 @@ func shoot(direction: Vector2) -> void:
 # ============================================
 
 func reload() -> void:
-	if weapon_instance == null:
-		return
-
-	if weapon_data == null:
+	if weapon_instance == null or weapon_data == null:
 		return
 
 	if is_reloading:
@@ -293,11 +321,12 @@ func reload() -> void:
 
 	is_reloading = true
 
-	reload_timer.wait_time = weapon_data.reload_time
+	var reload_time: float = weapon_instance.get_reload_time()
+
+	reload_timer.wait_time = reload_time
 	reload_timer.start()
 
-	# Tell HUD to begin reload animation
-	reload_started.emit(weapon_data.reload_time)
+	reload_started.emit(reload_time)
 
 
 # ============================================

@@ -1,0 +1,756 @@
+[gd_scene format=3 uid="uid://cw0kemugmvi5i"]
+
+[ext_resource type="Texture2D" uid="uid://bn8doteo1kuu8" path="res://resources/Game Assets/well/Well2.png" id="1_45gpo"]
+[ext_resource type="Script" uid="uid://c4s43opxstg3y" path="res://Scripts/perk_well.gd" id="1_am8xh"]
+[ext_resource type="Texture2D" uid="uid://b5rg7jm5wofu" path="res://resources/Game Assets/well/Well3.png" id="2_am8xh"]
+[ext_resource type="Texture2D" uid="uid://dijflnrxyefvj" path="res://resources/Game Assets/well/Well4.png" id="3_r3eyh"]
+[ext_resource type="Texture2D" uid="uid://48pwvvmkmik0" path="res://resources/Game Assets/well/Well5.png" id="4_078js"]
+[ext_resource type="Texture2D" uid="uid://deegmd51toevq" path="res://resources/Game Assets/well/Well6.png" id="5_s0s1g"]
+[ext_resource type="Texture2D" uid="uid://bosfj8kdgk2kj" path="res://resources/Game Assets/well/Well7.png" id="6_3i7fo"]
+[ext_resource type="Texture2D" uid="uid://dwhm6yfxdstt7" path="res://resources/Game Assets/well/Well8.png" id="7_m0ws3"]
+[ext_resource type="Texture2D" uid="uid://bnhk0746lbsvp" path="res://resources/Game Assets/well/Well15.png" id="8_erigf"]
+[ext_resource type="Texture2D" uid="uid://co6krf81ejhk0" path="res://resources/Game Assets/well/Well16.png" id="9_yavwg"]
+[ext_resource type="Texture2D" uid="uid://csuvpm3wlodtf" path="res://resources/Game Assets/well/Well17.png" id="10_vkiqp"]
+[ext_resource type="Texture2D" uid="uid://cprduf2ccpck7" path="res://resources/Game Assets/well/Well18.png" id="11_jnqyr"]
+[ext_resource type="Texture2D" uid="uid://b8jnqvgxiox0s" path="res://resources/Game Assets/well/Well19.png" id="12_8ii1j"]
+[ext_resource type="Texture2D" uid="uid://gfi06hiodvm0" path="res://resources/Game Assets/well/Well20.png" id="13_2atkv"]
+[ext_resource type="Texture2D" uid="uid://bswp8dqnbi242" path="res://resources/Game Assets/well/Well21.png" id="14_ap3xj"]
+[ext_resource type="Texture2D" uid="uid://brhd3au005110" path="res://resources/Game Assets/well/Well22.png" id="15_yhrcf"]
+[ext_resource type="Texture2D" uid="uid://p2fye521ua0k" path="res://resources/Game Assets/well/Well23.png" id="16_ia71e"]
+[ext_resource type="Texture2D" uid="uid://chkrd6aoshdg8" path="res://resources/Game Assets/well/Well24.png" id="17_rctxu"]
+[ext_resource type="Texture2D" uid="uid://cw0iyvg5eimg5" path="res://resources/Game Assets/well/Well25.png" id="18_awivu"]
+[ext_resource type="Texture2D" uid="uid://bag0j51npjdu6" path="res://resources/Game Assets/well/Well26.png" id="19_1jcii"]
+[ext_resource type="Texture2D" uid="uid://dypavdku4gwy4" path="res://resources/Game Assets/well/Well27.png" id="20_teprr"]
+[ext_resource type="Texture2D" uid="uid://sa6vofo7n21h" path="res://resources/Game Assets/well/Well28.png" id="21_q6asp"]
+[ext_resource type="Texture2D" uid="uid://chr2n4s4uf7uh" path="res://resources/Game Assets/well/Well29.png" id="22_78wau"]
+[ext_resource type="Texture2D" uid="uid://s0lyb0i4eeqt" path="res://resources/Game Assets/well/Well30.png" id="23_2beh2"]
+[ext_resource type="Texture2D" uid="uid://dqjvvo4c6vip8" path="res://resources/Game Assets/well/Well31.png" id="24_8enkt"]
+[ext_resource type="Texture2D" uid="uid://cfgg68dpqg3c4" path="res://resources/Game Assets/well/Well32.png" id="25_055f8"]
+[ext_resource type="Texture2D" uid="uid://x7sxjb32clkm" path="res://resources/Game Assets/well/Well9.png" id="26_kk4dm"]
+[ext_resource type="Texture2D" uid="uid://def41k61wc08e" path="res://resources/Game Assets/well/Well10.png" id="27_ngvhk"]
+[ext_resource type="Texture2D" uid="uid://0s4jaat1ppb5" path="res://resources/Game Assets/well/Well11.png" id="28_hyy0f"]
+[ext_resource type="Texture2D" uid="uid://ctfrk4qxc6a5m" path="res://resources/Game Assets/well/Well12.png" id="29_vsv8l"]
+[ext_resource type="Texture2D" uid="uid://ch8tt33pbfl0q" path="res://resources/Game Assets/well/Well13.png" id="30_56a7k"]
+[ext_resource type="Texture2D" uid="uid://tsf7dcsnjhwu" path="res://resources/Game Assets/well/Well14.png" id="31_16324"]
+[ext_resource type="Texture2D" uid="uid://bjninybvaphqo" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin00.png" id="32_e0nux"]
+[ext_resource type="Texture2D" uid="uid://qu34b4l1gmis" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin01.png" id="33_fuibc"]
+[ext_resource type="Texture2D" uid="uid://46v7l44m6ml6" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin02.png" id="34_07rqh"]
+[ext_resource type="Texture2D" uid="uid://q06ddomt8u8n" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin03.png" id="35_17j8v"]
+[ext_resource type="Texture2D" uid="uid://bqhfi2xto6iiv" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin04.png" id="36_0a6x8"]
+[ext_resource type="Texture2D" uid="uid://bommix8731ud5" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin05.png" id="37_2hnme"]
+[ext_resource type="Texture2D" uid="uid://dkxg0m31wlmpt" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin06.png" id="38_hxkab"]
+[ext_resource type="Texture2D" uid="uid://cgs3jxnnhauki" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin07.png" id="39_u8idc"]
+[ext_resource type="Texture2D" uid="uid://cofg2j7ahq7eu" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin08.png" id="40_dw315"]
+[ext_resource type="Texture2D" uid="uid://ol4u26rn4gc8" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin09.png" id="41_n7e57"]
+[ext_resource type="Texture2D" uid="uid://b16drjwqr8pi6" path="res://resources/Game Assets/Perk Coins/Aim_Coin/aim_coin10.png" id="42_8x1ti"]
+[ext_resource type="Texture2D" uid="uid://cdj00wa06p23" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin00.png" id="43_ryyia"]
+[ext_resource type="Texture2D" uid="uid://bqm1olamrsqcg" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin01.png" id="44_0teg7"]
+[ext_resource type="Texture2D" uid="uid://v5344h1pacad" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin02.png" id="45_ca0r3"]
+[ext_resource type="Texture2D" uid="uid://bb6fie2t4quba" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin03.png" id="46_u4sbt"]
+[ext_resource type="Texture2D" uid="uid://b1s4weonria73" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin04.png" id="47_24blf"]
+[ext_resource type="Texture2D" uid="uid://ctgip33biqqmi" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin05.png" id="48_v3q6n"]
+[ext_resource type="Texture2D" uid="uid://bufh8uk8wabus" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin06.png" id="49_sy8w2"]
+[ext_resource type="Texture2D" uid="uid://bttgoev0gbwkm" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin07.png" id="50_ojlkw"]
+[ext_resource type="Texture2D" uid="uid://bs0thux7ka1uf" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin08.png" id="51_t4f23"]
+[ext_resource type="Texture2D" uid="uid://difvkwnmr1t2n" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin09.png" id="52_qrlag"]
+[ext_resource type="Texture2D" uid="uid://cdj5e51xpk3st" path="res://resources/Game Assets/Perk Coins/Ammo_Coin/ammo_coin10.png" id="53_3d55d"]
+[ext_resource type="Texture2D" uid="uid://bravw8yw4qlek" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin00.png" id="54_53hx2"]
+[ext_resource type="Texture2D" uid="uid://cbcxqbh6go0tc" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin01.png" id="55_ccfqi"]
+[ext_resource type="Texture2D" uid="uid://clapxvme2yoen" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin02.png" id="56_cado1"]
+[ext_resource type="Texture2D" uid="uid://ba8e64bo2l3hd" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin03.png" id="57_tlyi4"]
+[ext_resource type="Texture2D" uid="uid://byc3tkpqjyv5d" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin04.png" id="58_tf1iq"]
+[ext_resource type="Texture2D" uid="uid://dq22vuujxg57i" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin05.png" id="59_xm1ac"]
+[ext_resource type="Texture2D" uid="uid://c2meemjqi1u04" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin06.png" id="60_80vty"]
+[ext_resource type="Texture2D" uid="uid://dswix0c8116cc" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin07.png" id="61_avror"]
+[ext_resource type="Texture2D" uid="uid://xllyd18083uw" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin08.png" id="62_6tb0v"]
+[ext_resource type="Texture2D" uid="uid://dfimg5bk5qc3y" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin09.png" id="63_1gv76"]
+[ext_resource type="Texture2D" uid="uid://dg7njb461du3g" path="res://resources/Game Assets/Perk Coins/Bounce_Coin/bounce_coin10.png" id="64_db4vc"]
+[ext_resource type="Texture2D" uid="uid://cuw1r7ix5vnu2" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin00.png" id="65_h226u"]
+[ext_resource type="Texture2D" uid="uid://pagmebhifxlx" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin01.png" id="66_n063c"]
+[ext_resource type="Texture2D" uid="uid://cge8d1clup4ib" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin02.png" id="67_leqss"]
+[ext_resource type="Texture2D" uid="uid://bxqy1nfmfl6t7" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin03.png" id="68_debse"]
+[ext_resource type="Texture2D" uid="uid://cs6fim36eld8x" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin04.png" id="69_8ner0"]
+[ext_resource type="Texture2D" uid="uid://46ujtrdy1wcp" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin05.png" id="70_s24gv"]
+[ext_resource type="Texture2D" uid="uid://b8ykxa7txd1ru" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin06.png" id="71_iipte"]
+[ext_resource type="Texture2D" uid="uid://pyaftswt8w7h" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin07.png" id="72_8p2bc"]
+[ext_resource type="Texture2D" uid="uid://cf0wwk5hr3jay" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin08.png" id="73_h3exr"]
+[ext_resource type="Texture2D" uid="uid://vkexlq044rs4" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin09.png" id="74_0vgqd"]
+[ext_resource type="Texture2D" uid="uid://bj4vua2g44amr" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin10.png" id="75_rqtyx"]
+[ext_resource type="Texture2D" uid="uid://vqvmk50il8g5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin00.png" id="76_kx3l7"]
+[ext_resource type="Texture2D" uid="uid://bck01uflsaeow" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin01.png" id="77_wh6ht"]
+[ext_resource type="Texture2D" uid="uid://b1j4q2oxhnew5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin02.png" id="78_ey6gn"]
+[ext_resource type="Texture2D" uid="uid://clesd6mromxti" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin03.png" id="79_k6x1s"]
+[ext_resource type="Texture2D" uid="uid://54smnbgnxv5v" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin04.png" id="80_limc7"]
+[ext_resource type="Texture2D" uid="uid://cpwbp3fhtsvx8" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin05.png" id="81_5yq06"]
+[ext_resource type="Texture2D" uid="uid://3tnpclgx7wh5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin06.png" id="82_2eu2b"]
+[ext_resource type="Texture2D" uid="uid://cfw7so1wh8wn0" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin07.png" id="83_7idq7"]
+[ext_resource type="Texture2D" uid="uid://b0xvhaasppltm" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin08.png" id="84_myf4j"]
+[ext_resource type="Texture2D" uid="uid://cujfv0dn7bdj5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin09.png" id="85_6pdvv"]
+[ext_resource type="Texture2D" uid="uid://bkh8cfxomj1e3" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin10.png" id="86_d5rfw"]
+[ext_resource type="Texture2D" uid="uid://d2io272kqtvjy" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin00.png" id="87_824al"]
+[ext_resource type="Texture2D" uid="uid://co15m70htw64g" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin01.png" id="88_ip43m"]
+[ext_resource type="Texture2D" uid="uid://ba8inyn5xoj6a" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin02.png" id="89_vnrwb"]
+[ext_resource type="Texture2D" uid="uid://bh66hhhf07xpn" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin03.png" id="90_scwp5"]
+[ext_resource type="Texture2D" uid="uid://dtnpa5h3ftwn0" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin04.png" id="91_8w8l0"]
+[ext_resource type="Texture2D" uid="uid://ibcc3fksc44m" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin05.png" id="92_q01t5"]
+[ext_resource type="Texture2D" uid="uid://dk5bb36kj2j6d" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin06.png" id="93_i2nq5"]
+[ext_resource type="Texture2D" uid="uid://d03txgf3ow04b" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin07.png" id="94_566m2"]
+[ext_resource type="Texture2D" uid="uid://bisdn60cxt71a" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin08.png" id="95_olegl"]
+[ext_resource type="Texture2D" uid="uid://bbypmcea434ix" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin09.png" id="96_gufp8"]
+[ext_resource type="Texture2D" uid="uid://cuqfllkid31mm" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin10.png" id="97_xmu4u"]
+[ext_resource type="Texture2D" uid="uid://cm28rq25y7hgv" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin00.png" id="98_3ipnf"]
+[ext_resource type="Texture2D" uid="uid://hxeoi4lhkts3" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin01.png" id="99_qc7bq"]
+[ext_resource type="Texture2D" uid="uid://bc2la0adi2nrk" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin02.png" id="100_orfay"]
+[ext_resource type="Texture2D" uid="uid://c315akfkmbhf0" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin03.png" id="101_60fwr"]
+[ext_resource type="Texture2D" uid="uid://dgebtv5ed3m8r" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin04.png" id="102_jgwcs"]
+[ext_resource type="Texture2D" uid="uid://bxqcq1updf6y0" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin05.png" id="103_rxy8d"]
+[ext_resource type="Texture2D" uid="uid://drb2je0smvjrw" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin06.png" id="104_6ntto"]
+[ext_resource type="Texture2D" uid="uid://bjqnjo27mnv5n" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin07.png" id="105_3noc5"]
+[ext_resource type="Texture2D" uid="uid://bg2heuldsxf3p" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin08.png" id="106_rd2kn"]
+[ext_resource type="Texture2D" uid="uid://cv4drk5k2vp0c" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin09.png" id="107_6gtm7"]
+[ext_resource type="Texture2D" uid="uid://d0hslb5n4tbwf" path="res://resources/Game Assets/Perk Coins/Health_Coin/health_coin10.png" id="108_mwf5h"]
+[ext_resource type="Texture2D" uid="uid://cl6w25hbvx5ss" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin00.png" id="109_dhymc"]
+[ext_resource type="Texture2D" uid="uid://dp36y82exoupj" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin01.png" id="110_dvm6k"]
+[ext_resource type="Texture2D" uid="uid://dffcsuuvccxcb" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin02.png" id="111_c5nj0"]
+[ext_resource type="Texture2D" uid="uid://bc6xtgp8mwxlt" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin03.png" id="112_uycbe"]
+[ext_resource type="Texture2D" uid="uid://cfv5ibontw6tg" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin04.png" id="113_u1so6"]
+[ext_resource type="Texture2D" uid="uid://c43rxru10wb48" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin05.png" id="114_clcpl"]
+[ext_resource type="Texture2D" uid="uid://74lx6hy2liqx" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin06.png" id="115_pcv1f"]
+[ext_resource type="Texture2D" uid="uid://cd03w77r6n7kx" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin07.png" id="116_ghdm7"]
+[ext_resource type="Texture2D" uid="uid://cht1w8mi843j2" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin08.png" id="117_i7oim"]
+[ext_resource type="Texture2D" uid="uid://inrp0d31h20e" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin09.png" id="118_636lj"]
+[ext_resource type="Texture2D" uid="uid://c4lf76xc4evgw" path="res://resources/Game Assets/Perk Coins/Pierce_Coin/pierce_coin10.png" id="119_gggip"]
+[ext_resource type="Texture2D" uid="uid://2ju6k5y40ld2" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin00.png" id="120_eexn8"]
+[ext_resource type="Texture2D" uid="uid://b3gutbry8wkac" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin01.png" id="121_wc1eg"]
+[ext_resource type="Texture2D" uid="uid://c0mjpeuhn8j8" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin02.png" id="122_nf6xj"]
+[ext_resource type="Texture2D" uid="uid://djd0sogk05ewq" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin03.png" id="123_5pj2g"]
+[ext_resource type="Texture2D" uid="uid://ciup4j3vf4wqc" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin04.png" id="124_i7ugx"]
+[ext_resource type="Texture2D" uid="uid://dtpd1poq334tc" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin05.png" id="125_0u68t"]
+[ext_resource type="Texture2D" uid="uid://djjf0dx5c74td" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin06.png" id="126_5e442"]
+[ext_resource type="Texture2D" uid="uid://2vsus0whh2c0" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin07.png" id="127_ntlue"]
+[ext_resource type="Texture2D" uid="uid://dwc2e7v4lyrmf" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin08.png" id="128_iusex"]
+[ext_resource type="Texture2D" uid="uid://c7uqh4ugwv6yo" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin09.png" id="129_purcj"]
+[ext_resource type="Texture2D" uid="uid://c1i765stc25nh" path="res://resources/Game Assets/Perk Coins/Reload_Coin/reload_coin10.png" id="130_eagb0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_45gpo")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_am8xh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r3eyh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_078js")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s0s1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3i7fo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_m0ws3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_erigf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yavwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vkiqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jnqyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8ii1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2atkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ap3xj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_yhrcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ia71e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rctxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_awivu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1jcii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_teprr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_q6asp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_78wau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2beh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_8enkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_055f8")
+}],
+"loop": 0,
+"name": &"LeftSide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_kk4dm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ngvhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_hyy0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_vsv8l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_56a7k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_16324")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_erigf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yavwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vkiqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jnqyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8ii1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2atkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ap3xj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_yhrcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ia71e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rctxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_awivu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1jcii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_teprr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_q6asp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_78wau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2beh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_8enkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_055f8")
+}],
+"loop": 0,
+"name": &"RightSide",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xadyu"]
+radius = 9.0032425
+height = 45.999756
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5xbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_e0nux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_fuibc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_07rqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_17j8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_0a6x8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_2hnme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hxkab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_u8idc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_dw315")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_n7e57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_8x1ti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_e0nux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_e0nux")
+}],
+"loop": 1,
+"name": &"Aim_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_ryyia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_0teg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_ca0r3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_u4sbt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_24blf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_v3q6n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_sy8w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_ojlkw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_t4f23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_qrlag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_3d55d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ryyia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ryyia")
+}],
+"loop": 1,
+"name": &"Ammo_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_53hx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_ccfqi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_cado1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_tlyi4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_tf1iq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_xm1ac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_80vty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_avror")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_6tb0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_1gv76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_db4vc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_53hx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_53hx2")
+}],
+"loop": 1,
+"name": &"Bounce_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("65_h226u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_n063c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_leqss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_debse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_8ner0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_s24gv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_iipte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_8p2bc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_h3exr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_0vgqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_rqtyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_h226u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_h226u")
+}],
+"loop": 1,
+"name": &"Bullet_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("76_kx3l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_wh6ht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_ey6gn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_k6x1s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_limc7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_5yq06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_2eu2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_7idq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_myf4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_6pdvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_d5rfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_kx3l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_kx3l7")
+}],
+"loop": 1,
+"name": &"Dmg_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("87_824al")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_ip43m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_vnrwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_scwp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_8w8l0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_q01t5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_i2nq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("94_566m2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_olegl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_gufp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_xmu4u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_824al")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_824al")
+}],
+"loop": 1,
+"name": &"Firerate_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("98_3ipnf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("99_qc7bq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("100_orfay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("101_60fwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("102_jgwcs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("103_rxy8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("104_6ntto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("105_3noc5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("106_rd2kn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("107_6gtm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("108_mwf5h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_3ipnf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_3ipnf")
+}],
+"loop": 1,
+"name": &"Health_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("109_dhymc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("110_dvm6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("111_c5nj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("112_uycbe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("113_u1so6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("114_clcpl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("115_pcv1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("116_ghdm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("117_i7oim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("118_636lj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("119_gggip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_dhymc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_dhymc")
+}],
+"loop": 1,
+"name": &"Pierce_Coin",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("120_eexn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("121_wc1eg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("122_nf6xj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("123_5pj2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("124_i7ugx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("125_0u68t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("126_5e442")
+}, {
+"duration": 1.0,
+"texture": ExtResource("127_ntlue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("128_iusex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("129_purcj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("130_eagb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("120_eexn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("120_eexn8")
+}],
+"loop": 1,
+"name": &"Reload_Coin",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xadyu"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxr5g"]
+radius = 68.007355
+
+[node name="PerkWell" type="Node2D" unique_id=29035895]
+script = ExtResource("1_am8xh")
+
+[node name="Well" type="Node2D" parent="." unique_id=1954307304]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Well" unique_id=1400713848]
+position = Vector2(0, -40)
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"RightSide"
+
+[node name="Collision" type="StaticBody2D" parent="Well" unique_id=1123732789]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Well/Collision" unique_id=2023818380]
+position = Vector2(0, -12.000003)
+rotation = 1.5740834
+shape = SubResource("CapsuleShape2D_xadyu")
+
+[node name="PerkCoinDisplay" type="Area2D" parent="." unique_id=569550900]
+position = Vector2(-1, -102)
+scale = Vector2(1.25, 1.25)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Coin" type="AnimatedSprite2D" parent="PerkCoinDisplay" unique_id=1022046657]
+position = Vector2(0, -6.000002)
+sprite_frames = SubResource("SpriteFrames_j5xbs")
+animation = &"Reload_Coin"
+frame_progress = 0.09980468
+
+[node name="ClickArea" type="CollisionShape2D" parent="PerkCoinDisplay" unique_id=1424185954]
+position = Vector2(0, -6.000046)
+shape = SubResource("CircleShape2D_xadyu")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=3087772]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=548158442]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_dxr5g")
+
+[node name="CoinSpawnPosition" type="Marker2D" parent="." unique_id=988826761]
+position = Vector2(0, -35)
+
+[node name="LeftPlayerPosition" type="Marker2D" parent="." unique_id=1720292327]
+position = Vector2(-50, -21)
+
+[node name="RightPlayerPosition" type="Marker2D" parent="." unique_id=300380366]
+position = Vector2(51, -21)

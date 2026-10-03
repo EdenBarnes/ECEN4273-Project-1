@@ -11,6 +11,8 @@ extends CharacterBody2D
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
+@onready var sprint_cooldown: AnimatedSprite2D = get_tree().current_scene.get_node("HUD/HUDRoot/SprintCooldown")
+
 signal health_changed(current_health: int, max_health: int)
 
 # ============================================
@@ -34,7 +36,6 @@ signal health_changed(current_health: int, max_health: int)
 
 var weapon_slot_1: WeaponInstance = null
 var weapon_slot_2: WeaponInstance = null
-
 var current_weapon_slot: int = 0
 
 # ============================================
@@ -45,8 +46,15 @@ var speed: float = 50.0
 var hurt_duration: float = 0.5
 var invulnerability_duration: float = 2.0
 
+var base_max_health: int = 100
 var max_health: int = 100
 var current_health: int = 100
+
+# ============================================
+# PERKS
+# ============================================
+
+var equipped_perks: Array[String] = []
 
 # ============================================
 # DASH
@@ -54,7 +62,6 @@ var current_health: int = 100
 
 var dash_time: float = 0.0
 var dash_recharge_time: float = 0.0
-
 var current_dashes: int = 0
 
 var is_dashing: bool = false
@@ -86,12 +93,26 @@ func _ready() -> void:
 	hurt_duration = GameSettings.PLAYER_HURT_DURATION
 	invulnerability_duration = GameSettings.PLAYER_INVULNERABILITY_DURATION
 
-	max_health = GameSettings.PLAYER_MAX_HEALTH
+	base_max_health = GameSettings.PLAYER_MAX_HEALTH
+	max_health = base_max_health
 	current_health = max_health
 
 	scale = Vector2.ONE * GameSettings.PLAYER_SIZE
-	
+
 	current_dashes = GameSettings.PLAYER_MAX_DASHES
+
+	# ============================================
+	# SPRINT COOLDOWN HUD
+	# ============================================
+
+	sprint_cooldown.visible = true
+	sprint_cooldown.stop()
+	sprint_cooldown.animation = "recharge"
+
+	var frame_count: int = sprint_cooldown.sprite_frames.get_frame_count("recharge")
+
+	if frame_count > 0:
+		sprint_cooldown.frame = frame_count - 1
 
 	# ============================================
 	# ANIMATION SETUP
@@ -113,14 +134,11 @@ func _ready() -> void:
 	# STARTING INVENTORY
 	# ============================================
 
-	# Slot 1 starts with the basic pistol.
 	if starting_weapon:
 		weapon_slot_1 = WeaponInstance.new(starting_weapon)
 
-	# Slot 2 starts empty.
 	weapon_slot_2 = null
 
-	# Equip the starting weapon.
 	if weapon_slot_1:
 		equip_weapon(1)
 
@@ -217,15 +235,11 @@ func _physics_process(delta: float) -> void:
 	# ============================================
 
 	if input_vector != Vector2.ZERO:
-		# Update last movement direction
 		movement_direction = input_vector.normalized()
-
 		velocity = movement_direction * current_speed
 		travel_to("walk")
 
 	elif is_dashing:
-		# No input while dashing:
-		# continue in the last movement direction
 		velocity = movement_direction * current_speed
 		travel_to("walk")
 
@@ -263,6 +277,15 @@ func update_dash(delta: float) -> void:
 	if current_dashes < GameSettings.PLAYER_MAX_DASHES:
 		dash_recharge_time += delta
 
+		var recharge_progress: float = dash_recharge_time / GameSettings.PLAYER_DASH_RECHARGE
+		recharge_progress = clampf(recharge_progress, 0.0, 1.0)
+
+		var frame_count: int = sprint_cooldown.sprite_frames.get_frame_count("recharge")
+		var recharge_frame: int = floori(recharge_progress * float(frame_count - 1))
+
+		sprint_cooldown.animation = "recharge"
+		sprint_cooldown.frame = recharge_frame
+
 		if dash_recharge_time >= GameSettings.PLAYER_DASH_RECHARGE:
 			dash_recharge_time = 0.0
 			current_dashes += 1
@@ -270,9 +293,18 @@ func update_dash(delta: float) -> void:
 			if current_dashes > GameSettings.PLAYER_MAX_DASHES:
 				current_dashes = GameSettings.PLAYER_MAX_DASHES
 
-	# Full charges do not need a recharge timer
+			if current_dashes >= GameSettings.PLAYER_MAX_DASHES:
+				sprint_cooldown.frame = frame_count - 1
+
 	else:
 		dash_recharge_time = 0.0
+
+		var frame_count: int = sprint_cooldown.sprite_frames.get_frame_count("recharge")
+
+		sprint_cooldown.animation = "recharge"
+
+		if frame_count > 0:
+			sprint_cooldown.frame = frame_count - 1
 
 	# ============================================
 	# RELEASE DASH BUTTON
@@ -292,8 +324,6 @@ func update_dash(delta: float) -> void:
 			dash_time = 0.0
 			is_dashing = false
 
-			# If we ran completely out of charges,
-			# Shift must be released before using more
 			if current_dashes <= 0:
 				dash_locked = true
 
@@ -306,7 +336,6 @@ func update_dash(delta: float) -> void:
 	if wants_to_dash and current_dashes > 0 and not dash_locked:
 		start_dash()
 
-
 # ============================================
 # START DASH
 # ============================================
@@ -317,7 +346,6 @@ func start_dash() -> void:
 	is_dashing = true
 	dash_time = GameSettings.PLAYER_DASH_DURATION
 
-	# Lock dash to last movement direction
 	dash_direction = movement_direction
 
 # ============================================
@@ -327,10 +355,6 @@ func start_dash() -> void:
 func equip_weapon(slot: int) -> void:
 	var new_weapon: WeaponInstance = null
 
-	# ============================================
-	# GET WEAPON FROM SLOT
-	# ============================================
-
 	if slot == 1:
 		new_weapon = weapon_slot_1
 	elif slot == 2:
@@ -338,77 +362,40 @@ func equip_weapon(slot: int) -> void:
 	else:
 		return
 
-
-	# ============================================
-	# DON'T SWITCH TO EMPTY SLOT
-	# ============================================
-
 	if new_weapon == null:
 		return
-
-	# ============================================
-	# DON'T RE-EQUIP CURRENT SLOT
-	# ============================================
 
 	if current_weapon_slot == slot:
 		return
 
-	# ============================================
-	# SAVE CURRENT WEAPON STATE
-	# ============================================
-
 	if current_weapon_slot != 0:
 		current_gun.save_weapon_state()
-
-	# ============================================
-	# EQUIP NEW WEAPON
-	# ============================================
 
 	current_weapon_slot = slot
 	current_gun.equip_weapon(new_weapon)
 
-
 # ============================================
-# MOUSE WHEEL WEAPON SWITCHING
+# WEAPON SWITCHING
 # ============================================
 
 func switch_weapon(_direction: int) -> void:
-
-	# ============================================
-	# NO WEAPON EQUIPPED
-	# ============================================
-
 	if current_weapon_slot == 0:
 		if weapon_slot_1 != null:
 			equip_weapon(1)
-
 		elif weapon_slot_2 != null:
 			equip_weapon(2)
 		return
 
-	# ============================================
-	# BOTH SLOTS HAVE WEAPONS
-	# ============================================
-
 	if weapon_slot_1 != null and weapon_slot_2 != null:
 		if current_weapon_slot == 1:
 			equip_weapon(2)
-
 		elif current_weapon_slot == 2:
 			equip_weapon(1)
 		return
 
-	# ============================================
-	# ONLY SLOT 1 HAS A WEAPON
-	# ============================================
-
 	if weapon_slot_1 != null:
 		equip_weapon(1)
 		return
-
-	# ============================================
-	# ONLY SLOT 2 HAS A WEAPON
-	# ============================================
 
 	if weapon_slot_2 != null:
 		equip_weapon(2)
@@ -419,100 +406,196 @@ func switch_weapon(_direction: int) -> void:
 # ============================================
 
 func add_weapon(new_weapon_data: WeaponData) -> bool:
-
 	if new_weapon_data == null:
 		return false
 
-	# ============================================
-	# GET CURRENTLY HELD WEAPON
-	# ============================================
-
 	var held_weapon: WeaponInstance = get_current_weapon()
-
-	# ============================================
-	# DON'T PICK UP SAME WEAPON
-	# ============================================
 
 	if held_weapon != null:
 		if held_weapon.weapon_data == new_weapon_data:
 			return false
 
-
-	# ============================================
-	# EMPTY SLOT 1
-	# ============================================
-
 	if weapon_slot_1 == null:
-		weapon_slot_1 = WeaponInstance.new(
-			new_weapon_data
-		)
+		weapon_slot_1 = WeaponInstance.new(new_weapon_data)
+		apply_perks(equipped_perks)
 		equip_weapon(1)
 		return true
 
-
-	# ============================================
-	# EMPTY SLOT 2
-	# ============================================
-
 	if weapon_slot_2 == null:
-		weapon_slot_2 = WeaponInstance.new(
-			new_weapon_data
-		)
+		weapon_slot_2 = WeaponInstance.new(new_weapon_data)
+		apply_perks(equipped_perks)
 		equip_weapon(2)
 		return true
 
-
-	# ============================================
-	# BOTH SLOTS FULL
-	# ============================================
-	# Replace the weapon currently being held.
-	# The other inventory weapon remains untouched.
-	# ============================================
-
-	var new_weapon_instance: WeaponInstance = (
-		WeaponInstance.new(new_weapon_data)
-	)
-
-	# ============================================
-	# REPLACE SLOT 1
-	# ============================================
+	var new_weapon_instance: WeaponInstance = WeaponInstance.new(new_weapon_data)
 
 	if current_weapon_slot == 1:
 		weapon_slot_1 = new_weapon_instance
-		# Reset the current slot so equip_weapon()
-		# knows this is a new weapon.
+		apply_perks(equipped_perks)
 		current_weapon_slot = 0
 		equip_weapon(1)
 		return true
 
-
-	# ============================================
-	# REPLACE SLOT 2
-	# ============================================
-
 	elif current_weapon_slot == 2:
 		weapon_slot_2 = new_weapon_instance
+		apply_perks(equipped_perks)
 		current_weapon_slot = 0
 		equip_weapon(2)
 		return true
 
 	return false
 
-
 # ============================================
 # GET CURRENT WEAPON
 # ============================================
 
 func get_current_weapon() -> WeaponInstance:
-
 	if current_weapon_slot == 1:
 		return weapon_slot_1
-
 
 	if current_weapon_slot == 2:
 		return weapon_slot_2
 
 	return null
+
+# ============================================
+# PERK SYSTEM
+# ============================================
+
+func apply_perks(perks: Array[String]) -> void:
+	equipped_perks = perks.duplicate()
+
+	var old_max_health: int = max_health
+
+	max_health = base_max_health
+
+	if weapon_slot_1 != null:
+		weapon_slot_1.reset_perk_bonuses()
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.reset_perk_bonuses()
+
+	for perk_name: String in equipped_perks:
+		apply_single_perk(perk_name)
+
+	if current_health > max_health:
+		current_health = max_health
+
+	if max_health > old_max_health:
+		current_health += max_health - old_max_health
+		current_health = mini(current_health, max_health)
+
+	health_changed.emit(current_health, max_health)
+
+	if current_gun != null:
+		current_gun.refresh_perk_stats()
+
+
+func apply_single_perk(perk_name: String) -> void:
+	match perk_name:
+		"Ammo_Coin":
+			apply_ammo_perk()
+
+		"Health_Coin":
+			apply_health_perk()
+
+		"Dmg_Coin":
+			apply_damage_perk()
+
+		"Reload_Coin":
+			apply_reload_perk()
+
+		"Aim_Coin":
+			apply_aim_perk()
+
+		"Firerate_Coin":
+			apply_fire_rate_perk()
+
+		"Bounce_Coin":
+			apply_bounce_perk()
+
+		"Bullet_Coin":
+			apply_bullet_perk()
+
+		"Pierce_Coin":
+			apply_pierce_perk()
+
+# ============================================
+# COMMON PERKS
+# ============================================
+
+func apply_ammo_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.magazine_multiplier *= 1.20
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.magazine_multiplier *= 1.20
+
+
+func apply_health_perk() -> void:
+	max_health = roundi(float(max_health) * 1.20)
+
+
+func apply_damage_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.damage_multiplier *= 1.20
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.damage_multiplier *= 1.20
+
+# ============================================
+# EPIC PERKS
+# ============================================
+
+func apply_reload_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.reload_multiplier *= 0.80
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.reload_multiplier *= 0.80
+
+
+func apply_aim_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.aim_multiplier *= 0.80
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.aim_multiplier *= 0.80
+
+
+func apply_fire_rate_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.fire_rate_multiplier *= 0.80
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.fire_rate_multiplier *= 0.80
+
+# ============================================
+# LEGENDARY PERKS
+# ============================================
+
+func apply_bounce_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.bounce_bonus += 1
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.bounce_bonus += 1
+
+
+func apply_bullet_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.bullets_per_shot_bonus += 1
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.bullets_per_shot_bonus += 1
+
+
+func apply_pierce_perk() -> void:
+	if weapon_slot_1 != null:
+		weapon_slot_1.pierce_bonus += 1
+
+	if weapon_slot_2 != null:
+		weapon_slot_2.pierce_bonus += 1
 
 # ============================================
 # DAMAGE
@@ -525,19 +608,11 @@ func take_damage(amount: int) -> void:
 	if not invulnerability_timer.is_stopped():
 		return
 
-	# ============================================
-	# DASH IMMUNITY
-	# ============================================
-
 	if is_dashing:
 		var immunity_roll: float = randf()
 
 		if immunity_roll <= GameSettings.PLAYER_DASH_IMMUNITY_CHANCE:
 			return
-
-	# ============================================
-	# TAKE DAMAGE
-	# ============================================
 
 	current_health -= amount
 	health_changed.emit(current_health, max_health)
@@ -557,18 +632,14 @@ func take_damage(amount: int) -> void:
 # ============================================
 
 func _on_hurt_timer_timeout() -> void:
-
 	if not is_dead:
-
 		is_locked = false
-
 
 # ============================================
 # DEATH
 # ============================================
 
 func die() -> void:
-
 	is_locked = true
 	is_dead = true
 
@@ -580,17 +651,13 @@ func die() -> void:
 
 	queue_free()
 
-
 # ============================================
 # ANIMATION
 # ============================================
 
 func travel_to(state_name: String) -> void:
-
 	if state_machine.get_current_node() != state_name:
-
 		state_machine.travel(state_name)
-
 
 	anim_tree.set(
 		"parameters/" + state_name + "/blend_position",
@@ -623,3 +690,23 @@ func remove_coins(amount: int) -> bool:
 
 func get_coins() -> int:
 	return coins
+
+# ============================================
+# HEALING
+# ============================================
+
+func heal(percent: float) -> bool:
+	if is_dead:
+		return false
+
+	if current_health >= max_health:
+		return false
+
+	var heal_amount: int = ceili(float(max_health) * percent)
+
+	current_health += heal_amount
+	current_health = mini(current_health, max_health)
+
+	health_changed.emit(current_health, max_health)
+
+	return true
