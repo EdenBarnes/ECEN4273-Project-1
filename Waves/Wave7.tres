@@ -6,7 +6,8 @@
 script = ExtResource("1_mjcnq")
 EneSpeedMult = 1.25
 EneHealthMult = 2
-SpawnMaxEne = 50
+SpawnMaxEne = 65
+StartDelay = 10.0
 normalper = 45
 Sprintper = 30
 bigper = 25

@@ -6,11 +6,11 @@
 [resource]
 script = ExtResource("1_xdusu")
 weapon_texture = ExtResource("2_xdusu")
-damage = 25
+damage = 20
 bullet_speed = 700.0
 fire_rate = 0.02
 magazine_size = 100
-reload_time = 2.5
+reload_time = 5.0
 spread_angle = 40.0
 aim_move_speed_multiplier = 0.7
 aim_spread_multiplier = 0.3

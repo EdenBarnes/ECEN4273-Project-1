@@ -4,9 +4,11 @@
 
 [resource]
 script = ExtResource("1_3r28f")
+EneDamMult = 2
 EneSpeedMult = 1.25
 EneHealthMult = 3
-SpawnMaxEne = 75
+SpawnMaxEne = 100
+StartDelay = 10.0
 normalper = 34
 Sprintper = 33
 bigper = 33

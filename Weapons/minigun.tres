@@ -6,11 +6,11 @@
 [resource]
 script = ExtResource("1_udcmg")
 weapon_texture = ExtResource("2_udcmg")
-damage = 20
+damage = 15
 bullet_speed = 600.0
 fire_rate = 0.02
 magazine_size = 200
-reload_time = 3.0
+reload_time = 7.0
 spread_angle = 35.0
 aim_move_speed_multiplier = 1.0
 aim_spread_multiplier = 1.0

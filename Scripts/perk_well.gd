@@ -47,8 +47,8 @@ var perk_hud: Control = null
 
 @export_category("Cost Settings")
 
-@export var starting_cost: int = 1
-@export var cost_increase: int = 25
+@export var starting_cost: int = 5
+@export var cost_increase: int = 5
 
 var current_cost: int = 0
 
@@ -118,7 +118,7 @@ var selected_rarity: String = ""
 # ============================================
 
 func _ready() -> void:
-	current_cost = starting_cost
+	current_cost = starting_cost + cost_increase
 
 	perk_coin_display.visible = false
 	well_sprite.play("Idle")
