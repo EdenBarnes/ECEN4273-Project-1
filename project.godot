@@ -114,7 +114,7 @@ sprint={
 2d_physics/layer_3="bullets"
 2d_physics/layer_4="Map"
 2d_physics/layer_5="Combat Box"
-2d_physics/layer_6="Layer 6"
+2d_physics/layer_6="Coins"
 2d_physics/layer_8="Game Boundary"
 
 [physics]

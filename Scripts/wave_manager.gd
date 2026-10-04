@@ -39,6 +39,14 @@ var wave_waiting: bool = false
 
 
 # ============================================
+# COUNTDOWN VARIABLES
+# ============================================
+
+var countdown_paused: bool = false
+var countdown_remaining: float = 0.0
+
+
+# ============================================
 # SIGNALS
 # ============================================
 
@@ -62,7 +70,28 @@ func _ready() -> void:
 
 
 # ============================================
-# START WAVE
+# PROCESS COUNTDOWN
+# ============================================
+
+func _process(delta: float) -> void:
+	if not wave_waiting:
+		return
+
+	if countdown_paused:
+		return
+
+	if countdown_remaining <= 0.0:
+		return
+
+	countdown_remaining -= delta
+
+	if countdown_remaining <= 0.0:
+		countdown_remaining = 0.0
+		finish_wave_countdown()
+
+
+# ============================================
+# START WAVE COUNTDOWN
 # ============================================
 
 func start_wave(index: int) -> void:
@@ -75,6 +104,8 @@ func start_wave(index: int) -> void:
 
 		wave_active = false
 		wave_waiting = false
+		countdown_paused = false
+		countdown_remaining = 0.0
 
 		all_waves_completed.emit()
 		return
@@ -96,18 +127,86 @@ func start_wave(index: int) -> void:
 
 	wave_active = false
 	wave_waiting = true
+	countdown_paused = false
 
 	var wave_number: int = current_wave_index + 1
 	var start_delay: float = current_wave_data.StartDelay
+
+	countdown_remaining = start_delay
 
 	print("Wave ", wave_number, " starts in ", start_delay, " seconds!")
 
 	wave_countdown_started.emit(wave_number, start_delay)
 
-	if start_delay > 0.0:
-		await get_tree().create_timer(start_delay).timeout
+	if countdown_remaining <= 0.0:
+		finish_wave_countdown()
+
+
+# ============================================
+# FINISH WAVE COUNTDOWN
+# ============================================
+
+func finish_wave_countdown() -> void:
+	if not wave_waiting:
+		return
 
 	wave_waiting = false
+	countdown_paused = false
+	countdown_remaining = 0.0
+
+	begin_wave()
+
+
+# ============================================
+# PAUSE WAVE COUNTDOWN
+# ============================================
+
+func pause_wave_countdown() -> void:
+	if not wave_waiting:
+		return
+
+	countdown_paused = true
+
+	print("Wave countdown paused at ", snappedf(countdown_remaining, 0.1), " seconds.")
+
+
+# ============================================
+# RESUME WAVE COUNTDOWN
+# ============================================
+
+func resume_wave_countdown() -> void:
+	if not wave_waiting:
+		return
+
+	countdown_paused = false
+
+	print("Wave countdown resumed at ", snappedf(countdown_remaining, 0.1), " seconds.")
+
+
+# ============================================
+# BETWEEN WAVES CHECK
+# ============================================
+
+func is_between_waves() -> bool:
+	return wave_waiting and not wave_active
+
+
+# ============================================
+# GET COUNTDOWN TIME
+# ============================================
+
+func get_countdown_remaining() -> float:
+	return countdown_remaining
+
+
+# ============================================
+# BEGIN WAVE
+# ============================================
+
+func begin_wave() -> void:
+	if current_wave_data == null:
+		print("ERROR: No current wave data!")
+		return
 
 	# ============================================
 	# APPLY WAVE SETTINGS
@@ -128,6 +227,8 @@ func start_wave(index: int) -> void:
 	boss_wave = current_wave_data.Bossspawn
 	boss_alive = false
 	wave_active = true
+
+	var wave_number: int = current_wave_index + 1
 
 	print("Wave ", wave_number, " started!")
 
@@ -234,12 +335,9 @@ func on_enemy_died() -> void:
 	# BOSS WAVE
 	# ============================================
 
-	# While boss is alive, HUD continues to say:
-	# "KILL THE BOSS"
 	if boss_alive:
 		return
 
-	# Once boss is dead, count actual living enemies.
 	check_boss_wave_complete()
 
 
@@ -341,7 +439,32 @@ func complete_wave() -> void:
 		enemy_spawner.stop_spawning()
 
 	# ============================================
+	# COLLECT REMAINING COINS
+	# ============================================
+
+	call_deferred("collect_remaining_coins")
+
+	# ============================================
 	# PREPARE NEXT WAVE
 	# ============================================
 
 	start_wave(current_wave_index + 1)
+
+
+# ============================================
+# COLLECT REMAINING COINS
+# ============================================
+
+func collect_remaining_coins() -> void:
+	await get_tree().process_frame
+
+	var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
+
+	if player == null:
+		return
+
+	var coins: Array[Node] = get_tree().get_nodes_in_group("coins")
+
+	for coin: Node in coins:
+		if coin.has_method("move_to_player"):
+			coin.move_to_player(player)

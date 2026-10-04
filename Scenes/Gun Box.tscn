@@ -168,8 +168,8 @@ possible_weapons = Array[ExtResource("2_blxpg")]([ExtResource("3_0ggsi"), ExtRes
 roll_count = 6
 
 [node name="BoxSprite" type="AnimatedSprite2D" parent="." unique_id=1685099327]
-position = Vector2(-2, -16)
-scale = Vector2(0.16925047, 0.14381145)
+position = Vector2(0, -15)
+scale = Vector2(1.1, 1)
 sprite_frames = SubResource("SpriteFrames_xadyu")
 animation = &"opening"
 frame = 5
@@ -195,4 +195,4 @@ collision_mask = 7
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Hitbox" unique_id=1258915137]
 position = Vector2(-1, 0)
-polygon = PackedVector2Array(77, -37, 72, -32, 77, -30, 127, -30, 134, -32, 129, -37, 122, -44, 85, -44)
+polygon = PackedVector2Array(79, -37, 74, -30, 85, -29, 125, -29, 132, -30, 128, -36, 124, -42, 83, -42)

@@ -1,0 +1,223 @@
+[gd_scene format=3 uid="uid://dder0ntdvnamr"]
+
+[ext_resource type="Script" uid="uid://body1nvbjnwt7" path="res://Scripts/healing_campfire.gd" id="1_2nxoa"]
+[ext_resource type="Texture2D" uid="uid://dmluooelbhyc7" path="res://resources/Game Assets/Campfire/Campfire01.png" id="2_67h84"]
+[ext_resource type="Texture2D" uid="uid://ce8xbs6rguvau" path="res://resources/Game Assets/Campfire/Campfire02.png" id="3_3co70"]
+[ext_resource type="Texture2D" uid="uid://br3kd3ptbyoft" path="res://resources/Game Assets/Campfire/Campfire03.png" id="4_4mp46"]
+[ext_resource type="Texture2D" uid="uid://cop0bmje2w5qm" path="res://resources/Game Assets/Campfire/Campfire04.png" id="5_043gu"]
+[ext_resource type="Texture2D" uid="uid://4k068g5aiif8" path="res://resources/Game Assets/Campfire/Campfire05.png" id="6_ap52v"]
+[ext_resource type="Texture2D" uid="uid://dm07rkr3esxiq" path="res://resources/Game Assets/Campfire/Campfire06.png" id="7_tsasg"]
+[ext_resource type="Texture2D" uid="uid://d20buyhpvt185" path="res://resources/Game Assets/Campfire/Campfire07.png" id="8_uumlj"]
+[ext_resource type="Texture2D" uid="uid://dowiopd6vl1af" path="res://resources/Game Assets/Campfire/Campfire08.png" id="9_yqnr8"]
+[ext_resource type="Texture2D" uid="uid://hie27qly6btj" path="res://resources/Game Assets/health stump/health_stump09.png" id="10_0kryq"]
+[ext_resource type="Texture2D" uid="uid://dw3o1h8kfa68w" path="res://resources/Game Assets/health stump/health_stump11.png" id="11_it2l8"]
+[ext_resource type="Texture2D" uid="uid://b473bnm3eh0fa" path="res://resources/Game Assets/health stump/health_stump13.png" id="12_ektgb"]
+[ext_resource type="Texture2D" uid="uid://bgtqvxoux5lnm" path="res://resources/Game Assets/health stump/health_stump15.png" id="13_sr5ib"]
+[ext_resource type="Texture2D" uid="uid://wthufnl6r247" path="res://resources/Game Assets/health stump/health_stump17.png" id="14_0v0bl"]
+[ext_resource type="Texture2D" uid="uid://ceyrncf6qbp0" path="res://resources/Game Assets/health stump/health_stump18.png" id="15_i16uq"]
+[ext_resource type="Texture2D" uid="uid://cjn3svppf1bvi" path="res://resources/Game Assets/health stump/health_stump03.png" id="16_eiqpk"]
+[ext_resource type="Texture2D" uid="uid://bjma7utnp6cdb" path="res://resources/Game Assets/health stump/health_stump04.png" id="17_jdxqu"]
+[ext_resource type="Texture2D" uid="uid://doypiswababys" path="res://resources/Game Assets/health stump/health_stump05.png" id="18_eu0ht"]
+[ext_resource type="Texture2D" uid="uid://bulk875ja1uu7" path="res://resources/Game Assets/health stump/health_stump06.png" id="19_xyt25"]
+[ext_resource type="Texture2D" uid="uid://c1xxwgew4lrth" path="res://resources/Game Assets/health stump/health_stump07.png" id="20_m61ra"]
+[ext_resource type="Texture2D" uid="uid://b5p3bhb04e6f6" path="res://resources/Game Assets/health stump/health_stump08.png" id="21_ugdc8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_67h84")
+}],
+"loop": 0,
+"name": &"CampfireOff",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3co70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4mp46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_043gu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ap52v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tsasg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_uumlj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yqnr8")
+}],
+"loop": 0,
+"name": &"CampfireOn",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xadyu"]
+radius = 7.9998913
+height = 31.999557
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxr5g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_0kryq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_it2l8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ektgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_sr5ib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_0v0bl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_i16uq")
+}],
+"loop": 1,
+"name": &"StumpIdle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_eiqpk")
+}],
+"loop": 0,
+"name": &"StumpOff",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_eiqpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jdxqu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_eu0ht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_xyt25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_m61ra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ugdc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ugdc8")
+}],
+"loop": 0,
+"name": &"StumpStart",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6j2r4"]
+radius = 47.0
+
+[node name="HealingCampfire" type="Node2D" unique_id=1594578283]
+y_sort_enabled = true
+script = ExtResource("1_2nxoa")
+
+[node name="Campfire" type="Node2D" parent="." unique_id=967889232]
+position = Vector2(0, 8)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Campfire" unique_id=1157317530]
+position = Vector2(0, -22)
+sprite_frames = SubResource("SpriteFrames_xadyu")
+animation = &"CampfireOff"
+
+[node name="Collision" type="StaticBody2D" parent="Campfire" unique_id=1605679125]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Campfire/Collision" unique_id=2093899842]
+position = Vector2(0, -7.9999924)
+rotation = 1.5760238
+shape = SubResource("CapsuleShape2D_xadyu")
+
+[node name="Stump1" type="Node2D" parent="." unique_id=831522179]
+position = Vector2(-27, -30)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Stump1" unique_id=280942892]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_dxr5g")
+animation = &"StumpIdle"
+
+[node name="Collision" type="StaticBody2D" parent="Stump1" unique_id=1454873212]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stump1/Collision" unique_id=1576802695]
+position = Vector2(0, -7)
+polygon = PackedVector2Array(-12, 2, -7, -2, -3, -4, 3, -4, 7, -3, 12, 2, 4, 2, 0, 4, -3, 2)
+
+[node name="Stump2" type="Node2D" parent="." unique_id=1650607224]
+position = Vector2(46, -21)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Stump2" unique_id=1282700458]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_dxr5g")
+animation = &"StumpStart"
+frame = 6
+frame_progress = 1.0
+
+[node name="Collision" type="StaticBody2D" parent="Stump2" unique_id=1602194566]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stump2/Collision" unique_id=1199155029]
+position = Vector2(0, -7)
+polygon = PackedVector2Array(-12, 2, -7, -2, -3, -4, 3, -4, 7, -3, 12, 2, 4, 2, 0, 4, -3, 2)
+
+[node name="Stump3" type="Node2D" parent="." unique_id=1832953468]
+position = Vector2(50, 40)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Stump3" unique_id=468176465]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_dxr5g")
+animation = &"StumpStart"
+frame = 6
+frame_progress = 1.0
+
+[node name="Collision" type="StaticBody2D" parent="Stump3" unique_id=159308939]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stump3/Collision" unique_id=1058685581]
+position = Vector2(0, -7)
+polygon = PackedVector2Array(-12, 2, -7, -2, -3, -4, 3, -4, 7, -3, 12, 2, 4, 2, 0, 4, -3, 2)
+
+[node name="Stump4" type="Node2D" parent="." unique_id=544099109]
+position = Vector2(-29, 51)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Stump4" unique_id=541848546]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_dxr5g")
+animation = &"StumpStart"
+frame = 6
+frame_progress = 1.0
+
+[node name="Collision" type="StaticBody2D" parent="Stump4" unique_id=2065012819]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stump4/Collision" unique_id=2137502376]
+position = Vector2(0, -7)
+polygon = PackedVector2Array(-12, 2, -7, -2, -3, -4, 3, -4, 7, -3, 12, 2, 4, 2, 0, 4, -3, 2)
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=618658930]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=184651340]
+shape = SubResource("CircleShape2D_6j2r4")

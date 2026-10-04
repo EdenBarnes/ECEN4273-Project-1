@@ -4,10 +4,11 @@
 
 [resource]
 script = ExtResource("1_48wfn")
-SpawnMaxEne = 5
-StartDelay = 30.0
+EneSpeedMult = 1.1
+SpawnMaxEne = 10
+StartDelay = 20.0
 Bossspawn = true
-Bosshealth = 1000
+Bosshealth = 5000
 BossSpeed = 25
 BossSize = 5
 BossDam = 50
