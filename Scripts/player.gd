@@ -4,8 +4,11 @@ extends CharacterBody2D
 # PLAYER NODES
 # ============================================
 
-@onready var anim_tree: AnimationTree = $Sprite2D/AnimationTree
-@onready var anim_player: AnimationPlayer = $Sprite2D/AnimationPlayer
+@onready var player_sprite: Sprite2D = $RollPivot/Sprite2D
+@onready var roll_pivot: Node2D = $RollPivot
+
+@onready var anim_tree: AnimationTree = $RollPivot/Sprite2D/AnimationTree
+@onready var anim_player: AnimationPlayer = $RollPivot/Sprite2D/AnimationPlayer
 @onready var state_machine: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 
 @onready var hurt_timer: Timer = $HurtTimer
@@ -62,12 +65,19 @@ var equipped_perks: Array[String] = []
 
 var dash_time: float = 0.0
 var dash_recharge_time: float = 0.0
+
+var base_dash_recharge: float = 0.0
+var dash_recharge: float = 0.0
+
 var current_dashes: int = 0
 
 var is_dashing: bool = false
 var dash_locked: bool = false
 
 var dash_direction: Vector2 = Vector2.DOWN
+
+# 360 degree dash roll
+var dash_roll_start_rotation: float = 0.0
 
 # ============================================
 # PLAYER STATE
@@ -98,6 +108,9 @@ func _ready() -> void:
 	current_health = max_health
 
 	scale = Vector2.ONE * GameSettings.PLAYER_SIZE
+
+	base_dash_recharge = GameSettings.PLAYER_DASH_RECHARGE
+	dash_recharge = base_dash_recharge
 
 	current_dashes = GameSettings.PLAYER_MAX_DASHES
 
@@ -277,23 +290,25 @@ func update_dash(delta: float) -> void:
 	if current_dashes < GameSettings.PLAYER_MAX_DASHES:
 		dash_recharge_time += delta
 
-		var recharge_progress: float = dash_recharge_time / GameSettings.PLAYER_DASH_RECHARGE
+		var recharge_progress: float = dash_recharge_time / dash_recharge
 		recharge_progress = clampf(recharge_progress, 0.0, 1.0)
 
 		var frame_count: int = sprint_cooldown.sprite_frames.get_frame_count("recharge")
-		var recharge_frame: int = floori(recharge_progress * float(frame_count - 1))
 
-		sprint_cooldown.animation = "recharge"
-		sprint_cooldown.frame = recharge_frame
+		if frame_count > 0:
+			var recharge_frame: int = floori(recharge_progress * float(frame_count - 1))
 
-		if dash_recharge_time >= GameSettings.PLAYER_DASH_RECHARGE:
+			sprint_cooldown.animation = "recharge"
+			sprint_cooldown.frame = recharge_frame
+
+		if dash_recharge_time >= dash_recharge:
 			dash_recharge_time = 0.0
 			current_dashes += 1
 
 			if current_dashes > GameSettings.PLAYER_MAX_DASHES:
 				current_dashes = GameSettings.PLAYER_MAX_DASHES
 
-			if current_dashes >= GameSettings.PLAYER_MAX_DASHES:
+			if current_dashes >= GameSettings.PLAYER_MAX_DASHES and frame_count > 0:
 				sprint_cooldown.frame = frame_count - 1
 
 	else:
@@ -314,15 +329,23 @@ func update_dash(delta: float) -> void:
 		dash_locked = false
 
 	# ============================================
-	# CURRENT DASH
+	# CURRENT DASH + 360 ROLL
 	# ============================================
 
 	if is_dashing:
 		dash_time -= delta
 
+		var dash_progress: float = 1.0 - (dash_time / GameSettings.PLAYER_DASH_DURATION)
+		dash_progress = clampf(dash_progress, 0.0, 1.0)
+
+		roll_pivot.rotation = dash_roll_start_rotation + (TAU * dash_progress)
+
 		if dash_time <= 0.0:
 			dash_time = 0.0
 			is_dashing = false
+
+			# Make sure the sprite finishes perfectly upright.
+			roll_pivot.rotation = 0.0
 
 			if current_dashes <= 0:
 				dash_locked = true
@@ -347,6 +370,9 @@ func start_dash() -> void:
 	dash_time = GameSettings.PLAYER_DASH_DURATION
 
 	dash_direction = movement_direction
+
+	# Start the 360 roll from the sprite's current rotation.
+	dash_roll_start_rotation = roll_pivot.rotation
 
 # ============================================
 # EQUIP WEAPON
@@ -468,6 +494,7 @@ func apply_perks(perks: Array[String]) -> void:
 	var old_max_health: int = max_health
 
 	max_health = base_max_health
+	dash_recharge = base_dash_recharge
 
 	if weapon_slot_1 != null:
 		weapon_slot_1.reset_perk_bonuses()
@@ -490,6 +517,9 @@ func apply_perks(perks: Array[String]) -> void:
 	if current_gun != null:
 		current_gun.refresh_perk_stats()
 
+# ============================================
+# APPLY SINGLE PERK
+# ============================================
 
 func apply_single_perk(perk_name: String) -> void:
 	match perk_name:
@@ -501,6 +531,9 @@ func apply_single_perk(perk_name: String) -> void:
 
 		"Dmg_Coin":
 			apply_damage_perk()
+
+		"Dash_Coin":
+			apply_dash_perk()
 
 		"Reload_Coin":
 			apply_reload_perk()
@@ -542,6 +575,10 @@ func apply_damage_perk() -> void:
 
 	if weapon_slot_2 != null:
 		weapon_slot_2.damage_multiplier *= 1.20
+
+
+func apply_dash_perk() -> void:
+	dash_recharge *= 0.80
 
 # ============================================
 # EPIC PERKS
@@ -644,6 +681,7 @@ func die() -> void:
 	is_dead = true
 
 	velocity = Vector2.ZERO
+	player_sprite.rotation = 0.0
 
 	travel_to("death")
 

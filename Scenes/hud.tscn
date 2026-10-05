@@ -69,6 +69,7 @@
 [ext_resource type="Texture2D" uid="uid://che1ogt3bqcom" path="res://resources/Game Assets/Perk Coins/PerkCoin03.png" id="66_o7d6u"]
 [ext_resource type="Texture2D" uid="uid://cksc0bgjw4imt" path="res://resources/Game Assets/Perk Coins/PerkCoin02.png" id="67_n63dt"]
 [ext_resource type="Texture2D" uid="uid://m835bc7hmvt5" path="res://resources/Game Assets/Perk Coins/PerkCoin06.png" id="68_itd6h"]
+[ext_resource type="Texture2D" uid="uid://ry5fbr5n30v" path="res://resources/Game Assets/Perk Coins/PerkCoin11.png" id="69_d71yn"]
 [ext_resource type="Texture2D" uid="uid://bxyl7dm7fq1it" path="res://resources/Game Assets/Perk Coins/PerkCoin07.png" id="69_gjmfb"]
 [ext_resource type="Texture2D" uid="uid://x2lfl4cg4ljo" path="res://resources/Game Assets/Perk Coins/PerkCoin05.png" id="70_p63d5"]
 [ext_resource type="Texture2D" uid="uid://3th8s1mjibfj" path="res://resources/Game Assets/Perk Coins/PerkCoin09.png" id="71_77xe6"]
@@ -566,6 +567,7 @@ menu_slots_scale = Vector2(3, 3)
 ammo_texture = ExtResource("65_h2gqg")
 health_texture = ExtResource("66_o7d6u")
 damage_texture = ExtResource("67_n63dt")
+dash_texture = ExtResource("69_d71yn")
 reload_texture = ExtResource("68_itd6h")
 aim_texture = ExtResource("69_gjmfb")
 firerate_texture = ExtResource("70_p63d5")
