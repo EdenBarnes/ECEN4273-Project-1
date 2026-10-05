@@ -59,6 +59,7 @@ var normal_slots_scale: Vector2
 @export var ammo_texture: Texture2D
 @export var health_texture: Texture2D
 @export var damage_texture: Texture2D
+@export var dash_texture: Texture2D
 
 @export var reload_texture: Texture2D
 @export var aim_texture: Texture2D
@@ -309,6 +310,8 @@ func get_perk_texture(perk_name: String) -> Texture2D:
 			return health_texture
 		"Dmg_Coin":
 			return damage_texture
+		"Dash_Coin":
+			return dash_texture
 		"Reload_Coin":
 			return reload_texture
 		"Aim_Coin":
@@ -337,6 +340,8 @@ func get_perk_display_name(perk_name: String) -> String:
 			return "HEALTH INCREASE"
 		"Dmg_Coin":
 			return "DAMAGE INCREASE"
+		"Dash_Coin":
+			return "DASH RECHARGE"
 		"Reload_Coin":
 			return "RELOAD DECREASE"
 		"Aim_Coin":
@@ -365,6 +370,8 @@ func get_perk_description(perk_name: String) -> String:
 			return "Increases your maximum health by 20%"
 		"Dmg_Coin":
 			return "Increases your weapon damage by 20%"
+		"Dash_Coin":
+			return "Reduces your dash recharge time by 20%"
 		"Reload_Coin":
 			return "Reduces your weapon reload time by 20%"
 		"Aim_Coin":

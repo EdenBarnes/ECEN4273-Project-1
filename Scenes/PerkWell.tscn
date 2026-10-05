@@ -77,16 +77,26 @@
 [ext_resource type="Texture2D" uid="uid://vkexlq044rs4" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin09.png" id="74_0vgqd"]
 [ext_resource type="Texture2D" uid="uid://bj4vua2g44amr" path="res://resources/Game Assets/Perk Coins/Bullet_Coin/bullet_coin10.png" id="75_rqtyx"]
 [ext_resource type="Texture2D" uid="uid://vqvmk50il8g5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin00.png" id="76_kx3l7"]
+[ext_resource type="Texture2D" uid="uid://cc0grvlyqlkhg" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin00.png" id="77_8ii1j"]
 [ext_resource type="Texture2D" uid="uid://bck01uflsaeow" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin01.png" id="77_wh6ht"]
+[ext_resource type="Texture2D" uid="uid://dj421e73a1w1f" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin01.png" id="78_2atkv"]
 [ext_resource type="Texture2D" uid="uid://b1j4q2oxhnew5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin02.png" id="78_ey6gn"]
+[ext_resource type="Texture2D" uid="uid://dqsncfah5mufi" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin02.png" id="79_ap3xj"]
 [ext_resource type="Texture2D" uid="uid://clesd6mromxti" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin03.png" id="79_k6x1s"]
 [ext_resource type="Texture2D" uid="uid://54smnbgnxv5v" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin04.png" id="80_limc7"]
+[ext_resource type="Texture2D" uid="uid://dflp23ix83ouj" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin03.png" id="80_yhrcf"]
 [ext_resource type="Texture2D" uid="uid://cpwbp3fhtsvx8" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin05.png" id="81_5yq06"]
+[ext_resource type="Texture2D" uid="uid://bpvjcdaaq5s4k" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin04.png" id="81_ia71e"]
 [ext_resource type="Texture2D" uid="uid://3tnpclgx7wh5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin06.png" id="82_2eu2b"]
+[ext_resource type="Texture2D" uid="uid://c8nyu457sx0nr" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin05.png" id="82_rctxu"]
 [ext_resource type="Texture2D" uid="uid://cfw7so1wh8wn0" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin07.png" id="83_7idq7"]
+[ext_resource type="Texture2D" uid="uid://dp7nitqcu33cc" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin06.png" id="83_awivu"]
+[ext_resource type="Texture2D" uid="uid://jxoniplw8gmd" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin07.png" id="84_1jcii"]
 [ext_resource type="Texture2D" uid="uid://b0xvhaasppltm" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin08.png" id="84_myf4j"]
 [ext_resource type="Texture2D" uid="uid://cujfv0dn7bdj5" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin09.png" id="85_6pdvv"]
+[ext_resource type="Texture2D" uid="uid://cgg43xucdbycn" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin08.png" id="85_teprr"]
 [ext_resource type="Texture2D" uid="uid://bkh8cfxomj1e3" path="res://resources/Game Assets/Perk Coins/Dmg_Coin/dmg_coin10.png" id="86_d5rfw"]
+[ext_resource type="Texture2D" uid="uid://dgf6s0vp0htc4" path="res://resources/Game Assets/Perk Coins/Dash_Coin/DashCoin09.png" id="86_q6asp"]
 [ext_resource type="Texture2D" uid="uid://d2io272kqtvjy" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin00.png" id="87_824al"]
 [ext_resource type="Texture2D" uid="uid://co15m70htw64g" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin01.png" id="88_ip43m"]
 [ext_resource type="Texture2D" uid="uid://ba8inyn5xoj6a" path="res://resources/Game Assets/Perk Coins/Firerate_Coin/firerate_coin02.png" id="89_vnrwb"]
@@ -481,6 +491,50 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("77_8ii1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_2atkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_ap3xj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_yhrcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_ia71e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_rctxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_awivu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_1jcii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_teprr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_q6asp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_8ii1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_8ii1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_8ii1j")
+}],
+"loop": 1,
+"name": &"Dash_Coin",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("76_kx3l7")
 }, {
 "duration": 1.0,
@@ -733,8 +787,7 @@ collision_mask = 0
 [node name="Coin" type="AnimatedSprite2D" parent="PerkCoinDisplay" unique_id=1022046657]
 position = Vector2(0, -6.000002)
 sprite_frames = SubResource("SpriteFrames_j5xbs")
-animation = &"Reload_Coin"
-frame_progress = 0.09980468
+animation = &"Dash_Coin"
 
 [node name="ClickArea" type="CollisionShape2D" parent="PerkCoinDisplay" unique_id=1424185954]
 position = Vector2(0, -6.000046)
