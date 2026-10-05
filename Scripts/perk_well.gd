@@ -94,7 +94,8 @@ var coin_hover_position: Vector2 = Vector2.ZERO
 var common_perks: Array[String] = [
 	"Ammo_Coin",
 	"Health_Coin",
-	"Dmg_Coin"
+	"Dmg_Coin",
+	"Dash_Coin"
 ]
 
 var epic_perks: Array[String] = [
