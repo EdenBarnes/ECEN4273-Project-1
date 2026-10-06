@@ -1342,11 +1342,11 @@ shape = SubResource("RectangleShape2D_souxr")
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=705128790]
 
-[node name="AvoidLeft" type="RayCast2D" parent="." unique_id=2085306889]
+[node name="RayCast2D_Left" type="RayCast2D" parent="." unique_id=2085306889]
 collision_mask = 8
 
-[node name="AvoidCenter" type="RayCast2D" parent="." unique_id=1584091911]
+[node name="RayCast2D_Center" type="RayCast2D" parent="." unique_id=1584091911]
 collision_mask = 8
 
-[node name="AvoidRight" type="RayCast2D" parent="." unique_id=555447145]
+[node name="RayCast2D_Right" type="RayCast2D" parent="." unique_id=555447145]
 collision_mask = 8

@@ -15,9 +15,9 @@ extends CharacterBody2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 
-@onready var avoid_left: RayCast2D = $AvoidLeft
-@onready var avoid_center: RayCast2D = $AvoidCenter
-@onready var avoid_right: RayCast2D = $AvoidRight
+@onready var raycast_center: RayCast2D = $RayCast2D_Center
+@onready var raycast_left: RayCast2D = $RayCast2D_Left
+@onready var raycast_right: RayCast2D = $RayCast2D_Right
 
 
 # ============================================
@@ -37,6 +37,17 @@ var current_health: int
 var separation_radius: float
 var separation_strength: float
 
+var alignment_radius: float
+var alignment_strength: float
+
+var cohesion_radius: float
+var cohesion_strength: float
+
+var seek_goal_strength: float
+var seek_goal_radius: float
+var seek_far_min: float
+var seek_falloff: float
+
 var obstacle_avoid_distance: float
 var obstacle_avoid_strength: float
 
@@ -52,6 +63,12 @@ var is_locked: bool = false
 var is_dead: bool = false
 
 var player: CharacterBody2D = null
+
+const FACING_MIN_SPEED: float = 10.0
+
+var avoid_side: float = 0.0        # +1 or -1 once committed, 0 = none
+var avoid_clear_time: float = 0.0  # how long rays have been free
+const AVOID_RELEASE_TIME: float = 0.5
 
 
 # ============================================
@@ -77,14 +94,25 @@ func _ready() -> void:
 	max_health = GameSettings.ENEMY_MAX_HEALTH - 50
 	current_health = max_health
 
+	# Sprinter is smaller than normal zombie
+	scale = Vector2.ONE * (GameSettings.ENEMY_SIZE - 0.5)
+
 	separation_radius = GameSettings.ENEMY_SEPARATION_RADIUS
 	separation_strength = GameSettings.ENEMY_SEPARATION_STRENGTH
 
+	alignment_radius = GameSettings.ENEMY_ALIGNMENT_RADIUS
+	alignment_strength = GameSettings.ENEMY_ALIGNMENT_STRENGTH
+
+	cohesion_radius = GameSettings.ENEMY_COHESION_RADIUS
+	cohesion_strength = GameSettings.ENEMY_COHESION_STRENGTH
+
+	seek_goal_strength = GameSettings.ENEMY_SEEK_GOAL_STRENGTH
+	seek_goal_radius = GameSettings.ENEMY_SEEK_GOAL_RADIUS
+	seek_far_min = GameSettings.ENEMY_SEEK_FAR_MIN
+	seek_falloff = GameSettings.ENEMY_SEEK_FALLOFF
+
 	obstacle_avoid_distance = GameSettings.ENEMY_OBSTACLE_AVOID_DISTANCE
 	obstacle_avoid_strength = GameSettings.ENEMY_OBSTACLE_AVOID_STRENGTH
-
-	# Sprinter is smaller than normal zombie
-	scale = Vector2.ONE * (GameSettings.ENEMY_SIZE - 0.5)
 
 	# Animation
 	anim_tree.active = true
@@ -103,22 +131,18 @@ func _ready() -> void:
 	attack_hitbox.area_entered.connect(_on_attack_hitbox_entered)
 	attack_hitbox.area_exited.connect(_on_attack_hitbox_exited)
 
-	# Obstacle avoidance
-	avoid_left.enabled = true
-	avoid_center.enabled = true
-	avoid_right.enabled = true
+	# Obstacle avoidance rays
+	raycast_left.enabled = true
+	raycast_center.enabled = true
+	raycast_right.enabled = true
 
-	avoid_left.collision_mask = 8
-	avoid_center.collision_mask = 8
-	avoid_right.collision_mask = 8
+	raycast_left.collide_with_areas = false
+	raycast_center.collide_with_areas = false
+	raycast_right.collide_with_areas = false
 
-	avoid_left.collide_with_areas = false
-	avoid_center.collide_with_areas = false
-	avoid_right.collide_with_areas = false
-
-	avoid_left.collide_with_bodies = true
-	avoid_center.collide_with_bodies = true
-	avoid_right.collide_with_bodies = true
+	raycast_left.collide_with_bodies = true
+	raycast_center.collide_with_bodies = true
+	raycast_right.collide_with_bodies = true
 
 	# Find player
 	player = get_tree().get_first_node_in_group("player")
@@ -128,43 +152,31 @@ func _ready() -> void:
 # PHYSICS
 # ============================================
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_locked:
 		return
 
-	if player:
-		var player_offset: Vector2 = player.global_position - global_position
-		var enemy_separation: Vector2 = get_separation_vector(separation_radius) * separation_strength
-		var player_separation: Vector2 = get_player_separation(attack_distance) * separation_strength
-		var desired_direction: Vector2 = Vector2.ZERO
+	var steering := Vector2.ZERO
 
-		# Move toward player
-		if player_offset.length() >= attack_distance:
-			desired_direction = player_offset.normalized() + enemy_separation
+	steering += separation() * separation_strength
+	steering += alignment() * alignment_strength
+	steering += cohesion() * cohesion_strength
+	steering += seek_goal() * seek_goal_strength
 
-		# Close to player
-		else:
-			desired_direction = player_separation + enemy_separation
+	update_rays()
+	steering += avoid_obstacles() * obstacle_avoid_strength
 
-		# Obstacle avoidance
-		if desired_direction != Vector2.ZERO:
-			desired_direction = desired_direction.normalized()
+	# Steering is unit-scale, so scale it to be meaningful
+	var acceleration := steering * speed * 8.0   # tweak the 8.0 (turn responsiveness)
+	velocity += acceleration * delta
 
-			var obstacle_avoidance: Vector2 = get_obstacle_avoidance(desired_direction)
-			desired_direction = (desired_direction + obstacle_avoidance).normalized()
+	var health_speed_multiplier: float = float(current_health) / float(max_health)
+	velocity = velocity.limit_length(speed * health_speed_multiplier)
 
-			var health_speed_multiplier: float = float(current_health) / float(max_health)
-			velocity = desired_direction * speed * health_speed_multiplier
-		else:
-			velocity = Vector2.ZERO
+	if velocity.length() > FACING_MIN_SPEED:
+		facing_direction = velocity.normalized()
+		movement_direction = facing_direction
 
-		# Facing direction
-		if velocity.length() > 0.0:
-			facing_direction = velocity.normalized()
-
-	# Animation
-	if velocity.length() > 0.0:
-		movement_direction = velocity.normalized()
 		travel_to("walk")
 	else:
 		travel_to("idle")
@@ -173,94 +185,155 @@ func _physics_process(_delta: float) -> void:
 
 
 # ============================================
-# OBSTACLE AVOIDANCE
+# AI - BOIDS
 # ============================================
 
-func get_obstacle_avoidance(move_direction: Vector2) -> Vector2:
-	if move_direction == Vector2.ZERO:
-		return Vector2.ZERO
+func separation() -> Vector2:
+	var force := Vector2.ZERO
 
-	var left_direction: Vector2 = move_direction.rotated(deg_to_rad(-30.0))
-	var right_direction: Vector2 = move_direction.rotated(deg_to_rad(30.0))
-
-	avoid_center.target_position = move_direction * obstacle_avoid_distance
-	avoid_left.target_position = left_direction * obstacle_avoid_distance
-	avoid_right.target_position = right_direction * obstacle_avoid_distance
-
-	avoid_center.force_raycast_update()
-	avoid_left.force_raycast_update()
-	avoid_right.force_raycast_update()
-
-	var center_blocked: bool = avoid_center.is_colliding()
-	var left_blocked: bool = avoid_left.is_colliding()
-	var right_blocked: bool = avoid_right.is_colliding()
-
-	var avoidance: Vector2 = Vector2.ZERO
-
-	# Nothing blocked
-	if not center_blocked and not left_blocked and not right_blocked:
-		return Vector2.ZERO
-
-	# Left blocked, steer right
-	if left_blocked and not right_blocked:
-		avoidance = move_direction.rotated(deg_to_rad(90.0))
-
-	# Right blocked, steer left
-	elif right_blocked and not left_blocked:
-		avoidance = move_direction.rotated(deg_to_rad(-90.0))
-
-	# Center blocked
-	elif center_blocked:
-		if not left_blocked:
-			avoidance = move_direction.rotated(deg_to_rad(-90.0))
-		elif not right_blocked:
-			avoidance = move_direction.rotated(deg_to_rad(90.0))
-		else:
-			avoidance = move_direction.rotated(deg_to_rad(90.0))
-
-	return avoidance * obstacle_avoid_strength
-
-
-# ============================================
-# ENEMY SEPARATION
-# ============================================
-
-func get_separation_vector(radius: float) -> Vector2:
-	var push: Vector2 = Vector2.ZERO
-	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemies")
-
-	for other: Node in enemies:
+	for other in get_tree().get_nodes_in_group("enemies"):
 		if other == self:
 			continue
 
-		if not other is Node2D:
+		var offset: Vector2 = global_position - other.global_position
+		var distance := offset.length()
+
+		if distance < 0.001:
+			# Exactly overlapping: push in a random direction so they split
+			force += Vector2.from_angle(randf() * TAU)
+		elif distance < separation_radius:
+			# Stronger the closer they are (quadratic falloff), NOT averaged
+			var t := 1.0 - (distance / separation_radius)
+			force += offset.normalized() * t * t * 3.0
+
+	return force.limit_length(3.0)
+
+
+func alignment() -> Vector2:
+	var average_velocity := Vector2.ZERO
+	var count := 0
+
+	for other in get_tree().get_nodes_in_group("enemies"):
+		if other == self:
 			continue
+		if global_position.distance_to(other.global_position) < alignment_radius:
+			average_velocity += other.velocity
+			count += 1
 
-		var other_enemy: Node2D = other as Node2D
-		var dist: float = global_position.distance_to(other_enemy.global_position)
-
-		if dist < radius and dist > 0.0:
-			var away: Vector2 = (global_position - other_enemy.global_position).normalized()
-			push += away * (radius - dist) / radius
-
-	return push
-
-
-# ============================================
-# PLAYER SEPARATION
-# ============================================
-
-func get_player_separation(radius: float) -> Vector2:
-	if not player:
+	if count == 0:
 		return Vector2.ZERO
 
-	var dist: float = global_position.distance_to(player.global_position)
+	average_velocity /= count
+	if average_velocity.length_squared() < 0.001:
+		return Vector2.ZERO
 
-	if dist < radius and dist > 0.0:
-		var away: Vector2 = (global_position - player.global_position).normalized()
-		return away * (radius - dist) / radius
+	# Compare as fractions of speed so it's unit-scale
+	return (average_velocity - velocity) / speed
 
-	return Vector2.ZERO
+
+func cohesion() -> Vector2:
+	var center := Vector2.ZERO
+	var count := 0
+
+	for other in get_tree().get_nodes_in_group("enemies"):
+		if other == self:
+			continue
+		if global_position.distance_to(other.global_position) < cohesion_radius:
+			center += other.global_position
+			count += 1
+
+	if count == 0:
+		return Vector2.ZERO
+
+	center /= count
+	var direction := center - global_position
+	if direction.length_squared() < 0.001:
+		return Vector2.ZERO
+
+	return direction.normalized()
+
+func seek_goal() -> Vector2:
+	if player == null:
+		return Vector2.ZERO
+
+	var direction := player.global_position - global_position
+	var distance := direction.length()
+
+	if distance <= attack_distance / 2.0:
+		# Brake smoothly when in range
+		return -velocity / speed
+
+	# Full strength inside the radius, fading (but never zero) beyond it
+	var strength := 1.0
+	if distance > seek_goal_radius:
+		strength = maxf(seek_far_min, pow(seek_goal_radius / distance, seek_falloff))
+
+	var desired_velocity := direction.normalized() * speed
+	return (desired_velocity - velocity) / speed * strength
+
+# ============================================
+# OBSTACLE AVOIDANCE
+# ============================================
+
+func update_rays() -> void:
+	var direction := Vector2.ZERO
+	if player != null:
+		direction = player.global_position - global_position
+	if direction.length_squared() < 0.001:
+		direction = velocity
+	if direction.length_squared() < 0.001:
+		return
+
+	direction = direction.normalized()
+	var reach := obstacle_avoid_distance / scale.x
+
+	raycast_center.target_position = direction * reach
+	raycast_left.target_position = direction.rotated(deg_to_rad(-35)) * reach
+	raycast_right.target_position = direction.rotated(deg_to_rad(35)) * reach
+
+
+func avoid_obstacles() -> Vector2:
+	var force := Vector2.ZERO
+	var any_hit := false
+
+	var to_player := Vector2.ZERO
+	if player != null:
+		to_player = (player.global_position - global_position).normalized()
+
+	for ray in [raycast_center, raycast_left, raycast_right]:
+		if not ray.is_colliding():
+			continue
+		any_hit = true
+
+		var point: Vector2 = ray.get_collision_point()
+		var normal: Vector2 = ray.get_collision_normal()
+		var distance := global_position.distance_to(point)
+		var strength := 1.0 - clampf(distance / obstacle_avoid_distance, 0.0, 1.0)
+
+		var tangent := Vector2(-normal.y, normal.x)
+
+		# Commit to a side the first time we hit something
+		if avoid_side == 0.0:
+			var d := tangent.dot(to_player)
+			if absf(d) > 0.1:
+				avoid_side = signf(d)
+			else:
+				# Head-on: pick based on current velocity, else randomly
+				var v := tangent.dot(velocity)
+				avoid_side = signf(v) if absf(v) > 1.0 else (1.0 if randf() < 0.5 else -1.0)
+
+		force += (tangent * avoid_side * 0.9 + normal * 0.2) * strength
+
+	# Release the commitment only after being clear for a while
+	var dt := get_physics_process_delta_time()
+	if any_hit:
+		avoid_clear_time = 0.0
+	else:
+		avoid_clear_time += dt
+		if avoid_clear_time > AVOID_RELEASE_TIME:
+			avoid_side = 0.0
+
+	return force.limit_length(2.0)
 
 
 # ============================================
@@ -354,6 +427,7 @@ func die() -> void:
 
 	is_locked = true
 	is_dead = true
+	remove_from_group("enemies")
 	velocity = Vector2.ZERO
 	call_deferred("drop_coins")
 
@@ -362,19 +436,13 @@ func die() -> void:
 	attack_hitbox.set_deferred("monitoring", false)
 	attack_hitbox.set_deferred("monitorable", false)
 
-	# ============================================
-	# NOTIFY WAVE MANAGER IMMEDIATELY
-	# ============================================
-
+	# Notify wave manager immediately
 	var wave_manager: Node = get_tree().get_first_node_in_group("wave_manager")
 
 	if wave_manager != null and wave_manager.has_method("on_enemy_died"):
 		wave_manager.on_enemy_died()
 
-	# ============================================
-	# DEATH ANIMATION
-	# ============================================
-
+	# Death animation
 	travel_to("death")
 
 	await get_tree().create_timer(5.0).timeout
@@ -383,7 +451,7 @@ func die() -> void:
 
 
 # ============================================
-# ANIMATION
+# ANIMATION STATE
 # ============================================
 
 func travel_to(state_name: String) -> void:
