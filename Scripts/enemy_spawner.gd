@@ -41,8 +41,8 @@ var boss_wave_active: bool = false
 
 @export_category("Map Settings")
 @export var map_size: Vector2 = Vector2(1536.0, 1024.0)
-@export var edge_padding: float = 15.0
-
+@export var edge_padding: float = 10.0
+@export var top_boundary_offset: float = 20.0
 
 # ============================================
 # READY
@@ -225,7 +225,7 @@ func get_random_edge_position() -> Vector2:
 
 		0:
 			spawn_position.x = randf_range(edge_padding, map_size.x - edge_padding)
-			spawn_position.y = edge_padding
+			spawn_position.y = edge_padding + top_boundary_offset
 
 		# ========================================
 		# RIGHT
