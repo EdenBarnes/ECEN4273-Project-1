@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dg4ywxpsft5lt"]
 
 [ext_resource type="PackedScene" uid="uid://qp1bm4yq55x7" path="res://Scenes/player.tscn" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://bbooqu171obgg" path="res://Scripts/main.gd" id="1_e08e2"]
 [ext_resource type="PackedScene" uid="uid://gqy2arulhisc" path="res://Scenes/enemy_spawner.tscn" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://b6p7uakagms5u" path="res://Scenes/Background Scenes/Tree.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b3uifxuqat6co" path="res://Scenes/Gun Box.tscn" id="3_21xkr"]
@@ -31,6 +32,7 @@
 [ext_resource type="Resource" uid="uid://c5yxltvdivoij" path="res://Waves/Wave9.tres" id="30_536cc"]
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
 [ext_resource type="PackedScene" uid="uid://byw5oa4oe0k7f" path="res://Scenes/hud.tscn" id="31_hpc6h"]
+[ext_resource type="PackedScene" uid="uid://brdevwnssgx8y" path="res://Scenes/Keybinds.tscn" id="32_kltya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -45,6 +47,7 @@ size = Vector2(1583, 62)
 size = Vector2(1583, 62)
 
 [node name="Main" type="Node2D" unique_id=549834261]
+script = ExtResource("1_e08e2")
 
 [node name="BackgroundBackground" type="Sprite2D" parent="." unique_id=454784985]
 z_index = -5
@@ -781,3 +784,5 @@ position = Vector2(0, 1024)
 polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311, 200, -309, 218, -296, 219, -272, 310, -273, 364, -269, 425, -270, 450, -255, 453, -223, 484, -223, 499, -205, 500, -173, 541, -172, 569, -151, 569, -133, 584, -133, 605, -115, 608, -57, 646, -59, 674, -41, 678, -2, 678, 0, 0, 0)
 
 [node name="HUD" parent="." unique_id=498140079 instance=ExtResource("31_hpc6h")]
+
+[node name="Keybinds" parent="." unique_id=1955298123 instance=ExtResource("32_kltya")]

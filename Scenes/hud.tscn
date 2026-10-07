@@ -433,7 +433,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 40
-text = "WAVE X"
+text = "WAVE 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -448,7 +448,7 @@ offset_right = 94.0
 offset_bottom = 56.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("53_0ksel")
-text = "Enemys Remaining: XX"
+text = "Enemys Remaining: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

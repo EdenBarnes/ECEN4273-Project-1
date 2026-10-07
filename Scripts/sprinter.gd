@@ -152,8 +152,10 @@ func _physics_process(_delta: float) -> void:
 
 			var obstacle_avoidance: Vector2 = get_obstacle_avoidance(desired_direction)
 			desired_direction = (desired_direction + obstacle_avoidance).normalized()
-
-			var health_speed_multiplier: float = float(current_health) / float(max_health)
+			
+			var health_speed_multiplier: float = (float(current_health) / float(max_health)) 
+			if health_speed_multiplier <= 0.75:
+				health_speed_multiplier = 0.75
 			velocity = desired_direction * speed * health_speed_multiplier
 		else:
 			velocity = Vector2.ZERO
