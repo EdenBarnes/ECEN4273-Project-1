@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_rpsem")
-SpawnMaxEne = 10
-StartDelay = 10.0
+EneDamMult = 10
+SpawnMaxEne = 2
+StartDelay = 0.0
 metadata/_custom_type_script = "uid://oeg837hwnv5f"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://colbi7tvyyuky"
-path="res://.godot/imported/Exit_button_start.png-3c170ef5d89040aff4396da7adea6802.ctex"
+uid="uid://hvqmh3go7dcd"
+path="res://.godot/imported/Win Animation-Sheet.png-a2fc54ef563c261cda4e5900a12618b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Exit_button_start.png"
-dest_files=["res://.godot/imported/Exit_button_start.png-3c170ef5d89040aff4396da7adea6802.ctex"]
+source_file="res://resources/Game Assets/Win Screen/Win Animation-Sheet.png"
+dest_files=["res://.godot/imported/Win Animation-Sheet.png-a2fc54ef563c261cda4e5900a12618b6.ctex"]
 
 [params]
 

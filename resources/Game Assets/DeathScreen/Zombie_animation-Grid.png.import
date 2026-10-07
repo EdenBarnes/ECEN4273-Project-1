@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p46t4nsd68ib"
-path="res://.godot/imported/Setting_button_start.png-fd3d758dae2192b54097429571408f3b.ctex"
+uid="uid://cjdsdpgja2uub"
+path="res://.godot/imported/Zombie_animation-Grid.png-e45cf826ab7cb58d7aafa73b36f02f0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Setting_button_start.png"
-dest_files=["res://.godot/imported/Setting_button_start.png-fd3d758dae2192b54097429571408f3b.ctex"]
+source_file="res://resources/Game Assets/DeathScreen/Zombie_animation-Grid.png"
+dest_files=["res://.godot/imported/Zombie_animation-Grid.png-e45cf826ab7cb58d7aafa73b36f02f0d.ctex"]
 
 [params]
 

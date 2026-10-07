@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameSettings="*uid://cie1g5afjv4mw"
+GameOptions="*res://Scripts/game_options.gd"
 
 [display]
 

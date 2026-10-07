@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qs7a7pk734gn"
-path="res://.godot/imported/Exit_button_hover.png-ec59d9bc43636614f9ede8b08940eb67.ctex"
+uid="uid://by5hp53j2a7a0"
+path="res://.godot/imported/Main_Button_clicked.png-685f067f617ddc5a4fd7b7dcb2bcfa2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Exit_button_hover.png"
-dest_files=["res://.godot/imported/Exit_button_hover.png-ec59d9bc43636614f9ede8b08940eb67.ctex"]
+source_file="res://resources/Game Assets/DeathScreen/Main_Button_clicked.png"
+dest_files=["res://.godot/imported/Main_Button_clicked.png-685f067f617ddc5a4fd7b7dcb2bcfa2b.ctex"]
 
 [params]
 

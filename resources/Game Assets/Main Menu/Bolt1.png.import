@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brtcowtl21vms"
-path="res://.godot/imported/Setting_button_clicked.png-c3061be702698dd7b6a1b8a262dc8b9b.ctex"
+uid="uid://bxcilfrcm7rf5"
+path="res://.godot/imported/Bolt1.png-0f3616b223fae3175161facb98156de5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Game Assets/Setting_button_clicked.png"
-dest_files=["res://.godot/imported/Setting_button_clicked.png-c3061be702698dd7b6a1b8a262dc8b9b.ctex"]
+source_file="res://resources/Game Assets/Main Menu/Bolt1.png"
+dest_files=["res://.godot/imported/Bolt1.png-0f3616b223fae3175161facb98156de5.ctex"]
 
 [params]
 
