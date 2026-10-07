@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c67622v5cappt"
-path="res://.godot/imported/idle.png-ad5819e81d18453be2adcc4ebe34aa97.ctex"
+uid="uid://c08pwibeef8ut"
+path="res://.godot/imported/walk.png-db87e2464adc5a32671847c864d84449.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/Zombie/idle.png"
-dest_files=["res://.godot/imported/idle.png-ad5819e81d18453be2adcc4ebe34aa97.ctex"]
+source_file="res://resources/sprites/Zombie/Boss/walk.png"
+dest_files=["res://.godot/imported/walk.png-db87e2464adc5a32671847c864d84449.ctex"]
 
 [params]
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bxt3bg17vogw3"]
+
+[ext_resource type="Script" uid="uid://i64huwqt4x0o" path="res://Scripts/enemy_data.gd" id="1_3fxf7"]
+[ext_resource type="AnimationLibrary" uid="uid://doyrdrby7flwb" path="res://Enemies/big_guy_anims.res" id="1_mh0pe"]
+
+[resource]
+script = ExtResource("1_3fxf7")
+display_name = "Big Guy"
+speed_mult = 0.5
+health_mult = 2.0
+damage_mult = 1.5
+attack_distance_mult = 1.5
+size_mult = 2.0
+coin_drop_min = 4
+coin_drop_max = 6
+animation_library = ExtResource("1_mh0pe")
+metadata/_custom_type_script = "uid://i64huwqt4x0o"

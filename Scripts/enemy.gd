@@ -2,12 +2,20 @@ extends CharacterBody2D
 
 
 # ============================================
+# DATA (assign BEFORE add_child so _ready sees it)
+# ============================================
+
+@export var data: EnemyData
+
+signal health_changed(current_health: int, max_health: int)
+
+
+# ============================================
 # NODES
 # ============================================
 
 @onready var anim_tree: AnimationTree = $Sprite2D/AnimationTree
 @onready var anim_player: AnimationPlayer = $Sprite2D/AnimationPlayer
-@onready var state_machine: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
 
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var attack_timer: Timer = $AttackTimer
@@ -19,8 +27,12 @@ extends CharacterBody2D
 @onready var raycast_left: RayCast2D = $RayCast2D_Left
 @onready var raycast_right: RayCast2D = $RayCast2D_Right
 
+# Fetched in _ready after the tree is (re)activated
+var state_machine: AnimationNodeStateMachinePlayback
+
+
 # ============================================
-# ENEMY SETTINGS
+# ENEMY SETTINGS (filled from GameSettings + data)
 # ============================================
 
 var speed: float
@@ -65,11 +77,13 @@ var player: CharacterBody2D = null
 
 const FACING_MIN_SPEED: float = 10.0
 
+# Obstacle avoidance side commitment
 var avoid_side: float = 0.0        # +1 or -1 once committed, 0 = none
 var avoid_clear_time: float = 0.0  # how long rays have been free
 const AVOID_RELEASE_TIME: float = 0.5
 
-const BOID_INTERVAL: int = 3   # recompute boids every 3rd physics frame
+# Boid update staggering
+const BOID_INTERVAL: int = 3   # recompute boids every Nth physics frame
 
 static var _enemy_cache: Array[Node] = []
 static var _cache_frame: int = -1
@@ -79,6 +93,17 @@ var _sep := Vector2.ZERO
 var _ali := Vector2.ZERO
 var _coh := Vector2.ZERO
 
+
+# ============================================
+# HURT / STUN / FLASH
+# ============================================
+
+const FLASH_DURATION: float = 0.08
+
+var next_stun_index: int = 0
+var is_flashing: bool = false
+
+
 # ============================================
 # ATTACK
 # ============================================
@@ -87,27 +112,36 @@ var player_hurtbox: Area2D = null
 
 
 # ============================================
+# ANIMATION CACHE
+# ============================================
+
+var _applied_state: String = ""
+var _applied_facing: Vector2 = Vector2.ZERO
+
+
+# ============================================
+# COINS
+# ============================================
+
+const COIN_SCENE = preload("res://Scenes/Coin.tscn")
+
+
+# ============================================
 # READY
 # ============================================
 
 func _ready() -> void:
-	# Enemy settings
-	speed = GameSettings.ENEMY_SPEED
+	apply_data()
+
 	hurt_duration = GameSettings.ENEMY_HURT_DURATION
-
-	attack_distance = GameSettings.ENEMY_ATTACK_DISTANCE
-	attack_damage = GameSettings.ENEMY_ATTACK_DAMAGE
 	attack_duration = GameSettings.ENEMY_ATTACK_DURATION
-
-	max_health = GameSettings.ENEMY_MAX_HEALTH
-	current_health = max_health
 
 	separation_radius = GameSettings.ENEMY_SEPARATION_RADIUS
 	separation_strength = GameSettings.ENEMY_SEPARATION_STRENGTH
-	
+
 	alignment_radius = GameSettings.ENEMY_ALIGNMENT_RADIUS
 	alignment_strength = GameSettings.ENEMY_ALIGNMENT_STRENGTH
-	
+
 	cohesion_radius = GameSettings.ENEMY_COHESION_RADIUS
 	cohesion_strength = GameSettings.ENEMY_COHESION_STRENGTH
 
@@ -119,11 +153,9 @@ func _ready() -> void:
 	obstacle_avoid_distance = GameSettings.ENEMY_OBSTACLE_AVOID_DISTANCE
 	obstacle_avoid_strength = GameSettings.ENEMY_OBSTACLE_AVOID_STRENGTH
 
-	# Enemy size
-	scale = Vector2.ONE * GameSettings.ENEMY_SIZE
-
-	# Animation
+	# Animation (library was swapped in apply_data with the tree inactive)
 	anim_tree.active = true
+	state_machine = anim_tree["parameters/playback"]
 
 	# Hurt timer
 	hurt_timer.one_shot = true
@@ -141,12 +173,12 @@ func _ready() -> void:
 
 	# Find player
 	player = get_tree().get_first_node_in_group("player")
-	
+
 	# Rays
 	raycast_center.enabled = true
 	raycast_left.enabled = true
 	raycast_right.enabled = true
-	
+
 	raycast_left.collide_with_areas = false
 	raycast_center.collide_with_areas = false
 	raycast_right.collide_with_areas = false
@@ -154,6 +186,40 @@ func _ready() -> void:
 	raycast_left.collide_with_bodies = true
 	raycast_center.collide_with_bodies = true
 	raycast_right.collide_with_bodies = true
+
+
+# ============================================
+# APPLY DATA
+# ============================================
+
+func apply_data() -> void:
+	if data == null:
+		data = EnemyData.new()
+
+	if data.use_wave_boss_stats:
+		var wave: Waves2 = GameSettings.wave_Data
+		speed = float(wave.BossSpeed)
+		attack_distance = float(wave.Bossreach)
+		attack_damage = wave.BossDam
+		max_health = wave.Bosshealth
+		scale = Vector2.ONE * float(wave.BossSize)
+	else:
+		speed = GameSettings.ENEMY_SPEED * data.speed_mult
+		attack_distance = GameSettings.ENEMY_ATTACK_DISTANCE * data.attack_distance_mult
+		attack_damage = int(round(GameSettings.ENEMY_ATTACK_DAMAGE * data.damage_mult))
+		max_health = int(round(GameSettings.ENEMY_MAX_HEALTH * data.health_mult))
+		scale = Vector2.ONE * GameSettings.ENEMY_SIZE * data.size_mult
+
+	current_health = max_health
+
+	# Swap in this type's animations. The tree only refers to animations by name,
+	# so every library must use the same animation names.
+	if data.animation_library != null:
+		anim_tree.active = false
+
+		if anim_player.has_animation_library(&""):
+			anim_player.remove_animation_library(&"")
+		anim_player.add_animation_library(&"", data.animation_library)
 
 
 # ============================================
@@ -176,7 +242,7 @@ func _physics_process(delta: float) -> void:
 	update_rays()
 	steering += avoid_obstacles() * obstacle_avoid_strength
 
-	# Steering is now unit-scale, so scale it to be meaningful
+	# Steering is unit-scale, so scale it to be meaningful
 	var acceleration := steering * speed * 8.0   # tweak the 8.0 (turn responsiveness)
 	velocity += acceleration * delta
 
@@ -205,6 +271,7 @@ func get_enemies() -> Array[Node]:
 		_cache_frame = frame
 	return _enemy_cache
 
+
 func update_boids() -> void:
 	var my_pos := global_position
 	var sep_r2 := separation_radius * separation_radius
@@ -231,6 +298,7 @@ func update_boids() -> void:
 
 		if d2 < sep_r2:
 			if d2 < 0.000001:
+				# Exactly overlapping: push in a random direction so they split
 				sep += Vector2.from_angle(randf() * TAU)
 			else:
 				var distance := sqrt(d2)
@@ -259,6 +327,7 @@ func update_boids() -> void:
 		if to_center.length_squared() > 0.001:
 			_coh = to_center.normalized()
 
+
 func seek_goal() -> Vector2:
 	if player == null:
 		return Vector2.ZERO
@@ -277,6 +346,7 @@ func seek_goal() -> Vector2:
 
 	var desired_velocity := direction.normalized() * speed
 	return (desired_velocity - velocity) / speed * strength
+
 
 # ============================================
 # OBSTACLE AVOIDANCE
@@ -342,6 +412,7 @@ func avoid_obstacles() -> Vector2:
 
 	return force.limit_length(2.0)
 
+
 # ============================================
 # TAKE DAMAGE
 # ============================================
@@ -350,16 +421,61 @@ func take_damage(amount: int) -> void:
 	if is_dead:
 		return
 
+	var previous_health: int = current_health
 	current_health -= amount
 
+	health_changed.emit(current_health, max_health)
+
+	if data.flash_on_hit:
+		flash()
+
+	# Death
 	if current_health <= 0:
+		current_health = 0
 		die()
 		return
 
+	var should_stun: bool = false
+
+	# Threshold stuns (e.g. boss at 75%, 50%, 25%)
+	while next_stun_index < data.stun_thresholds.size():
+		var threshold_health: float = max_health * data.stun_thresholds[next_stun_index]
+
+		if previous_health > threshold_health and current_health <= threshold_health:
+			should_stun = true
+			next_stun_index += 1
+		else:
+			break
+
+	# Regular enemies stun on every hit
+	if data.stun_on_every_hit:
+		should_stun = true
+
+	if should_stun:
+		stun()
+
+
+func stun() -> void:
 	is_locked = true
 	velocity = Vector2.ZERO
+
 	travel_to("hurt")
 	hurt_timer.start()
+
+
+func flash() -> void:
+	if is_flashing:
+		return
+
+	is_flashing = true
+	$Sprite2D.modulate = Color(2.0, 2.0, 2.0, 1.0)
+
+	await get_tree().create_timer(FLASH_DURATION).timeout
+
+	if not is_dead:
+		$Sprite2D.modulate = Color.WHITE
+
+	is_flashing = false
 
 
 # ============================================
@@ -434,6 +550,7 @@ func die() -> void:
 	is_dead = true
 	remove_from_group("enemies")
 	velocity = Vector2.ZERO
+	player_hurtbox = null
 	call_deferred("drop_coins")
 
 	# Disable collisions
@@ -441,21 +558,17 @@ func die() -> void:
 	attack_hitbox.set_deferred("monitoring", false)
 	attack_hitbox.set_deferred("monitorable", false)
 
-	# ============================================
-	# NOTIFY WAVE MANAGER IMMEDIATELY
-	# ============================================
-
+	# Notify wave manager immediately
 	var wave_manager: Node = get_tree().get_first_node_in_group("wave_manager")
+	var callback: String = "on_boss_died" if data.is_boss else "on_enemy_died"
 
-	if wave_manager != null and wave_manager.has_method("on_enemy_died"):
-		wave_manager.on_enemy_died()
+	if wave_manager != null and wave_manager.has_method(callback):
+		wave_manager.call(callback)
 
-	# ============================================
-	# DEATH ANIMATION
-	# ============================================
-
+	# Death animation
 	travel_to("death")
 
+	# Leave corpse for 5 seconds
 	await get_tree().create_timer(5.0).timeout
 
 	queue_free()
@@ -469,23 +582,19 @@ func travel_to(state_name: String) -> void:
 	if state_machine.get_current_node() != state_name:
 		state_machine.travel(state_name)
 
-	anim_tree.set("parameters/" + state_name + "/blend_position", facing_direction)
+	# Only touch the tree parameter when something actually changed
+	if state_name != _applied_state or facing_direction != _applied_facing:
+		anim_tree.set("parameters/" + state_name + "/blend_position", facing_direction)
+		_applied_state = state_name
+		_applied_facing = facing_direction
 
-# ============================================
-# COIN DROP
-# ============================================
-
-const COIN_SCENE = preload("res://Scenes/Coin.tscn")
-
-@export var coin_drop_min: int = 1
-@export var coin_drop_max: int = 1
 
 # ============================================
 # DROP COINS
 # ============================================
 
 func drop_coins() -> void:
-	var amount: int = randi_range(coin_drop_min, coin_drop_max)
+	var amount: int = randi_range(data.coin_drop_min, data.coin_drop_max)
 	var coins_container: Node2D = get_tree().current_scene.get_node("YSortWorld/Coins")
 
 	for i in range(amount):

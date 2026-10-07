@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://drakqfuopox8v"]
+
+[ext_resource type="Script" uid="uid://i64huwqt4x0o" path="res://Scripts/enemy_data.gd" id="1_0xdmx"]
+[ext_resource type="AnimationLibrary" uid="uid://bbkg6gduuv34h" path="res://Enemies/boss_anims.res" id="1_smujn"]
+
+[resource]
+script = ExtResource("1_0xdmx")
+display_name = "Boss"
+coin_drop_min = 100
+coin_drop_max = 100
+stun_on_every_hit = false
+stun_thresholds = Array[float]([0.75, 0.5, 0.25])
+flash_on_hit = true
+is_boss = true
+use_wave_boss_stats = true
+animation_library = ExtResource("1_smujn")
+metadata/_custom_type_script = "uid://i64huwqt4x0o"

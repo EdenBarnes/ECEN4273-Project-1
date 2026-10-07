@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwscx34vgxm0r"
-path="res://.godot/imported/hurt.png-d6f5d446dc4f263761936164ac1c2004.ctex"
+uid="uid://cg3otktmt1ccd"
+path="res://.godot/imported/death.png-e12f99c99572612cdb8cfce722b69e15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/Zombie/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-d6f5d446dc4f263761936164ac1c2004.ctex"]
+source_file="res://resources/sprites/Zombie/Walker/death.png"
+dest_files=["res://.godot/imported/death.png-e12f99c99572612cdb8cfce722b69e15.ctex"]
 
 [params]
 
