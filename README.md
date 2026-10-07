@@ -2,13 +2,13 @@
 Developed By: 
 	ALEX ALLEN, ALEX JACKSON, EDEN BARNES, DAX PRICE
 
-Gameplay:
+## Gameplay:
 	This is a top down zombie shooter
 	Objective is to kill zombies and survive for 10 waves
 	You can unbox random guns and collect perks as you collect coins
 	Dash away from enemies and heal by the campfire when hurt
 
-Keybinds:
+## Keybinds:
 	*Acton*            *Duration*      *Input*
 	Move:                Hold          WASD
 	Interact:            Click         E
@@ -17,9 +17,9 @@ Keybinds:
 	Aim:                 Hold          RIGHT MOUSE
 	Dash:                Click         Left Shift
 	Weapon Slots:        Click         Number Keys 1 and 2
-	Qiick Weapon Change: Up/Down       Mouse Wheel
+	Quick Weapon Change: Up/Down       Mouse Wheel
 
-Referances:
+## References:
 	Weapon Assets
 	https://vladpenn.itch.io/weapon
 
