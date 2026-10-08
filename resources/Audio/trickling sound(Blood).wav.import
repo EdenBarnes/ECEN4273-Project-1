@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bm1v6gphhnb5l"
+path="res://.godot/imported/trickling sound(Blood).wav-a6aaed046bd9b2990c4ad910ac4ca3ac.sample"
+
+[deps]
+
+source_file="res://resources/Audio/trickling sound(Blood).wav"
+dest_files=["res://.godot/imported/trickling sound(Blood).wav-a6aaed046bd9b2990c4ad910ac4ca3ac.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -159,7 +159,9 @@ func _on_boss_defeated() -> void:
 func _on_all_waves_completed() -> void:
 	countdown_active = false
 
-	wave_text.text = "YOU COMPLEATED ALL WAVES"
-	status_text.text = "YOU WIN!"
+	# The win screen handles this now - just clear
+	# the HUD so nothing shows through the fade.
+	wave_text.text = ""
+	status_text.text = ""
 
 	boss_health.visible = false
