@@ -142,6 +142,9 @@ func _physics_process(_delta: float) -> void:
 			desired_direction = (desired_direction + obstacle_avoidance).normalized()
 
 			var health_speed_multiplier: float = float(current_health) / float(max_health)
+			if health_speed_multiplier <= 0.25:
+				health_speed_multiplier = 0.25
+
 			velocity = desired_direction * speed * health_speed_multiplier
 		else:
 			velocity = Vector2.ZERO
@@ -346,6 +349,7 @@ func die() -> void:
 	is_locked = true
 	is_dead = true
 	velocity = Vector2.ZERO
+	call_deferred("drop_coins")
 
 	# Disable collisions
 	collision_shape.set_deferred("disabled", true)
@@ -381,3 +385,27 @@ func travel_to(state_name: String) -> void:
 		state_machine.travel(state_name)
 
 	anim_tree.set("parameters/" + state_name + "/blend_position", facing_direction)
+
+# ============================================
+# COIN DROP
+# ============================================
+
+const COIN_SCENE = preload("res://Scenes/Coin.tscn")
+
+@export var coin_drop_min: int = 1
+@export var coin_drop_max: int = 1
+
+# ============================================
+# DROP COINS
+# ============================================
+
+func drop_coins() -> void:
+	var amount: int = randi_range(coin_drop_min, coin_drop_max)
+	var coins_container: Node2D = get_tree().current_scene.get_node("YSortWorld/Coins")
+
+	for i in range(amount):
+		var coin: Area2D = COIN_SCENE.instantiate()
+
+		coins_container.add_child(coin)
+		coin.global_position = global_position
+		coin.scatter()

@@ -1,20 +1,20 @@
 [gd_scene format=3 uid="uid://56ham174grgk"]
 
 [ext_resource type="Script" uid="uid://bnq0v1tv73gdt" path="res://Scripts/start_screen.gd" id="1_60ddj"]
-[ext_resource type="Texture2D" uid="uid://d4d6otvrxw5hl" path="res://resources/Game Assets/Main Menu/Main Menu.png" id="2_5e717"]
+[ext_resource type="Texture2D" uid="uid://uf3r08rvppmp" path="res://resources/Game Assets/MainMenu/Main Menu.png" id="2_5e717"]
 [ext_resource type="AudioStream" uid="uid://c0arq7kt0h1bu" path="res://resources/Audio/theme music.wav" id="3_60ddj"]
-[ext_resource type="Texture2D" uid="uid://1v0252srpwcc" path="res://resources/Game Assets/Main Menu/Zombie_hand_SSt.png" id="3_64bn7"]
-[ext_resource type="Texture2D" uid="uid://bxcilfrcm7rf5" path="res://resources/Game Assets/Main Menu/Bolt1.png" id="3_mtlf8"]
-[ext_resource type="Texture2D" uid="uid://ciippcti04h0l" path="res://resources/Game Assets/Buttons/Start_button_start.png" id="4_ssogg"]
-[ext_resource type="Texture2D" uid="uid://cd86qf6g7g8xd" path="res://resources/Game Assets/Buttons/Start_button_clicked.png" id="5_akot6"]
+[ext_resource type="Texture2D" uid="uid://ujmht6hb8xq7" path="res://resources/Game Assets/MainMenu/Zombie_hand_SSt.png" id="3_64bn7"]
+[ext_resource type="Texture2D" uid="uid://0wqic4elhgsh" path="res://resources/Game Assets/MainMenu/Bolt1.png" id="3_mtlf8"]
+[ext_resource type="Texture2D" uid="uid://bot7eweupvmyx" path="res://resources/Game Assets/MainMenu/Start_button_start.png" id="4_ssogg"]
+[ext_resource type="Texture2D" uid="uid://07nshnnbpldn" path="res://resources/Game Assets/MainMenu/Start_button_clicked.png" id="5_akot6"]
 [ext_resource type="AudioStream" uid="uid://cgvc2g0re1yvv" path="res://resources/Audio/Thunder.mp3" id="5_nqnrp"]
-[ext_resource type="Texture2D" uid="uid://t6a2py7pjf4r" path="res://resources/Game Assets/Buttons/Start_button_hover.png" id="6_rjuq2"]
-[ext_resource type="Texture2D" uid="uid://colbi7tvyyuky" path="res://resources/Game Assets/Buttons/Exit_button_start.png" id="7_c1457"]
-[ext_resource type="Texture2D" uid="uid://c3qtbysfma1o6" path="res://resources/Game Assets/Buttons/Exit_button_pressed.png" id="8_64bn7"]
-[ext_resource type="Texture2D" uid="uid://brtcowtl21vms" path="res://resources/Game Assets/Buttons/Setting_button_clicked.png" id="8_a0dpv"]
-[ext_resource type="Texture2D" uid="uid://p46t4nsd68ib" path="res://resources/Game Assets/Buttons/Setting_button_start.png" id="8_hppi5"]
-[ext_resource type="Texture2D" uid="uid://qs7a7pk734gn" path="res://resources/Game Assets/Buttons/Exit_button_hover.png" id="9_357se"]
-[ext_resource type="Texture2D" uid="uid://8watu88ny81o" path="res://resources/Game Assets/Buttons/Setting_button_hover.png" id="9_eun7n"]
+[ext_resource type="Texture2D" uid="uid://cgm64rekwi0vx" path="res://resources/Game Assets/MainMenu/Start_button_hover.png" id="6_rjuq2"]
+[ext_resource type="Texture2D" uid="uid://colbi7tvyyuky" path="res://resources/Game Assets/MainMenu/Exit_button_start.png" id="7_c1457"]
+[ext_resource type="Texture2D" uid="uid://q4syso7y5bwh" path="res://resources/Game Assets/MainMenu/Exit_button_pressed.png" id="8_64bn7"]
+[ext_resource type="Texture2D" uid="uid://bvioq2m0yexe2" path="res://resources/Game Assets/MainMenu/Setting_button_clicked.png" id="8_a0dpv"]
+[ext_resource type="Texture2D" uid="uid://byei7f80pneuy" path="res://resources/Game Assets/MainMenu/Setting_button_start.png" id="8_hppi5"]
+[ext_resource type="Texture2D" uid="uid://b3jl0ndvsl6fy" path="res://resources/Game Assets/MainMenu/Exit_button_hover.png" id="9_357se"]
+[ext_resource type="Texture2D" uid="uid://b6pjab41nlj0" path="res://resources/Game Assets/MainMenu/Setting_button_hover.png" id="9_eun7n"]
 [ext_resource type="AudioStream" uid="uid://dqlu4fqneyp05" path="res://resources/Audio/Loud_zombie_growl.mp3" id="13_357se"]
 [ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="13_a7t2b"]
 [ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="14_nfbbu"]
@@ -136,12 +136,12 @@ texture_pressed = ExtResource("8_64bn7")
 texture_hover = ExtResource("9_357se")
 
 [node name="UIHover" type="AudioStreamPlayer" parent="." unique_id=1990361289]
-bus = &"UI"
 stream = ExtResource("13_a7t2b")
+bus = &"UI"
 
 [node name="UIClick" type="AudioStreamPlayer" parent="." unique_id=1380844434]
-bus = &"UI"
 stream = ExtResource("14_nfbbu")
+bus = &"UI"
 
 [node name="ZombieHand" type="AnimatedSprite2D" parent="." unique_id=446186264]
 visible = false
@@ -152,17 +152,17 @@ frame = 3
 frame_progress = 1.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1952410455]
-bus = &"Music"
 stream = ExtResource("3_60ddj")
 autoplay = true
+bus = &"Music"
 
 [node name="Thunder" type="AudioStreamPlayer" parent="." unique_id=907769142]
-bus = &"SFX"
 stream = ExtResource("5_nqnrp")
+bus = &"SFX"
 
 [node name="ZombieGrowl" type="AudioStreamPlayer" parent="." unique_id=207805503]
-bus = &"SFX"
 stream = ExtResource("13_357se")
+bus = &"SFX"
 
 [node name="SettingsPanel" type="Panel" parent="." unique_id=1153137568]
 visible = false

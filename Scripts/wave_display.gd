@@ -9,7 +9,7 @@ extends Control
 @onready var status_text: Label = $StatusText
 
 @onready var boss_health: Control = $BossHealth
-@onready var boss_health_bar: ProgressBar = $BossHealth/BossHealthBar
+@onready var boss_health_bar: TextureProgressBar = $BossHealth/BossHealthBar
 @onready var boss_health_text: Label = $BossHealth/BossHealthText
 
 
@@ -25,7 +25,6 @@ var wave_manager: Node = null
 # ============================================
 
 var countdown_active: bool = false
-var countdown_time: float = 0.0
 
 
 # ============================================
@@ -60,17 +59,18 @@ func connect_to_wave_manager() -> void:
 # PROCESS COUNTDOWN
 # ============================================
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not countdown_active:
 		return
 
-	countdown_time -= delta
+	if wave_manager == null:
+		return
 
-	if countdown_time <= 0.0:
-		countdown_time = 0.0
+	if not wave_manager.wave_waiting:
 		countdown_active = false
 		return
 
+	var countdown_time: float = wave_manager.get_countdown_remaining()
 	var seconds_remaining: int = ceili(countdown_time)
 
 	status_text.text = "STARTING IN " + str(seconds_remaining) + "..."
@@ -90,10 +90,11 @@ func _on_wave_countdown_started(wave_number: int, duration: float) -> void:
 		status_text.text = ""
 		return
 
-	countdown_time = duration
 	countdown_active = true
 
-	status_text.text = "STARTING IN " + str(ceili(duration)) + "..."
+	var seconds_remaining: int = ceili(duration)
+
+	status_text.text = "STARTING IN " + str(seconds_remaining) + "..."
 
 
 # ============================================
@@ -102,7 +103,6 @@ func _on_wave_countdown_started(wave_number: int, duration: float) -> void:
 
 func _on_wave_started(wave_number: int) -> void:
 	countdown_active = false
-	countdown_time = 0.0
 
 	wave_text.text = "WAVE " + str(wave_number)
 
@@ -124,13 +124,11 @@ func _on_boss_started(boss: Node) -> void:
 
 	boss_health.visible = true
 
-	# Set initial boss health
 	var current_health: int = boss.get("current_health")
 	var max_health: int = boss.get("max_health")
 
 	update_boss_health(current_health, max_health)
 
-	# Connect boss health signal
 	if boss.has_signal("health_changed"):
 		boss.health_changed.connect(update_boss_health)
 

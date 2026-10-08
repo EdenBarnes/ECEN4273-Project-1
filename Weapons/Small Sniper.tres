@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_iaaic")
 weapon_texture = ExtResource("2_iaaic")
-damage = 75
+damage = 150
 bullet_speed = 550.0
 fire_rate = 0.65
 pierce = 3

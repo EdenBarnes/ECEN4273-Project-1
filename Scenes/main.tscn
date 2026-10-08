@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dg4ywxpsft5lt"]
 
 [ext_resource type="PackedScene" uid="uid://qp1bm4yq55x7" path="res://Scenes/player.tscn" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://bbooqu171obgg" path="res://Scripts/main.gd" id="1_e08e2"]
 [ext_resource type="PackedScene" uid="uid://gqy2arulhisc" path="res://Scenes/enemy_spawner.tscn" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://b6p7uakagms5u" path="res://Scenes/Background Scenes/Tree.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b3uifxuqat6co" path="res://Scenes/Gun Box.tscn" id="3_21xkr"]
@@ -15,9 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://opoly5kuk3hd" path="res://Scenes/Background Scenes/BigGrass.tscn" id="11_jkdf5"]
 [ext_resource type="PackedScene" uid="uid://brgtaia6qvw8l" path="res://Scenes/Background Scenes/SmallGrass.tscn" id="12_k12tt"]
 [ext_resource type="PackedScene" uid="uid://bbdu824nus2xd" path="res://Scenes/Background Scenes/Cabin2.tscn" id="14_h1bgf"]
-[ext_resource type="PackedScene" uid="uid://cmvsaw6kvmur2" path="res://Scenes/Background Scenes/CampFire.tscn" id="15_fevyy"]
+[ext_resource type="PackedScene" uid="uid://dder0ntdvnamr" path="res://Scenes/HealingCampfire.tscn" id="15_33qc4"]
 [ext_resource type="PackedScene" uid="uid://b4kkcib0nn6kc" path="res://Scenes/Background Scenes/Stump2.tscn" id="16_fevyy"]
 [ext_resource type="PackedScene" uid="uid://fjp6x1xodhkq" path="res://Scenes/Background Scenes/Stump1.tscn" id="16_hibaj"]
+[ext_resource type="PackedScene" uid="uid://cw0kemugmvi5i" path="res://Scenes/PerkWell.tscn" id="17_e6rcu"]
 [ext_resource type="Script" uid="uid://cjh0m7r2sai6x" path="res://Scripts/wave_manager.gd" id="21_gt3je"]
 [ext_resource type="Resource" uid="uid://bsg68mnob1ffi" path="res://Waves/Wave1.tres" id="22_hpc6h"]
 [ext_resource type="Resource" uid="uid://cfjwbkawj07wl" path="res://Waves/Wave2.tres" id="23_kltya"]
@@ -27,63 +29,10 @@
 [ext_resource type="Resource" uid="uid://caqsjepkgkpam" path="res://Waves/Wave6.tres" id="27_hdf80"]
 [ext_resource type="Resource" uid="uid://d1euucqiy0cfw" path="res://Waves/Wave7.tres" id="28_jwpg7"]
 [ext_resource type="Resource" uid="uid://bjf3ri0yhu3nf" path="res://Waves/Wave8.tres" id="29_k2e45"]
-[ext_resource type="Script" uid="uid://d2wytedmyj2mq" path="res://Scripts/weapon_display.gd" id="30_8cuat"]
 [ext_resource type="Resource" uid="uid://c5yxltvdivoij" path="res://Waves/Wave9.tres" id="30_536cc"]
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
-[ext_resource type="Texture2D" uid="uid://bunn3a80f20al" path="res://resources/Hud/Reload animation/Reload1.png" id="31_o1aky"]
-[ext_resource type="Texture2D" uid="uid://cx6qbul8gmgrd" path="res://resources/Hud/Reload animation/Reload2.png" id="32_kwxat"]
-[ext_resource type="Texture2D" uid="uid://by2wr2uf4uued" path="res://resources/Hud/Reload animation/Reload3.png" id="33_aa8k8"]
-[ext_resource type="Texture2D" uid="uid://dyyuv5moyr6sa" path="res://resources/Hud/Reload animation/Reload4.png" id="34_kqrg6"]
-[ext_resource type="Texture2D" uid="uid://w34dxefvriw3" path="res://resources/Hud/Reload animation/Reload5.png" id="35_nwwfm"]
-[ext_resource type="Texture2D" uid="uid://8slh0gfyrwfj" path="res://resources/Hud/Reload animation/Reload6.png" id="36_s8vy0"]
-[ext_resource type="Texture2D" uid="uid://7mk7d6bi0w3i" path="res://resources/Hud/Reload animation/Reload7.png" id="37_jut3y"]
-[ext_resource type="Texture2D" uid="uid://dkkpiisxjhhiy" path="res://resources/Hud/Reload animation/Reload8.png" id="38_v2nl5"]
-[ext_resource type="Texture2D" uid="uid://cg4fitofi0aes" path="res://resources/Hud/Reload animation/Reload9.png" id="39_dmskm"]
-[ext_resource type="Texture2D" uid="uid://dckpumeudgena" path="res://resources/Hud/Reload animation/Reload10.png" id="40_xdkp6"]
-[ext_resource type="Texture2D" uid="uid://i2ppe4fh8u6h" path="res://resources/Hud/Reload animation/Reload11.png" id="41_54nrm"]
-[ext_resource type="Texture2D" uid="uid://gb07vr6nbpy8" path="res://resources/Hud/Reload animation/Reload12.png" id="42_6ml46"]
-[ext_resource type="Texture2D" uid="uid://bdt5t40u6bedf" path="res://resources/Hud/health/Sprite-0000.png" id="42_wl4bb"]
-[ext_resource type="Texture2D" uid="uid://bj6pcc3vhi24d" path="res://resources/Hud/health/Sprite-0001.png" id="43_6h1fc"]
-[ext_resource type="Texture2D" uid="uid://mfbk0nbjaa2d" path="res://resources/Hud/Reload animation/Reload13.png" id="43_qax2n"]
-[ext_resource type="Texture2D" uid="uid://hhi2xeqoxmb8" path="res://resources/Hud/health/Sprite-0002.png" id="44_vxl7x"]
-[ext_resource type="Texture2D" uid="uid://da5d4j3yycyvj" path="res://resources/Hud/Reload animation/Reload14.png" id="44_y86h7"]
-[ext_resource type="Texture2D" uid="uid://deo0vx2rjtlqk" path="res://resources/Hud/health/Sprite-0003.png" id="45_ihvwq"]
-[ext_resource type="Texture2D" uid="uid://d4hcq8pbxq78f" path="res://resources/Hud/Reload animation/Reload15.png" id="45_my4ki"]
-[ext_resource type="Texture2D" uid="uid://cfbkgyd3xiay0" path="res://resources/Hud/health/Sprite-0004.png" id="46_k8rh3"]
-[ext_resource type="Texture2D" uid="uid://dnyleaoxonrw1" path="res://resources/Hud/Reload animation/Reload16.png" id="46_lx3vj"]
-[ext_resource type="Texture2D" uid="uid://dus2ixw4dsvxu" path="res://resources/Hud/health/Sprite-0005.png" id="47_55idt"]
-[ext_resource type="Texture2D" uid="uid://d0c52mwmr56m2" path="res://resources/Hud/Reload animation/Reload17.png" id="47_ynmfv"]
-[ext_resource type="Texture2D" uid="uid://dsre853pqmf86" path="res://resources/Hud/health/Sprite-0006.png" id="48_87bhu"]
-[ext_resource type="Texture2D" uid="uid://bqhuq322w51xy" path="res://resources/Hud/Reload animation/Reload18.png" id="48_cblf0"]
-[ext_resource type="Texture2D" uid="uid://2wmgwjylpag8" path="res://resources/Hud/health/Sprite-0007.png" id="49_33qc4"]
-[ext_resource type="Texture2D" uid="uid://f3g6yh2uj2mk" path="res://resources/Hud/Reload animation/Reload19.png" id="49_nay3j"]
-[ext_resource type="Texture2D" uid="uid://chnel2l46ik82" path="res://resources/Hud/health/Sprite-0008.png" id="50_e6rcu"]
-[ext_resource type="Texture2D" uid="uid://sd6euiucrfyn" path="res://resources/Hud/Reload animation/Reload20.png" id="50_ovafv"]
-[ext_resource type="Texture2D" uid="uid://wfr2yd3ivsed" path="res://resources/Hud/Reload animation/Reload21.png" id="51_owhal"]
-[ext_resource type="Texture2D" uid="uid://b6mncpf86cidc" path="res://resources/Hud/health/Sprite-0009.png" id="51_p4gyq"]
-[ext_resource type="Texture2D" uid="uid://d168e01x83txi" path="res://resources/Hud/health/Sprite-0010.png" id="52_32dfi"]
-[ext_resource type="Texture2D" uid="uid://05lq7eabl08y" path="res://resources/Hud/Reload animation/Reload22.png" id="52_uv6w5"]
-[ext_resource type="Texture2D" uid="uid://b3kotc2npwb1a" path="res://resources/Hud/health/Sprite-0011.png" id="53_cf2bd"]
-[ext_resource type="Texture2D" uid="uid://cn48dedgw3uct" path="res://resources/Hud/Reload animation/Reload23.png" id="53_r7bbj"]
-[ext_resource type="Texture2D" uid="uid://cavhwygc724lj" path="res://resources/Hud/Reload animation/Reload24.png" id="54_e5peh"]
-[ext_resource type="Texture2D" uid="uid://xx0lp7wf0bi" path="res://resources/Hud/health/Sprite-0012.png" id="54_lpdpw"]
-[ext_resource type="Texture2D" uid="uid://djdix8bv3fl20" path="res://resources/Hud/Reload animation/Reload25.png" id="55_f6rfp"]
-[ext_resource type="Texture2D" uid="uid://b0rmjhgvggchx" path="res://resources/Hud/health/Sprite-0013.png" id="55_jrou0"]
-[ext_resource type="Texture2D" uid="uid://r76eqyxom6wb" path="res://resources/Hud/health/Sprite-0014.png" id="56_j2g22"]
-[ext_resource type="Texture2D" uid="uid://dhkypuqud6yhw" path="res://resources/Hud/Reload animation/Reload26.png" id="56_sasc4"]
-[ext_resource type="Texture2D" uid="uid://b5gxcdlbt322y" path="res://resources/Hud/Reload animation/Reload27.png" id="57_pfx1i"]
-[ext_resource type="Texture2D" uid="uid://cfbd6paj25jg8" path="res://resources/Hud/health/Sprite-0015.png" id="57_phube"]
-[ext_resource type="Texture2D" uid="uid://dkkrjgmxbxu3e" path="res://resources/Hud/Reload animation/Reload28.png" id="58_fg68e"]
-[ext_resource type="Texture2D" uid="uid://c8bwy73oroqmr" path="res://resources/Hud/health/Sprite-0016.png" id="58_t014q"]
-[ext_resource type="Texture2D" uid="uid://57ub7l1t2xee" path="res://resources/Hud/Reload animation/Reload29.png" id="59_jekl6"]
-[ext_resource type="Texture2D" uid="uid://c2qgkrkw3p5iv" path="res://resources/Hud/health/Sprite-0017.png" id="59_nb1ia"]
-[ext_resource type="Texture2D" uid="uid://cnlshfk6jwsf6" path="res://resources/Hud/health/Sprite-0018.png" id="60_3ahwd"]
-[ext_resource type="Texture2D" uid="uid://bfb3lneq0m2v3" path="res://resources/Hud/Reload animation/Reload30.png" id="60_v1mrv"]
-[ext_resource type="Texture2D" uid="uid://wa8f86bp01em" path="res://resources/Hud/health/Sprite-0019.png" id="61_b4xsn"]
-[ext_resource type="FontFile" uid="uid://boxxcqndiy4j8" path="res://resources/Hud/VCR_OSD_MONO_1.001.ttf" id="61_qax2n"]
-[ext_resource type="Texture2D" uid="uid://cjed8lvdgayrh" path="res://resources/Hud/health/Sprite-0020.png" id="62_ot5ec"]
-[ext_resource type="Script" uid="uid://gbjeh0nno78b" path="res://Scripts/health_display.gd" id="83_aok0f"]
-[ext_resource type="Script" uid="uid://wh2us5jojg2c" path="res://Scripts/wave_display.gd" id="84_6h1fc"]
+[ext_resource type="PackedScene" uid="uid://byw5oa4oe0k7f" path="res://Scenes/hud.tscn" id="31_hpc6h"]
+[ext_resource type="PackedScene" uid="uid://brdevwnssgx8y" path="res://Scenes/Keybinds.tscn" id="32_kltya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -97,178 +46,8 @@ size = Vector2(1583, 62)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xadyu"]
 size = Vector2(1583, 62)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("31_o1aky")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_kwxat")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_aa8k8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_kqrg6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("35_nwwfm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("36_s8vy0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("37_jut3y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_v2nl5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("39_dmskm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_xdkp6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_54nrm")
-}],
-"loop": 0,
-"name": &"ammo",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("42_wl4bb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_6h1fc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_vxl7x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_ihvwq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_k8rh3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_55idt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_87bhu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("49_33qc4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("50_e6rcu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("51_p4gyq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("52_32dfi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("53_cf2bd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("54_lpdpw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("55_jrou0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("56_j2g22")
-}, {
-"duration": 1.0,
-"texture": ExtResource("57_phube")
-}, {
-"duration": 1.0,
-"texture": ExtResource("58_t014q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("59_nb1ia")
-}, {
-"duration": 1.0,
-"texture": ExtResource("60_3ahwd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("61_b4xsn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("62_ot5ec")
-}],
-"loop": 1,
-"name": &"health",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("42_6ml46")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_qax2n")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_y86h7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_my4ki")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_lx3vj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_ynmfv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("48_cblf0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("49_nay3j")
-}, {
-"duration": 1.0,
-"texture": ExtResource("50_ovafv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("51_owhal")
-}, {
-"duration": 1.0,
-"texture": ExtResource("52_uv6w5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("53_r7bbj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("54_e5peh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("55_f6rfp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("56_sasc4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("57_pfx1i")
-}, {
-"duration": 1.0,
-"texture": ExtResource("58_fg68e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("59_jekl6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("60_v1mrv")
-}],
-"loop": 0,
-"name": &"reload",
-"speed": 5.0
-}]
-
 [node name="Main" type="Node2D" unique_id=549834261]
+script = ExtResource("1_e08e2")
 
 [node name="BackgroundBackground" type="Sprite2D" parent="." unique_id=454784985]
 z_index = -5
@@ -279,13 +58,13 @@ texture = ExtResource("5_21xkr")
 y_sort_enabled = true
 
 [node name="Player" parent="YSortWorld" unique_id=1057855715 instance=ExtResource("1_bo1nx")]
-position = Vector2(-180, 112)
+position = Vector2(790, 317)
 
 [node name="WorldObjects" type="Node2D" parent="YSortWorld" unique_id=38907863]
 y_sort_enabled = true
 
 [node name="DeadTree" parent="YSortWorld/WorldObjects" unique_id=975194361 instance=ExtResource("3_hibaj")]
-position = Vector2(780, 158)
+position = Vector2(774, 159)
 
 [node name="DeadTree3" parent="YSortWorld/WorldObjects" unique_id=1041065522 instance=ExtResource("3_hibaj")]
 position = Vector2(626, 574)
@@ -297,7 +76,7 @@ position = Vector2(1123, 626)
 position = Vector2(1419, 849)
 
 [node name="DeadTree6" parent="YSortWorld/WorldObjects" unique_id=1306383768 instance=ExtResource("3_hibaj")]
-position = Vector2(1007, 980)
+position = Vector2(780, 987)
 
 [node name="DeadTree7" parent="YSortWorld/WorldObjects" unique_id=449117842 instance=ExtResource("3_hibaj")]
 position = Vector2(120, 621)
@@ -338,7 +117,7 @@ position = Vector2(449, 521)
 
 [node name="Tree5" parent="YSortWorld/WorldObjects" unique_id=1198077970 instance=ExtResource("2_21xkr")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(917, 519)
+position = Vector2(1033, 614)
 
 [node name="Tree6" parent="YSortWorld/WorldObjects" unique_id=1377098530 instance=ExtResource("2_21xkr")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -372,7 +151,7 @@ position = Vector2(727, 204)
 position = Vector2(745, 453)
 
 [node name="Rock10" parent="YSortWorld/WorldObjects" unique_id=2146230093 instance=ExtResource("5_344ge")]
-position = Vector2(1116, 453)
+position = Vector2(1165, 529)
 
 [node name="Rock11" parent="YSortWorld/WorldObjects" unique_id=755081904 instance=ExtResource("5_344ge")]
 position = Vector2(1473, 333)
@@ -393,7 +172,7 @@ position = Vector2(267, 103)
 position = Vector2(640, 792)
 
 [node name="Rock12" parent="YSortWorld/WorldObjects" unique_id=1778888687 instance=ExtResource("7_hptm8")]
-position = Vector2(864, 655)
+position = Vector2(921, 607)
 
 [node name="Rock13" parent="YSortWorld/WorldObjects" unique_id=1627570638 instance=ExtResource("7_hptm8")]
 position = Vector2(674, 330)
@@ -402,11 +181,11 @@ position = Vector2(674, 330)
 position = Vector2(824, 39)
 
 [node name="Rock15" parent="YSortWorld/WorldObjects" unique_id=1878387821 instance=ExtResource("7_hptm8")]
-position = Vector2(1029, 379)
+position = Vector2(991, 380)
 
 [node name="Big Grass" parent="YSortWorld/WorldObjects" unique_id=1136508815 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(883, 623)
+position = Vector2(869, 669)
 
 [node name="Big Grass2" parent="YSortWorld/WorldObjects" unique_id=1011674702 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -486,7 +265,7 @@ position = Vector2(910, 198)
 
 [node name="Big Grass21" parent="YSortWorld/WorldObjects" unique_id=889760527 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(976, 182)
+position = Vector2(993, 146)
 
 [node name="Big Grass22" parent="YSortWorld/WorldObjects" unique_id=1992901609 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -518,7 +297,7 @@ position = Vector2(1104, 713)
 
 [node name="Big Grass29" parent="YSortWorld/WorldObjects" unique_id=1729035351 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1177, 574)
+position = Vector2(1182, 569)
 
 [node name="Big Grass30" parent="YSortWorld/WorldObjects" unique_id=2100289995 instance=ExtResource("11_jkdf5")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -654,7 +433,7 @@ position = Vector2(1392, 784)
 
 [node name="Small Grass15" parent="YSortWorld/WorldObjects" unique_id=1531392694 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1173, 747)
+position = Vector2(1301, 662)
 
 [node name="Small Grass16" parent="YSortWorld/WorldObjects" unique_id=1153919999 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -686,7 +465,7 @@ position = Vector2(1490, 532)
 
 [node name="Small Grass23" parent="YSortWorld/WorldObjects" unique_id=980093476 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1391, 470)
+position = Vector2(1388, 518)
 
 [node name="Small Grass24" parent="YSortWorld/WorldObjects" unique_id=1826870630 instance=ExtResource("12_k12tt")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -887,22 +666,15 @@ position = Vector2(432, 338)
 position = Vector2(1091, 273)
 
 [node name="Cabin4" parent="YSortWorld/WorldObjects" unique_id=1842281385 instance=ExtResource("14_h1bgf")]
-position = Vector2(1281, 711)
-
-[node name="Campfire" parent="YSortWorld/WorldObjects" unique_id=2000045201 instance=ExtResource("15_fevyy")]
-position = Vector2(1361, 388)
-
-[node name="Stump" parent="YSortWorld/WorldObjects" unique_id=926026617 instance=ExtResource("16_hibaj")]
-modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1302, 378)
+position = Vector2(1225, 772)
 
 [node name="Stump6" parent="YSortWorld/WorldObjects" unique_id=1088091967 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1234, 554)
+position = Vector2(1249, 606)
 
 [node name="Stump7" parent="YSortWorld/WorldObjects" unique_id=568564600 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1032, 815)
+position = Vector2(1047, 744)
 
 [node name="Stump8" parent="YSortWorld/WorldObjects" unique_id=1477505348 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -915,18 +687,6 @@ position = Vector2(681, 45)
 [node name="Stump10" parent="YSortWorld/WorldObjects" unique_id=1958085643 instance=ExtResource("16_hibaj")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
 position = Vector2(250, 237)
-
-[node name="Stump2" parent="YSortWorld/WorldObjects" unique_id=2117836138 instance=ExtResource("16_hibaj")]
-modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1326, 417)
-
-[node name="Stump3" parent="YSortWorld/WorldObjects" unique_id=1544917665 instance=ExtResource("16_hibaj")]
-modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1391, 420)
-
-[node name="Stump4" parent="YSortWorld/WorldObjects" unique_id=1245743225 instance=ExtResource("16_hibaj")]
-modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1418, 369)
 
 [node name="Stump5" parent="YSortWorld/WorldObjects" unique_id=871015497 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -946,7 +706,7 @@ position = Vector2(1385, 108)
 
 [node name="Stump14" parent="YSortWorld/WorldObjects" unique_id=415832226 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
-position = Vector2(1014, 140)
+position = Vector2(974, 189)
 
 [node name="Stump15" parent="YSortWorld/WorldObjects" unique_id=53792064 instance=ExtResource("16_fevyy")]
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
@@ -956,14 +716,37 @@ position = Vector2(442, 81)
 modulate = Color(0.83137256, 0.83137256, 0.83137256, 1)
 position = Vector2(232, 527)
 
+[node name="HealingCampfire" parent="YSortWorld" unique_id=1594578283 instance=ExtResource("15_33qc4")]
+position = Vector2(1351, 444)
+
 [node name="Enemies" type="Node2D" parent="YSortWorld" unique_id=842862414]
 y_sort_enabled = true
 
 [node name="Bullets" type="Node2D" parent="YSortWorld" unique_id=1207173388]
 y_sort_enabled = true
 
-[node name="Gun Box" parent="YSortWorld" unique_id=2096251236 instance=ExtResource("3_21xkr")]
+[node name="Coins" type="Node2D" parent="YSortWorld" unique_id=486020233]
+
+[node name="Gun Box" parent="YSortWorld" unique_id=2096251236 node_paths=PackedStringArray("spawn_locations") instance=ExtResource("3_21xkr")]
+position = Vector2(626, 278)
+spawn_locations = [NodePath("../GunBoxLocations/Location1"), NodePath("../GunBoxLocations/Location2"), NodePath("../GunBoxLocations/Location3"), NodePath("../GunBoxLocations/Location4")]
+
+[node name="PerkWell" parent="YSortWorld" unique_id=29035895 instance=ExtResource("17_e6rcu")]
+position = Vector2(831, 532)
+
+[node name="GunBoxLocations" type="Node2D" parent="YSortWorld" unique_id=1283220873]
+
+[node name="Location1" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1052438292]
 position = Vector2(626, 279)
+
+[node name="Location2" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1745390846]
+position = Vector2(1115, 448)
+
+[node name="Location3" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=1611885188]
+position = Vector2(607, 619)
+
+[node name="Location4" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=684160254]
+position = Vector2(1040, 843)
 
 [node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_8gbba")]
 position = Vector2(-117, 199)
@@ -1001,170 +784,6 @@ shape = SubResource("RectangleShape2D_xadyu")
 position = Vector2(0, 1024)
 polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311, 200, -309, 218, -296, 219, -272, 310, -273, 364, -269, 425, -270, 450, -255, 453, -223, 484, -223, 499, -205, 500, -173, 541, -172, 569, -151, 569, -133, 584, -133, 605, -115, 608, -57, 646, -59, 674, -41, 678, -2, 678, 0, 0, 0)
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1264037420]
+[node name="HUD" parent="." unique_id=498140079 instance=ExtResource("31_hpc6h")]
 
-[node name="HUDRoot" type="Control" parent="HUD" unique_id=290998040]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Ammo" type="Control" parent="HUD/HUDRoot" unique_id=1833018582]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="WeaponDisplay" type="Control" parent="HUD/HUDRoot/Ammo" unique_id=222709619]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("30_8cuat")
-
-[node name="Ammo" type="AnimatedSprite2D" parent="HUD/HUDRoot/Ammo/WeaponDisplay" unique_id=215659987]
-modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(-51, -50)
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_xadyu")
-animation = &"ammo"
-
-[node name="AmmoText" type="Label" parent="HUD/HUDRoot/Ammo/WeaponDisplay" unique_id=449864356]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -126.0
-offset_right = 10.0
-offset_bottom = 9.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.23392534, 0.23392552, 0.2339254, 1)
-theme_override_fonts/font = ExtResource("61_qax2n")
-theme_override_font_sizes/font_size = 65
-text = "999"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Health" type="Control" parent="HUD/HUDRoot" unique_id=1331171905]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
-
-[node name="HealthDisplay" type="Control" parent="HUD/HUDRoot/Health" unique_id=665557319]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-script = ExtResource("83_aok0f")
-
-[node name="Health" type="AnimatedSprite2D" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=2002610036]
-modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(89, -94)
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_xadyu")
-animation = &"health"
-
-[node name="HealthText" type="Label" parent="HUD/HUDRoot/Health/HealthDisplay" unique_id=1304885535]
-layout_mode = 1
-offset_left = -8.0
-offset_top = -127.0
-offset_right = 126.0
-offset_bottom = 8.0
-theme_override_colors/font_color = Color(0.9858839, 0.7636446, 0.74687356, 1)
-theme_override_fonts/font = ExtResource("61_qax2n")
-theme_override_font_sizes/font_size = 65
-text = "999"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WaveInfo" type="Control" parent="HUD/HUDRoot" unique_id=1009836520]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-script = ExtResource("84_6h1fc")
-
-[node name="WaveText" type="Label" parent="HUD/HUDRoot/WaveInfo" unique_id=314561422]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("61_qax2n")
-theme_override_font_sizes/font_size = 40
-text = "WAVE X"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StatusText" type="Label" parent="HUD/HUDRoot/WaveInfo" unique_id=501842931]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -94.0
-offset_top = 33.0
-offset_right = 94.0
-offset_bottom = 56.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("61_qax2n")
-text = "Enemys Remaining: XX"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BossHealth" type="Control" parent="HUD/HUDRoot/WaveInfo" unique_id=813312467]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="BossHealthBar" type="ProgressBar" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=564542573]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -244.25
-offset_top = 56.0
-offset_right = 244.25
-offset_bottom = 98.0
-grow_horizontal = 2
-value = 100.0
-show_percentage = false
-
-[node name="BossHealthText" type="Label" parent="HUD/HUDRoot/WaveInfo/BossHealth" unique_id=2120011591]
-layout_mode = 0
-offset_left = -212.0
-offset_top = 65.0
-offset_right = -155.0
-offset_bottom = 88.0
-theme_override_fonts/font = ExtResource("61_qax2n")
-text = "999999"
-vertical_alignment = 1
+[node name="Keybinds" parent="." unique_id=1955298123 instance=ExtResource("32_kltya")]
