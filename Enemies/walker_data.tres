@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dficclghwks3y"]
+
+[ext_resource type="AnimationLibrary" uid="uid://jesvk6ysh2c7" path="res://Enemies/walker_anims.res" id="1_0e3gi"]
+[ext_resource type="Script" uid="uid://i64huwqt4x0o" path="res://Scripts/enemy_data.gd" id="1_fwpcj"]
+
+[resource]
+script = ExtResource("1_fwpcj")
+display_name = "Walker"
+animation_library = ExtResource("1_0e3gi")
+metadata/_custom_type_script = "uid://i64huwqt4x0o"

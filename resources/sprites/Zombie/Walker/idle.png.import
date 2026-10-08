@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg3otktmt1ccd"
-path="res://.godot/imported/death.png-707f4bdf4a7595965e32928a7a532c8e.ctex"
+uid="uid://c67622v5cappt"
+path="res://.godot/imported/idle.png-69581163089aa2972105aad73067c5a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/Zombie/death.png"
-dest_files=["res://.godot/imported/death.png-707f4bdf4a7595965e32928a7a532c8e.ctex"]
+source_file="res://resources/sprites/Zombie/Walker/idle.png"
+dest_files=["res://.godot/imported/idle.png-69581163089aa2972105aad73067c5a0.ctex"]
 
 [params]
 

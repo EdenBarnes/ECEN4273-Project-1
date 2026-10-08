@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5dud75b6lp1"
-path="res://.godot/imported/walk.png-860cd8de18843e7222536dbc67a8cead.ctex"
+uid="uid://bfruhp0wnv430"
+path="res://.godot/imported/death.png-44d4c3d577f93284e4faf45234852689.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/Zombie/walk.png"
-dest_files=["res://.godot/imported/walk.png-860cd8de18843e7222536dbc67a8cead.ctex"]
+source_file="res://resources/sprites/Zombie/BigGuy/death.png"
+dest_files=["res://.godot/imported/death.png-44d4c3d577f93284e4faf45234852689.ctex"]
 
 [params]
 

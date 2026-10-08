@@ -4,7 +4,8 @@ extends Node
 # BOSS SCENE
 # ============================================
 
-const BOSS_SCENE = preload("res://Scenes/Boss.tscn")
+const ENEMY_SCENE = preload("res://Scenes/enemy.tscn")
+const BOSS_DATA: EnemyData = preload("res://Enemies/boss_data.tres")
 
 # ============================================
 # WAVE SETTINGS
@@ -306,7 +307,8 @@ func spawn_boss() -> void:
 	# CREATE BOSS
 	# ============================================
 
-	var boss: CharacterBody2D = BOSS_SCENE.instantiate()
+	var boss = ENEMY_SCENE.instantiate()
+	boss.data = BOSS_DATA        # must be set before add_child so _ready sees it
 
 	enemies_container.add_child(boss)
 
@@ -323,6 +325,7 @@ func spawn_boss() -> void:
 	boss_alive = true
 
 	print("Boss spawned!")
+	print("Boss spawned at ", boss.global_position, " scale ", boss.scale)
 
 	# Tell HUD which boss to track
 	boss_started.emit(boss)
