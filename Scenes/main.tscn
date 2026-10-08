@@ -755,7 +755,6 @@ position = Vector2(-117, 199)
 script = ExtResource("21_gt3je")
 waves = Array[Resource]([ExtResource("22_hpc6h"), ExtResource("23_kltya"), ExtResource("24_e08e2"), ExtResource("25_neg2b"), ExtResource("26_r33sp"), ExtResource("27_hdf80"), ExtResource("28_jwpg7"), ExtResource("29_k2e45"), ExtResource("30_536cc"), ExtResource("31_aqgau")])
 enemy_spawner = NodePath("../EnemySpawner")
-debug_wave_limit = 1
 
 [node name="GameBoundary" type="StaticBody2D" parent="." unique_id=295758232 groups=["boundary"]]
 collision_layer = 136
