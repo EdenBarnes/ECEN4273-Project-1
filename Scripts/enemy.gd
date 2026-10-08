@@ -247,12 +247,13 @@ func _physics_process(delta: float) -> void:
 	velocity += acceleration * delta
 
 	var health_speed_multiplier: float = float(current_health) / float(max_health)
+	if health_speed_multiplier <= 0.25:
+		health_speed_multiplier = 0.25
 	velocity = velocity.limit_length(speed * health_speed_multiplier)
 
 	if velocity.length() > FACING_MIN_SPEED:
 		facing_direction = velocity.normalized()
 		movement_direction = facing_direction
-
 		travel_to("walk")
 	else:
 		travel_to("idle")

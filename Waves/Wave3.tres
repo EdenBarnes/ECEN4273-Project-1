@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_nor4x")
 EneSpeedMult = 1.1
-StartDelay = 7.5
+StartDelay = 30.0
 normalper = 80
 Sprintper = 15
 bigper = 5

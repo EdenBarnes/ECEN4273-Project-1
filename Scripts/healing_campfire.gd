@@ -46,8 +46,8 @@ var last_fire_frame: int = -1
 
 @export_category("Cost Settings")
 
-@export var starting_cost: int = 1
-@export var cost_increase: int = 10
+@export var starting_cost: int = 15
+@export var cost_increase: int = 25
 
 var current_cost: int = 0
 
@@ -71,7 +71,7 @@ var heals_remaining: int = 0
 # ============================================
 
 func _ready() -> void:
-	current_cost = starting_cost
+	current_cost = starting_cost + cost_increase
 
 	interaction_area.body_entered.connect(_on_body_entered)
 	interaction_area.body_exited.connect(_on_body_exited)

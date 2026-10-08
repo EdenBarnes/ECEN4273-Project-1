@@ -1,6 +1,5 @@
 extends Node
 
-
 # ============================================
 # BOSS SCENE
 # ============================================
@@ -15,13 +14,11 @@ const BOSS_DATA: EnemyData = preload("res://Enemies/boss_data.tres")
 @export var waves: Array[Resource]
 @export var enemy_spawner: Node2D
 
-
 # ============================================
 # NODES
 # ============================================
 
 @onready var enemies_container: Node2D = $"../YSortWorld/Enemies"
-
 
 # ============================================
 # WAVE VARIABLES
@@ -37,14 +34,12 @@ var boss_wave: bool = false
 var wave_active: bool = false
 var wave_waiting: bool = false
 
-
 # ============================================
 # COUNTDOWN VARIABLES
 # ============================================
 
 var countdown_paused: bool = false
 var countdown_remaining: float = 0.0
-
 
 # ============================================
 # SIGNALS
@@ -59,15 +54,22 @@ signal boss_defeated
 
 signal all_waves_completed
 
-
 # ============================================
 # READY
 # ============================================
 
 func _ready() -> void:
 	add_to_group("wave_manager")
-	call_deferred("start_wave", 0)
 
+# ============================================
+# START GAME
+# ============================================
+
+func start_game() -> void:
+	if wave_active or wave_waiting:
+		return
+
+	start_wave(0)
 
 # ============================================
 # PROCESS COUNTDOWN
@@ -89,12 +91,12 @@ func _process(delta: float) -> void:
 		countdown_remaining = 0.0
 		finish_wave_countdown()
 
-
 # ============================================
 # START WAVE COUNTDOWN
 # ============================================
 
 func start_wave(index: int) -> void:
+
 	# ============================================
 	# ALL WAVES COMPLETE
 	# ============================================
@@ -141,7 +143,6 @@ func start_wave(index: int) -> void:
 	if countdown_remaining <= 0.0:
 		finish_wave_countdown()
 
-
 # ============================================
 # FINISH WAVE COUNTDOWN
 # ============================================
@@ -156,7 +157,6 @@ func finish_wave_countdown() -> void:
 
 	begin_wave()
 
-
 # ============================================
 # PAUSE WAVE COUNTDOWN
 # ============================================
@@ -168,7 +168,6 @@ func pause_wave_countdown() -> void:
 	countdown_paused = true
 
 	print("Wave countdown paused at ", snappedf(countdown_remaining, 0.1), " seconds.")
-
 
 # ============================================
 # RESUME WAVE COUNTDOWN
@@ -182,7 +181,6 @@ func resume_wave_countdown() -> void:
 
 	print("Wave countdown resumed at ", snappedf(countdown_remaining, 0.1), " seconds.")
 
-
 # ============================================
 # BETWEEN WAVES CHECK
 # ============================================
@@ -190,14 +188,12 @@ func resume_wave_countdown() -> void:
 func is_between_waves() -> bool:
 	return wave_waiting and not wave_active
 
-
 # ============================================
 # GET COUNTDOWN TIME
 # ============================================
 
 func get_countdown_remaining() -> float:
 	return countdown_remaining
-
 
 # ============================================
 # BEGIN WAVE
@@ -250,7 +246,6 @@ func begin_wave() -> void:
 	enemy_count_changed.emit(enemies_remaining)
 	start_normal_spawning()
 
-
 # ============================================
 # START NORMAL ENEMY SPAWNING
 # ============================================
@@ -263,7 +258,6 @@ func start_normal_spawning() -> void:
 	enemy_spawner.start_spawning_wave(current_wave_data)
 
 	print("Enemies to defeat: ", enemies_remaining)
-
 
 # ============================================
 # SPAWN BOSS
@@ -307,7 +301,6 @@ func spawn_boss() -> void:
 
 	start_normal_spawning()
 
-
 # ============================================
 # NORMAL ENEMY DIED
 # ============================================
@@ -341,7 +334,6 @@ func on_enemy_died() -> void:
 		return
 
 	check_boss_wave_complete()
-
 
 # ============================================
 # BOSS DIED
@@ -379,7 +371,6 @@ func on_boss_died() -> void:
 	# ============================================
 
 	check_boss_wave_complete()
-
 
 # ============================================
 # CHECK BOSS WAVE COMPLETE
@@ -420,7 +411,6 @@ func check_boss_wave_complete() -> void:
 	if living_enemies <= 0:
 		complete_wave()
 
-
 # ============================================
 # COMPLETE WAVE
 # ============================================
@@ -451,7 +441,6 @@ func complete_wave() -> void:
 	# ============================================
 
 	start_wave(current_wave_index + 1)
-
 
 # ============================================
 # COLLECT REMAINING COINS
