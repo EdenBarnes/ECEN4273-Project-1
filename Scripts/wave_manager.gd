@@ -92,7 +92,7 @@ func _ready() -> void:
 		waves = waves.slice(0, debug_wave_limit)
 		print("DEBUG: only playing ", waves.size(), " wave(s)")
 
-	call_deferred("start_wave", 0)
+	# Wave 1 starts only when Main calls start_game().
 
 # ============================================
 # START GAME
