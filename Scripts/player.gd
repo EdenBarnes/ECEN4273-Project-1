@@ -53,6 +53,10 @@ var base_max_health: int = 100
 var max_health: int = 100
 var current_health: int = 100
 
+# Death sequence timing
+const DEATH_ANIM_HOLD: float = 2.0
+const DEATH_FADE_DURATION: float = 2.0
+
 # ============================================
 # PERKS
 # ============================================
@@ -685,9 +689,25 @@ func die() -> void:
 
 	travel_to("death")
 
-	await get_tree().create_timer(5.0).timeout
+	# Let the death animation play out before fading
+	await get_tree().create_timer(DEATH_ANIM_HOLD).timeout
 
-	queue_free()
+	await fade_to_black(DEATH_FADE_DURATION)
+
+	get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")
+
+
+# ============================================
+# FADE TO BLACK
+# ============================================
+# Built in code so main.tscn does not need a
+# fade overlay node of its own. The layer is a
+# child of the current scene, so it is freed
+# automatically when the scene changes.
+# ============================================
+
+func fade_to_black(duration: float) -> void:
+	await ScreenFade.to_black(self, duration)
 
 # ============================================
 # ANIMATION

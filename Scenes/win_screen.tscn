@@ -1,0 +1,276 @@
+[gd_scene format=3 uid="uid://dmksp2qm3ujx3"]
+
+[ext_resource type="Script" uid="uid://5le7ylaba4xd" path="res://Scripts/win_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dw3u0nqqiy6ps" path="res://resources/Game Assets/MainMenu/Intro_sceen.png" id="2_6ufe8"]
+[ext_resource type="Texture2D" uid="uid://bar75yhibxhfp" path="res://resources/Game Assets/DeathScreen/Main_Button.png" id="2_main_n"]
+[ext_resource type="Texture2D" uid="uid://hvqmh3go7dcd" path="res://resources/Game Assets/Win Screen/Win Animation-Sheet.png" id="2_pe4lh"]
+[ext_resource type="Texture2D" uid="uid://br3y30cw22le7" path="res://resources/Game Assets/DeathScreen/Main_Button_hover.png" id="3_main_h"]
+[ext_resource type="Texture2D" uid="uid://by5hp53j2a7a0" path="res://resources/Game Assets/DeathScreen/Main_Button_clicked.png" id="4_main_p"]
+[ext_resource type="AudioStream" uid="uid://ih6750y1v6qa" path="res://resources/Audio/Blood_trickle.wav" id="4_pe4lh"]
+[ext_resource type="Texture2D" uid="uid://colbi7tvyyuky" path="res://resources/Game Assets/MainMenu/Exit_button_start.png" id="5_exit_n"]
+[ext_resource type="Texture2D" uid="uid://dde7mhi7nrp1d" path="res://resources/Game Assets/Buttons/Exit_button_hover.png" id="6_exit_h"]
+[ext_resource type="Texture2D" uid="uid://cn1ly1eyam2w0" path="res://resources/Game Assets/Buttons/Exit_button_pressed.png" id="7_exit_p"]
+[ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="9_5xl6h"]
+[ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="10_6ufe8"]
+[ext_resource type="AudioStream" uid="uid://bf3o4g78a6y83" path="res://resources/Audio/Metal theme.wav" id="12_qrg8t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3g5py"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3r8t"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8mi8"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx2vf"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdjf4"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7t2r"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(5760, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p5sv"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(6912, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj2a4"]
+atlas = ExtResource("2_pe4lh")
+region = Rect2(8064, 0, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3g5py"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3g5py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3r8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8mi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx2vf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdjf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7t2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p5sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj2a4")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alxvg"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geirw"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwjxs"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsiac"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bmuq"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn7w8"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(5760, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26wi"]
+atlas = ExtResource("2_6ufe8")
+region = Rect2(6912, 0, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pe4lh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alxvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geirw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwjxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsiac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bmuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn7w8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26wi")
+}],
+"loop": 0,
+"name": &"intro",
+"speed": 5.0
+}]
+
+[node name="WinScreen" type="Control" unique_id=988004756]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1895787711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="WinAnimation" type="AnimatedSprite2D" parent="." unique_id=2023275170]
+sprite_frames = SubResource("SpriteFrames_3g5py")
+
+[node name="Fade1" type="ColorRect" parent="." unique_id=1011012954]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Titlecard" type="AnimatedSprite2D" parent="." unique_id=480004367]
+visible = false
+position = Vector2(576, 324)
+sprite_frames = SubResource("SpriteFrames_pe4lh")
+animation = &"intro"
+
+[node name="Blood Trickling" type="AudioStreamPlayer" parent="." unique_id=1365552994]
+stream = ExtResource("4_pe4lh")
+bus = &"SFX"
+
+[node name="Fade2" type="ColorRect" parent="." unique_id=350799344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Buttons" type="Control" parent="." unique_id=1321630506]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="MainButton" type="TextureButton" parent="Buttons" unique_id=955251314]
+texture_filter = 1
+layout_mode = 0
+offset_left = -346.0
+offset_top = 128.0
+offset_right = -134.0
+offset_bottom = 272.0
+texture_normal = ExtResource("2_main_n")
+texture_pressed = ExtResource("4_main_p")
+texture_hover = ExtResource("3_main_h")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitButton" type="TextureButton" parent="Buttons" unique_id=291132356]
+texture_filter = 1
+layout_mode = 0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 360.0
+offset_bottom = 280.0
+texture_normal = ExtResource("5_exit_n")
+texture_pressed = ExtResource("7_exit_p")
+texture_hover = ExtResource("6_exit_h")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="UIHover" type="AudioStreamPlayer" parent="." unique_id=533615502]
+stream = ExtResource("9_5xl6h")
+bus = &"UI"
+
+[node name="UIClick" type="AudioStreamPlayer" parent="." unique_id=952682345]
+stream = ExtResource("10_6ufe8")
+bus = &"UI"
+
+[node name="Credits" type="Control" parent="." unique_id=1147960714]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CreditsText" type="RichTextLabel" parent="Credits" unique_id=1824685145]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -340.0
+offset_right = 340.0
+offset_bottom = 1400.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 28
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="SkipHint" type="Label" parent="Credits" unique_id=101423228]
+modulate = Color(1, 1, 1, 0.45)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -46.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press any key to skip"
+horizontal_alignment = 1
+
+[node name="ENDCREDITS_MUSIC" type="AudioStreamPlayer" parent="." unique_id=1439945847]
+stream = ExtResource("12_qrg8t")
+autoplay = true
+bus = &"Music"

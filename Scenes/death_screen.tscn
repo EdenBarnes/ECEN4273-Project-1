@@ -1,0 +1,318 @@
+[gd_scene format=3 uid="uid://cndbq4liwxn76"]
+
+[ext_resource type="Script" uid="uid://dvnucmqa3tk1i" path="res://Scripts/death_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cjdsdpgja2uub" path="res://resources/Game Assets/DeathScreen/Zombie_animation-Grid.png" id="2_sheet"]
+[ext_resource type="AudioStream" uid="uid://0tf2o8lqt7bi" path="res://resources/Audio/Zombie_death_roar.wav" id="3_kcryb"]
+[ext_resource type="Texture2D" uid="uid://bar75yhibxhfp" path="res://resources/Game Assets/DeathScreen/Main_Button.png" id="3_main_n"]
+[ext_resource type="Texture2D" uid="uid://br3y30cw22le7" path="res://resources/Game Assets/DeathScreen/Main_Button_hover.png" id="4_main_h"]
+[ext_resource type="Texture2D" uid="uid://by5hp53j2a7a0" path="res://resources/Game Assets/DeathScreen/Main_Button_clicked.png" id="5_main_p"]
+[ext_resource type="Texture2D" uid="uid://colbi7tvyyuky" path="res://resources/Game Assets/Buttons/Exit_button_start.png" id="6_exit_n"]
+[ext_resource type="Texture2D" uid="uid://qs7a7pk734gn" path="res://resources/Game Assets/Buttons/Exit_button_hover.png" id="7_exit_h"]
+[ext_resource type="Texture2D" uid="uid://c3qtbysfma1o6" path="res://resources/Game Assets/Buttons/Exit_button_pressed.png" id="8_exit_p"]
+[ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="9_avkmx"]
+[ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="10_kcryb"]
+
+[sub_resource type="AtlasTexture" id="Atlas_00"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_01"]
+atlas = ExtResource("2_sheet")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_02"]
+atlas = ExtResource("2_sheet")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_03"]
+atlas = ExtResource("2_sheet")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_04"]
+atlas = ExtResource("2_sheet")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_05"]
+atlas = ExtResource("2_sheet")
+region = Rect2(5760, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_06"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_07"]
+atlas = ExtResource("2_sheet")
+region = Rect2(1152, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_08"]
+atlas = ExtResource("2_sheet")
+region = Rect2(2304, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_09"]
+atlas = ExtResource("2_sheet")
+region = Rect2(3456, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_10"]
+atlas = ExtResource("2_sheet")
+region = Rect2(4608, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_11"]
+atlas = ExtResource("2_sheet")
+region = Rect2(5760, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_12"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_13"]
+atlas = ExtResource("2_sheet")
+region = Rect2(1152, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_14"]
+atlas = ExtResource("2_sheet")
+region = Rect2(2304, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_15"]
+atlas = ExtResource("2_sheet")
+region = Rect2(3456, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_16"]
+atlas = ExtResource("2_sheet")
+region = Rect2(4608, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_17"]
+atlas = ExtResource("2_sheet")
+region = Rect2(5760, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_18"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_19"]
+atlas = ExtResource("2_sheet")
+region = Rect2(1152, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_20"]
+atlas = ExtResource("2_sheet")
+region = Rect2(2304, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_21"]
+atlas = ExtResource("2_sheet")
+region = Rect2(3456, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_22"]
+atlas = ExtResource("2_sheet")
+region = Rect2(4608, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_23"]
+atlas = ExtResource("2_sheet")
+region = Rect2(5760, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_24"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_25"]
+atlas = ExtResource("2_sheet")
+region = Rect2(1152, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_26"]
+atlas = ExtResource("2_sheet")
+region = Rect2(2304, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_27"]
+atlas = ExtResource("2_sheet")
+region = Rect2(3456, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_28"]
+atlas = ExtResource("2_sheet")
+region = Rect2(4608, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_29"]
+atlas = ExtResource("2_sheet")
+region = Rect2(5760, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="Atlas_30"]
+atlas = ExtResource("2_sheet")
+region = Rect2(0, 3240, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_death"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_03")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_04")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_05")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_07")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_08")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_09")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_16")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_17")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_18")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_19")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_20")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_21")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_22")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_23")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_24")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_25")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_26")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_27")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_28")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_29")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_30")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 14.0
+}]
+
+[node name="DeathScreen" type="Control" unique_id=802498819]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1307275650]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DeathAnim" type="AnimatedSprite2D" parent="." unique_id=1229364764]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_death")
+frame = 30
+frame_progress = 1.0
+offset = Vector2(40, 0)
+
+[node name="Flash" type="ColorRect" parent="." unique_id=423396275]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="ZombieYell" type="AudioStreamPlayer" parent="." unique_id=1203436485]
+stream = ExtResource("3_kcryb")
+bus = &"SFX"
+
+[node name="Buttons" type="Control" parent="." unique_id=1684327292]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="MainButton" type="TextureButton" parent="Buttons" unique_id=59637834]
+texture_filter = 1
+layout_mode = 0
+offset_left = -472.0
+offset_top = -286.0
+offset_right = -260.0
+offset_bottom = -142.0
+texture_normal = ExtResource("3_main_n")
+texture_pressed = ExtResource("5_main_p")
+texture_hover = ExtResource("4_main_h")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitButton" type="TextureButton" parent="Buttons" unique_id=416481192]
+texture_filter = 1
+layout_mode = 0
+offset_left = 154.0
+offset_top = -294.0
+offset_right = 394.0
+offset_bottom = -134.0
+texture_normal = ExtResource("6_exit_n")
+texture_pressed = ExtResource("8_exit_p")
+texture_hover = ExtResource("7_exit_h")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="UIHover" type="AudioStreamPlayer" parent="." unique_id=1621667733]
+stream = ExtResource("9_avkmx")
+bus = &"UI"
+
+[node name="UIClick" type="AudioStreamPlayer" parent="." unique_id=27308051]
+stream = ExtResource("10_kcryb")
+bus = &"UI"

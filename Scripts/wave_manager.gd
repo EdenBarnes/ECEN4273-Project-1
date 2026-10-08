@@ -14,6 +14,29 @@ const BOSS_SCENE = preload("res://Scenes/Boss.tscn")
 @export var enemy_spawner: Node2D
 
 # ============================================
+# DEBUG
+# ============================================
+# Set this to 1 in the Inspector to play only
+# the first wave, so the win screen can be
+# tested without clearing all ten.
+# Leave it at 0 to use every wave in the list.
+# ============================================
+
+@export var debug_wave_limit: int = 0
+
+
+# ============================================
+# WIN TIMING
+# ============================================
+
+# Beat after the last enemy dies, before fading
+const WIN_DELAY: float = 1.5
+
+# How long the fade to the win screen takes
+const WIN_FADE_DURATION: float = 2.0
+
+
+# ============================================
 # NODES
 # ============================================
 
@@ -59,6 +82,16 @@ signal all_waves_completed
 
 func _ready() -> void:
 	add_to_group("wave_manager")
+
+	# ============================================
+	# DEBUG WAVE LIMIT
+	# ============================================
+
+	if debug_wave_limit > 0 and debug_wave_limit < waves.size():
+		waves = waves.slice(0, debug_wave_limit)
+		print("DEBUG: only playing ", waves.size(), " wave(s)")
+
+	call_deferred("start_wave", 0)
 
 # ============================================
 # START GAME
@@ -109,6 +142,8 @@ func start_wave(index: int) -> void:
 		countdown_remaining = 0.0
 
 		all_waves_completed.emit()
+
+		go_to_win_screen()
 		return
 
 	# ============================================
@@ -438,6 +473,37 @@ func complete_wave() -> void:
 	# ============================================
 
 	start_wave(current_wave_index + 1)
+
+# ============================================
+# WIN SCREEN
+# ============================================
+
+func go_to_win_screen() -> void:
+
+	# ============================================
+	# STOP THE GAME
+	# ============================================
+
+	if enemy_spawner != null and enemy_spawner.has_method("stop_spawning"):
+		enemy_spawner.stop_spawning()
+
+	# Freeze the player so they cannot be killed
+	# during the fade and trigger the death screen
+	# at the same time.
+	var player: Node = get_tree().get_first_node_in_group("player")
+
+	if player != null:
+		player.set("is_locked", true)
+
+	# ============================================
+	# FADE OUT AND SWITCH
+	# ============================================
+
+	await get_tree().create_timer(WIN_DELAY).timeout
+
+	await ScreenFade.to_black(self, WIN_FADE_DURATION)
+
+	get_tree().change_scene_to_file("res://Scenes/win_screen.tscn")
 
 # ============================================
 # COLLECT REMAINING COINS
