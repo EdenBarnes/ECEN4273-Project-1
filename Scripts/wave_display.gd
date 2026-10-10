@@ -7,6 +7,7 @@ extends Control
 
 @onready var wave_text: Label = $WaveText
 @onready var status_text: Label = $StatusText
+@onready var skip_text: Label = $SkipText
 
 @onready var boss_health: Control = $BossHealth
 @onready var boss_health_bar: TextureProgressBar = $BossHealth/BossHealthBar
@@ -33,6 +34,7 @@ var countdown_active: bool = false
 
 func _ready() -> void:
 	boss_health.visible = false
+	skip_text.visible = false
 	connect_to_wave_manager()
 
 
@@ -82,18 +84,18 @@ func _process(_delta: float) -> void:
 
 func _on_wave_countdown_started(wave_number: int, duration: float) -> void:
 	wave_text.text = "WAVE " + str(wave_number)
-
 	boss_health.visible = false
 
 	if duration <= 0.0:
 		countdown_active = false
+		skip_text.visible = false
 		status_text.text = ""
 		return
 
 	countdown_active = true
+	skip_text.visible = true
 
 	var seconds_remaining: int = ceili(duration)
-
 	status_text.text = "STARTING IN " + str(seconds_remaining) + "..."
 
 
@@ -103,7 +105,7 @@ func _on_wave_countdown_started(wave_number: int, duration: float) -> void:
 
 func _on_wave_started(wave_number: int) -> void:
 	countdown_active = false
-
+	skip_text.visible = false
 	wave_text.text = "WAVE " + str(wave_number)
 
 
@@ -120,7 +122,7 @@ func _on_enemy_count_changed(enemies_remaining: int) -> void:
 # ============================================
 
 func _on_boss_started(boss: Node) -> void:
-	status_text.text = "KILL THE BOSS"
+	status_text.text = "ENEMIES REMAINING: €"
 
 	boss_health.visible = true
 
@@ -163,5 +165,34 @@ func _on_all_waves_completed() -> void:
 	# the HUD so nothing shows through the fade.
 	wave_text.text = ""
 	status_text.text = ""
+	skip_text.visible = false
 
 	boss_health.visible = false
+
+
+# ============================================
+# SKIP WAVE COUNTDOWN
+# ============================================
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+
+	if not event.pressed or event.echo:
+		return
+
+	if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER:
+		return
+
+	if not countdown_active or wave_manager == null:
+		return
+
+	if not wave_manager.wave_waiting:
+		return
+
+	if wave_manager.countdown_paused:
+		return
+
+	wave_manager.skip_countdown()
+	skip_text.visible = false
+	get_viewport().set_input_as_handled()

@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://ctn5xq8p0wvmr"]
 
-[ext_resource type="Script" path="res://Scripts/settings_panel.gd" id="3_script"]
-[ext_resource type="AudioStream" path="res://resources/Audio/Hover.wav" id="1_hover"]
-[ext_resource type="AudioStream" path="res://resources/Audio/UI_click.wav" id="2_click"]
+[ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="1_hover"]
+[ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="2_click"]
+[ext_resource type="FontFile" uid="uid://boxxcqndiy4j8" path="res://resources/Hud/VCR_OSD_MONO_1.001.ttf" id="2_jv2it"]
+[ext_resource type="Script" uid="uid://cq6vr26cokbq1" path="res://Scripts/settings_panel.gd" id="3_script"]
 
-[node name="SettingsPanel" type="Panel"]
+[node name="SettingsPanel" type="Panel" unique_id=896550399]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -13,12 +14,12 @@ anchor_bottom = 0.5
 offset_left = -230.0
 offset_top = -235.0
 offset_right = 230.0
-offset_bottom = 235.0
+offset_bottom = 268.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_script")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2129359039]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,82 +32,109 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=11146908]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 text = "SETTINGS"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=535749912]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="VolumeLabel" type="Label" parent="VBoxContainer"]
+[node name="VolumeLabel" type="Label" parent="VBoxContainer" unique_id=201981663]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 text = "Master"
 
-[node name="VolumeSlider" type="HSlider" parent="VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="VBoxContainer" unique_id=1508666395]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="MusicLabel" type="Label" parent="VBoxContainer"]
+[node name="MusicLabel" type="Label" parent="VBoxContainer" unique_id=2100706690]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="VBoxContainer"]
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer" unique_id=305491610]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXLabel" type="Label" parent="VBoxContainer"]
+[node name="SFXLabel" type="Label" parent="VBoxContainer" unique_id=1344140777]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 text = "Sound Effects"
 
-[node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer" unique_id=1942374162]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="UILabel" type="Label" parent="VBoxContainer"]
+[node name="UILabel" type="Label" parent="VBoxContainer" unique_id=766529342]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 text = "Menu Sounds"
 
-[node name="UISlider" type="HSlider" parent="VBoxContainer"]
+[node name="UISlider" type="HSlider" parent="VBoxContainer" unique_id=110855984]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="Spacer2" type="Control" parent="VBoxContainer"]
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=889958527]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="LightningCheck" type="CheckBox" parent="VBoxContainer"]
+[node name="LightningCheck" type="CheckBox" parent="VBoxContainer" unique_id=376961766]
 layout_mode = 2
+tooltip_text = "Turn off to remove flashing screen effects. Thunder still plays."
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 22
 button_pressed = true
 text = "Lightning flashes"
-tooltip_text = "Turn off to remove flashing screen effects. Thunder still plays."
 
-[node name="Spacer3" type="Control" parent="VBoxContainer"]
+[node name="Spacer3" type="Control" parent="VBoxContainer" unique_id=1661420917]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MainMenu" type="Button" parent="VBoxContainer"]
+[node name="SkipWave" type="Button" parent="VBoxContainer" unique_id=943112493]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 25
+text = "Skip to Next Wave"
+
+[node name="Restart" type="Button" parent="VBoxContainer" unique_id=1719925461]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 25
+text = "Restart Game"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer" unique_id=1670471475]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 25
 text = "Main Menu"
 
-[node name="Backbutton" type="Button" parent="VBoxContainer"]
+[node name="Backbutton" type="Button" parent="VBoxContainer" unique_id=672380319]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jv2it")
+theme_override_font_sizes/font_size = 25
 text = "Back"
 
-[node name="UIHover" type="AudioStreamPlayer" parent="."]
+[node name="UIHover" type="AudioStreamPlayer" parent="." unique_id=881064145]
 stream = ExtResource("1_hover")
 bus = &"UI"
 
-[node name="UIClick" type="AudioStreamPlayer" parent="."]
+[node name="UIClick" type="AudioStreamPlayer" parent="." unique_id=1342614797]
 stream = ExtResource("2_click")
 bus = &"UI"

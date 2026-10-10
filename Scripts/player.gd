@@ -694,7 +694,7 @@ func die() -> void:
 
 	await fade_to_black(DEATH_FADE_DURATION)
 
-	get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")
+	SceneTransition.change_scene("res://Scenes/death_screen.tscn")
 
 
 # ============================================

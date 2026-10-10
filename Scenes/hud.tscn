@@ -2,20 +2,36 @@
 
 [ext_resource type="Script" uid="uid://d2wytedmyj2mq" path="res://Scripts/weapon_display.gd" id="1_s071j"]
 [ext_resource type="Texture2D" uid="uid://bunn3a80f20al" path="res://resources/Hud/Reload animation/Reload1.png" id="2_djv8h"]
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="2_eugfo"]
 [ext_resource type="Texture2D" uid="uid://cx6qbul8gmgrd" path="res://resources/Hud/Reload animation/Reload2.png" id="3_08ytq"]
+[ext_resource type="Resource" uid="uid://byqx5qc34k75n" path="res://Weapons/MP5 Smg.tres" id="3_86bn7"]
 [ext_resource type="Texture2D" uid="uid://by2wr2uf4uued" path="res://resources/Hud/Reload animation/Reload3.png" id="4_040kf"]
+[ext_resource type="Resource" uid="uid://dlh8vsbht33cq" path="res://Weapons/P90 Smg.tres" id="4_s0ewi"]
 [ext_resource type="Texture2D" uid="uid://dyyuv5moyr6sa" path="res://resources/Hud/Reload animation/Reload4.png" id="5_citry"]
+[ext_resource type="Resource" uid="uid://cthteocgooio6" path="res://Weapons/SAW Machine Gun.tres" id="5_oralo"]
 [ext_resource type="Texture2D" uid="uid://w34dxefvriw3" path="res://resources/Hud/Reload animation/Reload5.png" id="6_2lrj8"]
+[ext_resource type="Resource" uid="uid://b60144w0hpksn" path="res://Weapons/Shotgun.tres" id="6_iymej"]
+[ext_resource type="Resource" uid="uid://b0d0cnrqgkkoa" path="res://Weapons/Small Machine Gun.tres" id="7_pcdcb"]
 [ext_resource type="Texture2D" uid="uid://8slh0gfyrwfj" path="res://resources/Hud/Reload animation/Reload6.png" id="7_tiqyw"]
 [ext_resource type="Texture2D" uid="uid://7mk7d6bi0w3i" path="res://resources/Hud/Reload animation/Reload7.png" id="8_t62pt"]
+[ext_resource type="Resource" uid="uid://dbru6wi4du3hq" path="res://Weapons/Small Sniper.tres" id="8_yw5pc"]
 [ext_resource type="Texture2D" uid="uid://dkkpiisxjhhiy" path="res://resources/Hud/Reload animation/Reload8.png" id="9_1gnrp"]
+[ext_resource type="Resource" uid="uid://d2r7m2jsof6mj" path="res://Weapons/awp.tres" id="9_av6a7"]
 [ext_resource type="Texture2D" uid="uid://cg4fitofi0aes" path="res://resources/Hud/Reload animation/Reload9.png" id="10_wi6f4"]
+[ext_resource type="Resource" uid="uid://qm6g0uxvduw7" path="res://Weapons/pistol.tres" id="10_y21ij"]
+[ext_resource type="Resource" uid="uid://bdo0irxjcnmpg" path="res://Weapons/AK.tres" id="11_g74rs"]
 [ext_resource type="Texture2D" uid="uid://dckpumeudgena" path="res://resources/Hud/Reload animation/Reload10.png" id="11_tptls"]
+[ext_resource type="Resource" uid="uid://dwiy38snj8kox" path="res://Weapons/AR.tres" id="12_7a2q5"]
 [ext_resource type="Texture2D" uid="uid://i2ppe4fh8u6h" path="res://resources/Hud/Reload animation/Reload11.png" id="12_knoxt"]
 [ext_resource type="Texture2D" uid="uid://bdt5t40u6bedf" path="res://resources/Hud/health/Sprite-0000.png" id="13_h2gqg"]
+[ext_resource type="Resource" uid="uid://bq8poliqckdlc" path="res://Weapons/auto pistol.tres" id="13_r1o1u"]
 [ext_resource type="Texture2D" uid="uid://bj6pcc3vhi24d" path="res://resources/Hud/health/Sprite-0001.png" id="14_o7d6u"]
+[ext_resource type="Resource" uid="uid://cfc430rv8kcc2" path="res://Weapons/Big Sniper.tres" id="14_y7civ"]
 [ext_resource type="Texture2D" uid="uid://hhi2xeqoxmb8" path="res://resources/Hud/health/Sprite-0002.png" id="15_n63dt"]
+[ext_resource type="Resource" uid="uid://7c76mprbvnba" path="res://Weapons/Long Rifle.tres" id="15_pqnno"]
 [ext_resource type="Texture2D" uid="uid://deo0vx2rjtlqk" path="res://resources/Hud/health/Sprite-0003.png" id="16_itd6h"]
+[ext_resource type="Resource" uid="uid://cwhc3dem1x20s" path="res://Weapons/Med Machine Gun.tres" id="16_m1p20"]
+[ext_resource type="Resource" uid="uid://duhrfs0tp7ytb" path="res://Weapons/minigun.tres" id="17_3xyll"]
 [ext_resource type="Texture2D" uid="uid://cfbkgyd3xiay0" path="res://resources/Hud/health/Sprite-0004.png" id="17_gjmfb"]
 [ext_resource type="Texture2D" uid="uid://dus2ixw4dsvxu" path="res://resources/Hud/health/Sprite-0005.png" id="18_p63d5"]
 [ext_resource type="Texture2D" uid="uid://dsre853pqmf86" path="res://resources/Hud/health/Sprite-0006.png" id="19_77xe6"]
@@ -54,20 +70,36 @@
 [ext_resource type="Texture2D" uid="uid://bfb3lneq0m2v3" path="res://resources/Hud/Reload animation/Reload30.png" id="52_lmj4l"]
 [ext_resource type="FontFile" uid="uid://boxxcqndiy4j8" path="res://resources/Hud/VCR_OSD_MONO_1.001.ttf" id="53_0ksel"]
 [ext_resource type="Script" uid="uid://gbjeh0nno78b" path="res://Scripts/health_display.gd" id="54_k0hh7"]
+[ext_resource type="Texture2D" uid="uid://b7sphcra1i2ej" path="res://resources/Hud/Weapon Hud/Gun00.png" id="54_vcj4v"]
 [ext_resource type="Script" uid="uid://wh2us5jojg2c" path="res://Scripts/wave_display.gd" id="55_rle08"]
+[ext_resource type="Texture2D" uid="uid://b2qh7egpquqw7" path="res://resources/Hud/Weapon Hud/Gun01.png" id="55_ya6g2"]
+[ext_resource type="FontFile" uid="uid://ckwgeev45b8ao" path="res://resources/Hud/font.otf" id="56_12civ"]
 [ext_resource type="Texture2D" uid="uid://c4st7uvkumbhg" path="res://resources/Hud/Boss Health Bar/BossHealth1.png" id="56_abbw0"]
+[ext_resource type="Texture2D" uid="uid://c6vdmlxvf7olf" path="res://resources/Hud/Weapon Hud/Gun02.png" id="56_iy7jj"]
+[ext_resource type="Texture2D" uid="uid://cs8a74ba4lq55" path="res://resources/Hud/Weapon Hud/Gun03.png" id="57_1ukxf"]
 [ext_resource type="Texture2D" uid="uid://cl0b1qtvf46qe" path="res://resources/Hud/Boss Health Bar/BossHealth2.png" id="57_mnm58"]
+[ext_resource type="Texture2D" uid="uid://cc8nix8qpnngf" path="res://resources/Hud/Weapon Hud/Gun04.png" id="58_g226p"]
 [ext_resource type="Script" uid="uid://rf5ojer82l16" path="res://Scripts/text_box.gd" id="58_lyot3"]
 [ext_resource type="Texture2D" uid="uid://kc2jhkd37w8i" path="res://resources/Hud/Textbox.png" id="59_km8ir"]
+[ext_resource type="Texture2D" uid="uid://d34ycsfql2qvb" path="res://resources/Hud/Weapon Hud/Gun05.png" id="59_lmj4l"]
+[ext_resource type="Texture2D" uid="uid://dff6imgrtnrbv" path="res://resources/Hud/Weapon Hud/Gun06.png" id="60_0ksel"]
 [ext_resource type="Script" uid="uid://b2w5gr0jk44vk" path="res://Scripts/coins_display.gd" id="60_m2arw"]
 [ext_resource type="Texture2D" uid="uid://cg6wpgkjpfy1i" path="res://resources/Game Assets/One offs/Coin.png" id="61_62vi8"]
+[ext_resource type="Texture2D" uid="uid://c7hosun8e4k7r" path="res://resources/Hud/Weapon Hud/Gun07.png" id="61_k0hh7"]
 [ext_resource type="Script" uid="uid://b0eyklnb3hl0d" path="res://Scripts/perk_hud.gd" id="62_djv8h"]
+[ext_resource type="Texture2D" uid="uid://c8eyb8h8fa1ki" path="res://resources/Hud/Weapon Hud/Gun08.png" id="62_rle08"]
 [ext_resource type="PackedScene" uid="uid://nmpp6upheje4" path="res://Scenes/PerkSlot.tscn" id="63_040kf"]
+[ext_resource type="Texture2D" uid="uid://t471gx8fq3hl" path="res://resources/Hud/Weapon Hud/Gun09.png" id="63_abbw0"]
 [ext_resource type="Texture2D" uid="uid://c708q8nybs0fp" path="res://resources/Game Assets/Perk Coins/PerkCoinBlank.png" id="64_citry"]
+[ext_resource type="Texture2D" uid="uid://b38io87omhi0t" path="res://resources/Hud/Weapon Hud/Gun10.png" id="64_mnm58"]
 [ext_resource type="Texture2D" uid="uid://dum1ddlwxdr7n" path="res://resources/Game Assets/Perk Coins/DeleteCoin.png" id="65_gjmfb"]
 [ext_resource type="Texture2D" uid="uid://bnuawid3or4x" path="res://resources/Game Assets/Perk Coins/PerkCoin04.png" id="65_h2gqg"]
+[ext_resource type="Texture2D" uid="uid://t2jbimf68l12" path="res://resources/Hud/Weapon Hud/Gun11.png" id="65_lyot3"]
+[ext_resource type="Texture2D" uid="uid://dqpgohyi8v4w1" path="res://resources/Hud/Weapon Hud/Gun12.png" id="66_km8ir"]
 [ext_resource type="Texture2D" uid="uid://che1ogt3bqcom" path="res://resources/Game Assets/Perk Coins/PerkCoin03.png" id="66_o7d6u"]
+[ext_resource type="Texture2D" uid="uid://bajddkbf266t" path="res://resources/Hud/Weapon Hud/Gun13.png" id="67_m2arw"]
 [ext_resource type="Texture2D" uid="uid://cksc0bgjw4imt" path="res://resources/Game Assets/Perk Coins/PerkCoin02.png" id="67_n63dt"]
+[ext_resource type="Texture2D" uid="uid://bcbw2cdfj3qc4" path="res://resources/Hud/Weapon Hud/Gun14.png" id="68_62vi8"]
 [ext_resource type="Texture2D" uid="uid://m835bc7hmvt5" path="res://resources/Game Assets/Perk Coins/PerkCoin06.png" id="68_itd6h"]
 [ext_resource type="Texture2D" uid="uid://ry5fbr5n30v" path="res://resources/Game Assets/Perk Coins/PerkCoin11.png" id="69_d71yn"]
 [ext_resource type="Texture2D" uid="uid://bxyl7dm7fq1it" path="res://resources/Game Assets/Perk Coins/PerkCoin07.png" id="69_gjmfb"]
@@ -263,6 +295,112 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5xbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_vcj4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_ya6g2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_iy7jj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_1ukxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_g226p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_lmj4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_0ksel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_k0hh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_rle08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_abbw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_mnm58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_lyot3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_km8ir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_m2arw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_62vi8")
+}],
+"loop": 0,
+"name": &"Guns",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_appg1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_vcj4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_ya6g2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_iy7jj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_1ukxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_g226p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_lmj4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_0ksel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_k0hh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_rle08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_abbw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_mnm58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_lyot3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_km8ir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_m2arw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_62vi8")
+}],
+"loop": 0,
+"name": &"Guns",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_dxr5g"]
 animations = [{
 "frames": [{
@@ -350,6 +488,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_s071j")
+weapon_frames = Array[ExtResource("2_eugfo")]([ExtResource("3_86bn7"), ExtResource("4_s0ewi"), ExtResource("5_oralo"), ExtResource("6_iymej"), ExtResource("7_pcdcb"), ExtResource("8_yw5pc"), ExtResource("9_av6a7"), ExtResource("10_y21ij"), ExtResource("11_g74rs"), ExtResource("12_7a2q5"), ExtResource("13_r1o1u"), ExtResource("14_y7civ"), ExtResource("15_pqnno"), ExtResource("16_m1p20"), ExtResource("17_3xyll")])
 
 [node name="Ammo" type="AnimatedSprite2D" parent="HUDRoot/Ammo/WeaponDisplay" unique_id=1352193639]
 position = Vector2(-37, -35)
@@ -376,6 +515,22 @@ theme_override_font_sizes/font_size = 45
 text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Gun1" type="AnimatedSprite2D" parent="HUDRoot/Ammo/WeaponDisplay" unique_id=605990564]
+position = Vector2(-193, 10)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_j5xbs")
+animation = &"Guns"
+frame = 14
+frame_progress = 1.0
+
+[node name="Gun2" type="AnimatedSprite2D" parent="HUDRoot/Ammo/WeaponDisplay" unique_id=137411142]
+position = Vector2(-156, -34)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_appg1")
+animation = &"Guns"
+frame = 6
+frame_progress = 0.67043895
 
 [node name="Health" type="Control" parent="HUDRoot" unique_id=49597093]
 layout_mode = 1
@@ -434,6 +589,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 40
 text = "WAVE 0"
@@ -446,14 +602,31 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -94.0
-offset_top = 33.0
+offset_top = 34.0
 offset_right = 94.0
-offset_bottom = 56.0
+offset_bottom = 57.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("53_0ksel")
-text = "Enemys Remaining: 0"
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("56_12civ")
+text = "Enemys Remaining: €"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SkipText" type="Label" parent="HUDRoot/WaveInfo" unique_id=91581601]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = 53.0
+offset_right = 136.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("53_0ksel")
+theme_override_font_sizes/font_size = 14
+text = "Press Enter Key to Skip Countdown"
+horizontal_alignment = 1
 
 [node name="BossHealth" type="Control" parent="HUDRoot/WaveInfo" unique_id=1343750662]
 anchors_preset = 0
@@ -467,9 +640,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -206.5625
-offset_top = 55.0
+offset_top = 58.0
 offset_right = 206.5625
-offset_bottom = 84.0
+offset_bottom = 87.0
 grow_horizontal = 2
 value = 100.0
 nine_patch_stretch = true
@@ -479,9 +652,9 @@ texture_progress = ExtResource("57_mnm58")
 [node name="BossHealthText" type="Label" parent="HUDRoot/WaveInfo/BossHealth" unique_id=1169331990]
 layout_mode = 0
 offset_left = -123.0
-offset_top = 56.0
+offset_top = 59.0
 offset_right = -66.0
-offset_bottom = 79.0
+offset_bottom = 82.0
 theme_override_fonts/font = ExtResource("53_0ksel")
 text = "999999"
 vertical_alignment = 1
@@ -580,6 +753,7 @@ pierce_texture = ExtResource("73_fkcuu")
 arrow_offset = Vector2(0, 120)
 new_coin_offset = Vector2(0, 230)
 replace_x_scale = 1.0
+metadata/_edit_lock_ = true
 
 [node name="PerkTitle" type="Label" parent="HUDRoot/PerkHUD" unique_id=1103644773]
 layout_mode = 1
@@ -587,11 +761,12 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -129.0
-offset_top = 64.0
+offset_top = 67.0
 offset_right = 129.0
-offset_bottom = 103.0
+offset_bottom = 106.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.84288436, 0.76896477, 0.16683039, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 44
 text = "PERK TITLE"
@@ -648,15 +823,35 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.5
-offset_top = 58.5
-offset_right = 45.5
-offset_bottom = 81.5
+offset_left = -82.0
+offset_top = 36.0
+offset_right = 82.0
+offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 31
 text = "PERK NAME"
+horizontal_alignment = 1
+
+[node name="Rarity" type="Label" parent="HUDRoot/PerkHUD/NewPerk" unique_id=1584502835]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -123.0
+offset_top = 49.0
+offset_right = 123.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("53_0ksel")
+theme_override_font_sizes/font_size = 26
+text = "LEGENDARY COIN"
 horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="HUDRoot/PerkHUD/NewPerk" unique_id=1996341352]
@@ -666,12 +861,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.5
-offset_top = 75.0
-offset_right = 64.5
-offset_bottom = 98.0
+offset_left = -112.5
+offset_top = 76.0
+offset_right = 112.5
+offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 24
 text = "Perk Description"
@@ -691,13 +887,14 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.63187885, 0.94357437, 0.9586354, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("53_0ksel")
 theme_override_font_sizes/font_size = 36
 text = "Confirm Selection?"
 horizontal_alignment = 1
 
 [node name="SprintCooldown" type="AnimatedSprite2D" parent="HUDRoot" unique_id=824231766]
-position = Vector2(208, 616)
+position = Vector2(214, 616)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_3g58d")
 animation = &"recharge"
