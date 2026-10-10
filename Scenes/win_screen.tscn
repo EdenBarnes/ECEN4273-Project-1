@@ -157,7 +157,7 @@ color = Color(0, 0, 0, 1)
 [node name="WinAnimation" type="AnimatedSprite2D" parent="." unique_id=2023275170]
 sprite_frames = SubResource("SpriteFrames_3g5py")
 
-[node name="Fade1" type="ColorRect" parent="." unique_id=1011012954]
+[node name="Fade1" type="ColorRect" parent="." unique_id=383330450]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

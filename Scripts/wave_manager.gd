@@ -91,15 +91,11 @@ signal all_waves_completed
 func _ready() -> void:
 	add_to_group("wave_manager")
 
-	# ============================================
-	# DEBUG WAVE LIMIT
-	# ============================================
-
 	if debug_wave_limit > 0 and debug_wave_limit < waves.size():
 		waves = waves.slice(0, debug_wave_limit)
 		print("DEBUG: only playing ", waves.size(), " wave(s)")
 
-	call_deferred("start_wave", 0)
+	# Wait for Main to call start_game() after the info screen closes.
 
 # ============================================
 # START GAME
@@ -500,31 +496,20 @@ func complete_wave() -> void:
 # ============================================
 
 func go_to_win_screen() -> void:
-
-	# ============================================
-	# STOP THE GAME
-	# ============================================
-
 	if enemy_spawner != null and enemy_spawner.has_method("stop_spawning"):
 		enemy_spawner.stop_spawning()
 
-	# Freeze the player so they cannot be killed
-	# during the fade and trigger the death screen
-	# at the same time.
+	# Prevent the player from dying during transition.
 	var player: Node = get_tree().get_first_node_in_group("player")
 
 	if player != null:
 		player.set("is_locked", true)
 
-	# ============================================
-	# FADE OUT AND SWITCH
-	# ============================================
-
+	# Wait briefly after the final enemy dies.
 	await get_tree().create_timer(WIN_DELAY).timeout
 
-	await ScreenFade.to_black(self, WIN_FADE_DURATION)
-
-	get_tree().change_scene_to_file("res://Scenes/win_screen.tscn")
+	# Fade out of gameplay and into the win screen.
+	SceneTransition.change_scene("res://Scenes/win_screen.tscn")
 
 # ============================================
 # COLLECT REMAINING COINS
@@ -543,3 +528,57 @@ func collect_remaining_coins() -> void:
 	for coin: Node in coins:
 		if coin.has_method("move_to_player"):
 			coin.move_to_player(player)
+
+# ============================================
+# DEBUG - SKIP WAVE
+# ============================================
+
+func skip_wave() -> void:
+	if not wave_active and not wave_waiting:
+		return
+
+	print("DEBUG: Skipping Wave ", current_wave_index + 1)
+
+	# Stop spawning enemies.
+	if enemy_spawner != null and enemy_spawner.has_method("stop_spawning"):
+		enemy_spawner.stop_spawning()
+
+	# Remove all existing enemies and bosses.
+	for enemy: Node in get_tree().get_nodes_in_group("enemies"):
+		enemy.queue_free()
+
+	for boss: Node in get_tree().get_nodes_in_group("boss"):
+		boss.queue_free()
+
+	# Reset wave state.
+	wave_active = false
+	wave_waiting = false
+	countdown_paused = false
+	countdown_remaining = 0.0
+	enemies_remaining = 0
+	boss_alive = false
+
+	enemy_count_changed.emit(0)
+
+	# Collect leftover coins.
+	call_deferred("collect_remaining_coins")
+
+	# Advance to the next wave.
+	start_wave(current_wave_index + 1)
+
+
+# ============================================
+# SKIP WAVE COUNTDOWN
+# ============================================
+
+func skip_countdown() -> void:
+	if not wave_waiting:
+		return
+
+	if countdown_paused:
+		return
+
+	# Only shorten the timer, never increase it.
+	if countdown_remaining > 3.0:
+		countdown_remaining = 3.0
+		print("DEBUG: Wave countdown shortened to 3 seconds")

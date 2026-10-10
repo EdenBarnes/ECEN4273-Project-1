@@ -168,7 +168,7 @@ func _ready() -> void:
 		await win_anim.animation_finished
 		
 	var t := create_tween()
-	t.tween_property(fade_1, "color:a", 1.0, 1.0)
+	t.tween_property(fade_1, "color:a", 1.0, 0.3)
 	await t.finished
 	
 	titlecard.show()
@@ -183,7 +183,7 @@ func _ready() -> void:
 	t3.tween_property(blood_trickling, "volume_db", -40.0, 0.5)
 	
 	var t2 := create_tween()
-	t2.tween_property(fade_2, "color:a", 1.0, 1.0)
+	t2.tween_property(fade_2, "color:a", 1.0, 0.5)
 	await t2.finished
 
 	await _roll_credits()
