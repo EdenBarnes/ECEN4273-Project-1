@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://dqlu4fqneyp05" path="res://resources/Audio/Loud_zombie_growl.mp3" id="13_357se"]
 [ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="13_a7t2b"]
 [ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="14_nfbbu"]
+[ext_resource type="PackedScene" uid="uid://ctn5xq8p0wvmr" path="res://Scenes/settings_panel.tscn" id="99_setpanel"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_357se"]
 atlas = ExtResource("3_64bn7")
@@ -164,102 +165,6 @@ bus = &"SFX"
 stream = ExtResource("13_357se")
 bus = &"SFX"
 
-[node name="SettingsPanel" type="Panel" parent="." unique_id=1153137568]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -230.0
-offset_top = -235.0
-offset_right = 230.0
-offset_bottom = 235.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel" unique_id=1412664574]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 20.0
-offset_right = -24.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 6
-
-[node name="Title" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=435416291]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "SETTINGS"
-horizontal_alignment = 1
-
-[node name="Spacer" type="Control" parent="SettingsPanel/VBoxContainer" unique_id=1930345605]
-custom_minimum_size = Vector2(0, 8)
-layout_mode = 2
-
-[node name="VolumeLabel" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=38157217]
-layout_mode = 2
-text = "Master"
-
-[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=1911927821]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="MusicLabel" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=382991906]
-layout_mode = 2
-text = "Music"
-
-[node name="MusicSlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=862910601]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="SFXLabel" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=210843251]
-layout_mode = 2
-text = "Sound Effects"
-
-[node name="SFXSlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=1866637358]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="UILabel" type="Label" parent="SettingsPanel/VBoxContainer" unique_id=1541462498]
-layout_mode = 2
-text = "Menu Sounds"
-
-[node name="UISlider" type="HSlider" parent="SettingsPanel/VBoxContainer" unique_id=2122881948]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="Spacer2" type="Control" parent="SettingsPanel/VBoxContainer" unique_id=1404728391]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="LightningCheck" type="CheckBox" parent="SettingsPanel/VBoxContainer" unique_id=1072641097]
-layout_mode = 2
-tooltip_text = "Turn off to remove flashing screen effects. Thunder still plays."
-button_pressed = true
-text = "Lightning flashes"
-
-[node name="Spacer3" type="Control" parent="SettingsPanel/VBoxContainer" unique_id=1141374023]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Backbutton" type="Button" parent="SettingsPanel/VBoxContainer" unique_id=1644627314]
-layout_mode = 2
-text = "Back"
-
 [node name="Fade" type="ColorRect" parent="." unique_id=1045098044]
 layout_mode = 1
 anchors_preset = 15
@@ -269,3 +174,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
+
+[node name="SettingsPanel" parent="." instance=ExtResource("99_setpanel")]
+visible = false
+show_lightning_toggle = true
+show_main_menu_button = false
+pauses_game = false

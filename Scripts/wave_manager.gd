@@ -30,7 +30,7 @@ const BOSS_SCENE = preload("res://Scenes/Boss.tscn")
 # ============================================
 
 # Beat after the last enemy dies, before fading
-const WIN_DELAY: float = 1.5
+const WIN_DELAY: float = 1.0
 
 # How long the fade to the win screen takes
 const WIN_FADE_DURATION: float = 2.0
@@ -62,6 +62,14 @@ var wave_waiting: bool = false
 
 var countdown_paused: bool = false
 var countdown_remaining: float = 0.0
+#siren sound for before the wave starts
+@onready var siren_noise: AudioStreamPlayer = $"../Siren Noise"
+
+# Seconds left on the countdown when the siren fires
+const SIREN_LEAD_TIME: float = 3.0
+
+# Stops the siren retriggering every frame
+var siren_played: bool = false
 
 # ============================================
 # SIGNALS
@@ -119,6 +127,16 @@ func _process(delta: float) -> void:
 
 	countdown_remaining -= delta
 
+	# ============================================
+	# SIREN
+	# ============================================
+
+	if not siren_played and countdown_remaining <= SIREN_LEAD_TIME:
+		siren_played = true
+
+		if siren_noise != null:
+			siren_noise.play()
+
 	if countdown_remaining <= 0.0:
 		countdown_remaining = 0.0
 		finish_wave_countdown()
@@ -173,6 +191,9 @@ func start_wave(index: int) -> void:
 	print("Wave ", wave_number, " starts in ", start_delay, " seconds!")
 
 	wave_countdown_started.emit(wave_number, start_delay)
+
+	# Re-arm the siren for this countdown
+	siren_played = false
 
 	if countdown_remaining <= 0.0:
 		finish_wave_countdown()

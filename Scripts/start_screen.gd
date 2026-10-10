@@ -10,12 +10,6 @@ extends Control
 @onready var zombie_hand: AnimatedSprite2D = $ZombieHand
 @onready var zombie_growl: AudioStreamPlayer = $ZombieGrowl
 @onready var settings_panel: Panel = $SettingsPanel
-@onready var volume_slider: HSlider = $SettingsPanel/VBoxContainer/VolumeSlider
-@onready var music_slider: HSlider = $SettingsPanel/VBoxContainer/MusicSlider
-@onready var sfx_slider: HSlider = $SettingsPanel/VBoxContainer/SFXSlider
-@onready var ui_slider: HSlider = $SettingsPanel/VBoxContainer/UISlider
-@onready var lightning_check: CheckBox = $SettingsPanel/VBoxContainer/LightningCheck
-@onready var backbutton: Button = $SettingsPanel/VBoxContainer/Backbutton
 @onready var ui_hover: AudioStreamPlayer = $UIHover
 @onready var ui_click: AudioStreamPlayer = $UIClick
 
@@ -31,9 +25,7 @@ func _ready() -> void:
 
 	_schedule_strike()
 
-	$Start/Setting.pressed.connect(func(): settings_panel.visible = true)
-	$SettingsPanel/VBoxContainer/Backbutton.pressed.connect(_close_settings)
-	_setup_settings_controls()
+	$Start/Setting.pressed.connect(settings_panel.open)
 
 	# Size and center the zombie hand to the screen
 	resized.connect(fit_animation)
@@ -46,7 +38,7 @@ func _ready() -> void:
 	# never connected to anything, which is why no
 	# sound came out.
 
-	for b: BaseButton in [$Start/Start, $Start/Setting, $Start/Exit, backbutton]:
+	for b: BaseButton in [$Start/Start, $Start/Setting, $Start/Exit]:
 		b.mouse_entered.connect(_play_hover)
 		b.pressed.connect(_play_click)
 
@@ -152,56 +144,3 @@ func _play_thunder() -> void:
 	thunder.pitch_scale = randf_range(0.8, 1.15)
 	thunder.volume_db = randf_range(-8.0, 0.0)
 	thunder.play()
-
-#-------------------------------------------------
-#                 SETTINGS
-#-------------------------------------------------
-# All values live in the GameOptions autoload so
-# every scene shares them and they survive a
-# restart. Each slider drives one audio bus.
-#-------------------------------------------------
-
-func _setup_settings_controls() -> void:
-
-	# Start each control at the saved value.
-	# set_value_no_signal avoids firing
-	# value_changed before we are connected.
-	volume_slider.set_value_no_signal(GameOptions.master_volume)
-	music_slider.set_value_no_signal(GameOptions.music_volume)
-	sfx_slider.set_value_no_signal(GameOptions.sfx_volume)
-	ui_slider.set_value_no_signal(GameOptions.ui_volume)
-
-	lightning_check.set_pressed_no_signal(GameOptions.lightning_enabled)
-
-	volume_slider.value_changed.connect(
-		func(v: float): GameOptions.set_volume(GameOptions.BUS_MASTER, v))
-	music_slider.value_changed.connect(
-		func(v: float): GameOptions.set_volume(GameOptions.BUS_MUSIC, v))
-	sfx_slider.value_changed.connect(
-		func(v: float): GameOptions.set_volume(GameOptions.BUS_SFX, v))
-
-	# Play a click when the menu volume moves so
-	# the player can hear what they are setting
-	ui_slider.value_changed.connect(_on_ui_volume_changed)
-
-	lightning_check.toggled.connect(_on_lightning_toggled)
-
-
-func _on_ui_volume_changed(value: float) -> void:
-	GameOptions.set_volume(GameOptions.BUS_UI, value)
-	_play_click()
-
-
-func _on_lightning_toggled(enabled: bool) -> void:
-	GameOptions.set_lightning_enabled(enabled)
-
-	# Clear any flash still on screen
-	if not enabled:
-		flash.color.a = 0.0
-		for b in bolts:
-			b.visible = false
-
-
-func _close_settings() -> void:
-	settings_panel.visible = false
-	GameOptions.save_settings()

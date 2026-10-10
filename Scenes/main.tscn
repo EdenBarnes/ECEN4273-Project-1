@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b4kkcib0nn6kc" path="res://Scenes/Background Scenes/Stump2.tscn" id="16_fevyy"]
 [ext_resource type="PackedScene" uid="uid://fjp6x1xodhkq" path="res://Scenes/Background Scenes/Stump1.tscn" id="16_hibaj"]
 [ext_resource type="PackedScene" uid="uid://cw0kemugmvi5i" path="res://Scenes/PerkWell.tscn" id="17_e6rcu"]
+[ext_resource type="AudioStream" uid="uid://cjgsucyin0haw" path="res://resources/Audio/Siren Sound.wav" id="19_neg2b"]
 [ext_resource type="Script" uid="uid://cjh0m7r2sai6x" path="res://Scripts/wave_manager.gd" id="21_gt3je"]
 [ext_resource type="Resource" uid="uid://bsg68mnob1ffi" path="res://Waves/Wave1.tres" id="22_hpc6h"]
 [ext_resource type="Resource" uid="uid://cfjwbkawj07wl" path="res://Waves/Wave2.tres" id="23_kltya"]
@@ -33,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
 [ext_resource type="PackedScene" uid="uid://byw5oa4oe0k7f" path="res://Scenes/hud.tscn" id="31_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://brdevwnssgx8y" path="res://Scenes/Keybinds.tscn" id="32_kltya"]
+[ext_resource type="PackedScene" uid="uid://ctn5xq8p0wvmr" path="res://Scenes/settings_panel.tscn" id="99_setpanel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(1583, 62)
@@ -748,6 +750,11 @@ position = Vector2(607, 619)
 [node name="Location4" type="Marker2D" parent="YSortWorld/GunBoxLocations" unique_id=684160254]
 position = Vector2(1040, 843)
 
+[node name="Siren Noise" type="AudioStreamPlayer" parent="." unique_id=1988235996]
+stream = ExtResource("19_neg2b")
+volume_db = 7.106
+bus = &"SFX"
+
 [node name="EnemySpawner" parent="." unique_id=1720116065 instance=ExtResource("2_8gbba")]
 position = Vector2(-117, 199)
 
@@ -755,7 +762,6 @@ position = Vector2(-117, 199)
 script = ExtResource("21_gt3je")
 waves = Array[Resource]([ExtResource("22_hpc6h"), ExtResource("23_kltya"), ExtResource("24_e08e2"), ExtResource("25_neg2b"), ExtResource("26_r33sp"), ExtResource("27_hdf80"), ExtResource("28_jwpg7"), ExtResource("29_k2e45"), ExtResource("30_536cc"), ExtResource("31_aqgau")])
 enemy_spawner = NodePath("../EnemySpawner")
-debug_wave_limit = 1
 
 [node name="GameBoundary" type="StaticBody2D" parent="." unique_id=295758232 groups=["boundary"]]
 collision_layer = 136
@@ -787,3 +793,12 @@ polygon = PackedVector2Array(0, -395, 78, -393, 103, -375, 107, -319, 117, -311,
 [node name="HUD" parent="." unique_id=498140079 instance=ExtResource("31_hpc6h")]
 
 [node name="Keybinds" parent="." unique_id=1955298123 instance=ExtResource("32_kltya")]
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=883125389]
+layer = 10
+
+[node name="SettingsPanel" parent="PauseLayer" unique_id=621289708 instance=ExtResource("99_setpanel")]
+visible = false
+show_lightning_toggle = false
+show_main_menu_button = true
+pauses_game = true

@@ -175,7 +175,6 @@ animation = &"intro"
 
 [node name="Blood Trickling" type="AudioStreamPlayer" parent="." unique_id=1365552994]
 stream = ExtResource("4_pe4lh")
-bus = &"SFX"
 
 [node name="Fade2" type="ColorRect" parent="." unique_id=350799344]
 layout_mode = 1
@@ -221,11 +220,9 @@ stretch_mode = 5
 
 [node name="UIHover" type="AudioStreamPlayer" parent="." unique_id=533615502]
 stream = ExtResource("9_5xl6h")
-bus = &"UI"
 
 [node name="UIClick" type="AudioStreamPlayer" parent="." unique_id=952682345]
 stream = ExtResource("10_6ufe8")
-bus = &"UI"
 
 [node name="Credits" type="Control" parent="." unique_id=1147960714]
 visible = false
@@ -273,4 +270,3 @@ horizontal_alignment = 1
 [node name="ENDCREDITS_MUSIC" type="AudioStreamPlayer" parent="." unique_id=1439945847]
 stream = ExtResource("12_qrg8t")
 autoplay = true
-bus = &"Music"

@@ -54,7 +54,7 @@ var max_health: int = 100
 var current_health: int = 100
 
 # Death sequence timing
-const DEATH_ANIM_HOLD: float = 2.0
+const DEATH_ANIM_HOLD: float = 0.5
 const DEATH_FADE_DURATION: float = 2.0
 
 # ============================================
