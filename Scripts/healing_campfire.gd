@@ -70,7 +70,15 @@ var heals_remaining: int = 0
 # READY
 # ============================================
 
+const SFX_FIRE: AudioStream = preload("res://resources/Audio/World SFX/Fire_whoosh.wav")
+const SFX_HEAL: AudioStream = preload("res://resources/Audio/World SFX/Heal.wav")
+
+var sfx: AudioStreamPlayer = null
+
+
 func _ready() -> void:
+	sfx = Sfx.make(self)
+
 	current_cost = starting_cost + cost_increase
 
 	interaction_area.body_entered.connect(_on_body_entered)
@@ -189,6 +197,8 @@ func light_campfire() -> void:
 
 	start_stump_animations()
 
+	Sfx.play(sfx, SFX_FIRE)
+
 	current_cost += cost_increase
 
 	update_interaction_text()
@@ -294,6 +304,8 @@ func use_heal() -> void:
 		if interaction_box != null:
 			interaction_box.show_text("Health Full")
 		return
+
+	Sfx.play(sfx, SFX_HEAL)
 
 	heals_remaining -= 1
 

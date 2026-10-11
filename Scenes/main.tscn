@@ -34,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://brmjmsrvtuysq" path="res://Waves/Wave10.tres" id="31_aqgau"]
 [ext_resource type="PackedScene" uid="uid://byw5oa4oe0k7f" path="res://Scenes/hud.tscn" id="31_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://brdevwnssgx8y" path="res://Scenes/Keybinds.tscn" id="32_kltya"]
+[ext_resource type="AudioStream" uid="uid://cjirpe0g3o3gs" path="res://resources/Audio/Cyberpunk_metal_theme.ogg" id="36_hdf80"]
 [ext_resource type="PackedScene" uid="uid://ctn5xq8p0wvmr" path="res://Scenes/settings_panel.tscn" id="99_setpanel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
@@ -802,3 +803,8 @@ visible = false
 show_lightning_toggle = false
 show_main_menu_button = true
 pauses_game = true
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="." unique_id=1398818543]
+stream = ExtResource("36_hdf80")
+autoplay = true
+bus = &"Music"

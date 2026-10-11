@@ -120,9 +120,9 @@
 [ext_resource type="Texture2D" uid="uid://xh84j74yck6n" path="res://resources/Hud/Sprint Arrow animation/Arrow8.png" id="85_i8awe"]
 [ext_resource type="Texture2D" uid="uid://dojn3njigrqh" path="res://resources/Hud/Sprint Arrow animation/Arrow9.png" id="86_nwppo"]
 [ext_resource type="Texture2D" uid="uid://bb4hhpgf42u0w" path="res://resources/Hud/Sprint Arrow animation/Arrow10.png" id="87_1egt8"]
-[ext_resource type="Texture2D" uid="uid://byei7f80pneuy" path="res://resources/Game Assets/MainMenu/Setting_button_start.png" id="89_km7qi"]
-[ext_resource type="Texture2D" uid="uid://bvioq2m0yexe2" path="res://resources/Game Assets/MainMenu/Setting_button_clicked.png" id="90_12civ"]
-[ext_resource type="Texture2D" uid="uid://b6pjab41nlj0" path="res://resources/Game Assets/MainMenu/Setting_button_hover.png" id="91_4ccuq"]
+[ext_resource type="Texture2D" uid="uid://bei4spnul5anf" path="res://resources/Game Assets/Buttons/Pause_menu_button_main.png" id="121_eugfo"]
+[ext_resource type="Texture2D" uid="uid://b1e2nxbe4l7oj" path="res://resources/Game Assets/Buttons/Pause_menu_button_clicked.png" id="122_86bn7"]
+[ext_resource type="Texture2D" uid="uid://d0mmgg2hu1cs3" path="res://resources/Game Assets/Buttons/Pause_menu_button_hover.png" id="123_s0ewi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xadyu"]
 animations = [{
@@ -905,6 +905,6 @@ offset_left = 2.0
 offset_top = 1.0
 offset_right = 54.0
 offset_bottom = 37.0
-texture_normal = ExtResource("89_km7qi")
-texture_pressed = ExtResource("90_12civ")
-texture_hover = ExtResource("91_4ccuq")
+texture_normal = ExtResource("121_eugfo")
+texture_pressed = ExtResource("122_86bn7")
+texture_hover = ExtResource("123_s0ewi")

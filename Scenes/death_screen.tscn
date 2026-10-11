@@ -10,7 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://dde7mhi7nrp1d" path="res://resources/Game Assets/Buttons/Exit_button_hover.png" id="7_exit_h"]
 [ext_resource type="Texture2D" uid="uid://cn1ly1eyam2w0" path="res://resources/Game Assets/Buttons/Exit_button_pressed.png" id="8_exit_p"]
 [ext_resource type="AudioStream" uid="uid://cyiprnyuaqf47" path="res://resources/Audio/Hover.wav" id="9_avkmx"]
+[ext_resource type="Texture2D" uid="uid://vcn3vpw04u36" path="res://resources/Game Assets/Buttons/Restart_button_normal.png" id="10_2xmse"]
 [ext_resource type="AudioStream" uid="uid://wen8eumcyey4" path="res://resources/Audio/UI_click.wav" id="10_kcryb"]
+[ext_resource type="Texture2D" uid="uid://4bsf30tgyhgr" path="res://resources/Game Assets/Buttons/Restart_button_clickedl.png" id="11_2xmse"]
+[ext_resource type="Texture2D" uid="uid://dv2iqr5co0hbd" path="res://resources/Game Assets/Buttons/Restart_button_hoverl.png" id="12_egfcw"]
 
 [sub_resource type="AtlasTexture" id="Atlas_00"]
 atlas = ExtResource("2_sheet")
@@ -278,7 +281,6 @@ stream = ExtResource("3_kcryb")
 bus = &"SFX"
 
 [node name="Buttons" type="Control" parent="." unique_id=1684327292]
-visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 mouse_filter = 2
@@ -286,10 +288,10 @@ mouse_filter = 2
 [node name="MainButton" type="TextureButton" parent="Buttons" unique_id=59637834]
 texture_filter = 1
 layout_mode = 0
-offset_left = -472.0
-offset_top = -286.0
-offset_right = -260.0
-offset_bottom = -142.0
+offset_left = -470.0
+offset_top = -305.0
+offset_right = -258.0
+offset_bottom = -161.0
 texture_normal = ExtResource("3_main_n")
 texture_pressed = ExtResource("5_main_p")
 texture_hover = ExtResource("4_main_h")
@@ -299,13 +301,26 @@ stretch_mode = 5
 [node name="ExitButton" type="TextureButton" parent="Buttons" unique_id=416481192]
 texture_filter = 1
 layout_mode = 0
-offset_left = 154.0
-offset_top = -294.0
-offset_right = 394.0
-offset_bottom = -134.0
+offset_left = 143.0
+offset_top = -317.0
+offset_right = 383.0
+offset_bottom = -157.0
 texture_normal = ExtResource("6_exit_n")
 texture_pressed = ExtResource("8_exit_p")
 texture_hover = ExtResource("7_exit_h")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="RestartButton" type="TextureButton" parent="Buttons" unique_id=1989815510]
+texture_filter = 1
+layout_mode = 0
+offset_left = -140.0
+offset_top = -306.0
+offset_right = 72.0
+offset_bottom = -162.0
+texture_normal = ExtResource("10_2xmse")
+texture_pressed = ExtResource("11_2xmse")
+texture_hover = ExtResource("12_egfcw")
 ignore_texture_size = true
 stretch_mode = 5
 

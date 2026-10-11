@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c66cukkv3i7ht"
+path="res://.godot/imported/Weapon_jam.wav-13c790477c63464d21cea0428e0a143b.sample"
+
+[deps]
+
+source_file="res://resources/Audio/Gun Noises/Weapon_jam.wav"
+dest_files=["res://.godot/imported/Weapon_jam.wav-13c790477c63464d21cea0428e0a143b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

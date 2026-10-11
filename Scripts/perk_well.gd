@@ -118,7 +118,17 @@ var selected_rarity: String = ""
 # READY
 # ============================================
 
+const SFX_CHAIN: AudioStream = preload("res://resources/Audio/World SFX/Well_chain_loop.wav")
+const SFX_REWARD: AudioStream = preload("res://resources/Audio/World SFX/Reward_jingle.wav")
+
+var chain_sfx: AudioStreamPlayer = null
+var reward_sfx: AudioStreamPlayer = null
+
+
 func _ready() -> void:
+	chain_sfx = Sfx.make(self, SFX_CHAIN)
+	reward_sfx = Sfx.make(self, SFX_REWARD)
+
 	current_cost = starting_cost + cost_increase
 
 	perk_coin_display.visible = false
@@ -475,6 +485,9 @@ func start_well_animation() -> void:
 	else:
 		well_sprite.play("RightSide")
 
+	# Loops for however long the crank animation runs
+	Sfx.start_loop(chain_sfx)
+
 	update_interaction_text()
 
 
@@ -488,6 +501,9 @@ func _on_well_animation_finished() -> void:
 
 	if well_sprite.animation != "LeftSide" and well_sprite.animation != "RightSide":
 		return
+
+	Sfx.stop_loop(chain_sfx)
+	Sfx.play(reward_sfx, null, 1.0, 1.0)
 
 	start_coin_arc()
 

@@ -58,6 +58,60 @@ const DEATH_ANIM_HOLD: float = 0.5
 const DEATH_FADE_DURATION: float = 2.0
 
 # ============================================
+# FOOTSTEPS
+# ============================================
+# 11 recorded steps picked at random, so a walk
+# cycle never repeats the same sample twice in
+# a row. Two players so one step can ring out
+# under the next.
+
+const FOOTSTEPS: Array[AudioStream] = [
+	preload("res://resources/Audio/World SFX/Footstep_1.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_2.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_3.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_4.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_5.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_6.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_7.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_8.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_9.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_10.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_11.wav"),
+]
+
+# Seconds between steps at normal walking speed
+const STEP_INTERVAL: float = 0.42
+
+var step_players: Array[AudioStreamPlayer] = []
+var step_voice: int = 0
+var step_timer: float = 0.0
+var last_step: int = -1
+
+# ============================================
+# HURT / LOW HEALTH
+# ============================================
+
+const GRUNTS: Array[AudioStream] = [
+	preload("res://resources/Audio/Player SFX/Grunt_1.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_2.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_3.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_4.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_5.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_6.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_7.wav"),
+]
+
+const SFX_HEARTBEAT: AudioStream = preload("res://resources/Audio/Player SFX/Heartbeat_loop.wav")
+
+## Heartbeat starts at or below this much health
+const LOW_HEALTH_THRESHOLD: int = 100
+
+var grunt_sfx: AudioStreamPlayer = null
+var heartbeat_sfx: AudioStreamPlayer = null
+var last_grunt: int = -1
+var heartbeat_active: bool = false
+
+# ============================================
 # PERKS
 # ============================================
 
@@ -136,6 +190,16 @@ func _ready() -> void:
 	# ============================================
 
 	anim_tree.active = true
+
+	# ============================================
+	# FOOTSTEP PLAYERS
+	# ============================================
+
+	for _i: int in range(2):
+		step_players.append(Sfx.make(self))
+
+	grunt_sfx = Sfx.make(self)
+	heartbeat_sfx = Sfx.make(self, SFX_HEARTBEAT)
 
 	# ============================================
 	# HURT TIMER SETUP
@@ -255,14 +319,19 @@ func _physics_process(delta: float) -> void:
 		movement_direction = input_vector.normalized()
 		velocity = movement_direction * current_speed
 		travel_to("walk")
+		update_footsteps(delta, current_speed)
 
 	elif is_dashing:
 		velocity = movement_direction * current_speed
 		travel_to("walk")
+		update_footsteps(delta, current_speed)
 
 	else:
 		velocity = Vector2.ZERO
 		travel_to("idle")
+
+		# Next step lands as soon as they move again
+		step_timer = 0.0
 
 	# ============================================
 	# SHOOTING
@@ -279,6 +348,66 @@ func _physics_process(delta: float) -> void:
 		current_gun.reload()
 
 	move_and_slide()
+
+# ============================================
+# LOW HEALTH HEARTBEAT
+# ============================================
+# Call after anything that changes health, so it
+# also stops when the player heals back up.
+# ============================================
+
+func update_heartbeat() -> void:
+
+	var should_play: bool = (
+		not is_dead
+		and current_health > 0
+		and current_health <= LOW_HEALTH_THRESHOLD
+	)
+
+	if should_play == heartbeat_active:
+		return
+
+	heartbeat_active = should_play
+
+	if should_play:
+		Sfx.start_loop(heartbeat_sfx)
+	else:
+		Sfx.stop_loop(heartbeat_sfx)
+
+
+func stop_heartbeat() -> void:
+	heartbeat_active = false
+	Sfx.stop_loop(heartbeat_sfx)
+
+
+# ============================================
+# FOOTSTEPS
+# ============================================
+
+func update_footsteps(delta: float, current_speed: float) -> void:
+
+	step_timer -= delta
+
+	if step_timer > 0.0:
+		return
+
+	# Faster movement means faster steps
+	var rate: float = maxf(current_speed, 1.0) / maxf(speed, 1.0)
+	step_timer = STEP_INTERVAL / maxf(rate, 0.1)
+
+	# Never the same sample twice running
+	var i: int = randi() % FOOTSTEPS.size()
+
+	if i == last_step:
+		i = (i + 1) % FOOTSTEPS.size()
+
+	last_step = i
+
+	var pl: AudioStreamPlayer = step_players[step_voice]
+	step_voice = (step_voice + 1) % step_players.size()
+
+	Sfx.play(pl, FOOTSTEPS[i], 0.92, 1.08)
+
 
 # ============================================
 # DASH
@@ -658,11 +787,24 @@ func take_damage(amount: int) -> void:
 	current_health -= amount
 	health_changed.emit(current_health, max_health)
 
+	# Never the same grunt twice running
+	var g: int = randi() % GRUNTS.size()
+
+	if g == last_grunt:
+		g = (g + 1) % GRUNTS.size()
+
+	last_grunt = g
+
+	Sfx.play(grunt_sfx, GRUNTS[g], 0.94, 1.06)
+
 	invulnerability_timer.start(invulnerability_duration)
 
 	if current_health <= 0:
+		stop_heartbeat()
 		die()
 		return
+
+	update_heartbeat()
 
 	is_locked = true
 	travel_to("hurt")
@@ -766,5 +908,7 @@ func heal(percent: float) -> bool:
 	current_health = mini(current_health, max_health)
 
 	health_changed.emit(current_health, max_health)
+
+	update_heartbeat()
 
 	return true

@@ -117,6 +117,9 @@ func _on_body_entered(body: Node2D) -> void:
 # COLLECT COIN
 # ============================================
 
+const SFX_COIN: AudioStream = preload("res://resources/Audio/Player SFX/Coin_pickup.wav")
+
+
 func collect_coin() -> void:
 	if not is_instance_valid(magnet_target):
 		return
@@ -125,6 +128,17 @@ func collect_coin() -> void:
 		return
 
 	magnet_target.add_coins(coin_value)
+
+	# Played on a throwaway node parented to the
+	# scene: this coin calls queue_free() a moment
+	# later and would cut its own sound off.
+	var pickup := AudioStreamPlayer.new()
+	pickup.stream = SFX_COIN
+	pickup.bus = "SFX"
+	pickup.pitch_scale = randf_range(0.96, 1.08)
+	get_tree().current_scene.add_child(pickup)
+	pickup.finished.connect(pickup.queue_free)
+	pickup.play()
 
 	can_collect = false
 	magnet_active = false

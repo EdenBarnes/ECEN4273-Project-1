@@ -10,6 +10,30 @@ extends Node2D
 @onready var player: CharacterBody2D = $YSortWorld/Player
 @onready var settings_panel: Panel = $PauseLayer/SettingsPanel
 @onready var settings_button: TextureButton = $HUD/HUDRoot/Setting
+@onready var main_music: AudioStreamPlayer = $MainMusic
+
+# ============================================
+# MUSIC LOOP
+# ============================================
+# The track fades out over its last few seconds,
+# pauses, then fades back in from the top.
+#
+# Import Loop is deliberately left OFF: a looping
+# stream never emits finished and never ends, so
+# there would be nothing to fade.
+# ============================================
+
+## Seconds of fade at each end
+const MUSIC_FADE: float = 4.0
+
+## Silence between the fade out and the restart
+const MUSIC_GAP: float = 1.5
+
+## Volume the fades drop to
+const MUSIC_SILENT_DB: float = -40.0
+
+var music_base_db: float = 0.0
+var music_fading: bool = false
 
 # ============================================
 # READY
@@ -40,6 +64,60 @@ func _ready() -> void:
 
 	# No pausing until the Keybind screen is done
 	settings_panel.set_process_input(false)
+
+	# ============================================
+	# MUSIC
+	# ============================================
+
+	music_base_db = main_music.volume_db
+	main_music.finished.connect(_on_music_finished)
+
+
+# ============================================
+# MUSIC FADE OUT
+# ============================================
+
+func _process(_delta: float) -> void:
+
+	if music_fading or not main_music.playing:
+		return
+
+	if main_music.stream == null:
+		return
+
+	var remaining: float = (
+		main_music.stream.get_length() - main_music.get_playback_position()
+	)
+
+	if remaining > MUSIC_FADE:
+		return
+
+	music_fading = true
+
+	# Fade over whatever is actually left, so it
+	# reaches silence exactly as the track ends
+	var t := create_tween()
+	t.tween_property(
+		main_music, "volume_db", MUSIC_SILENT_DB, maxf(remaining, 0.1)
+	)
+
+
+# ============================================
+# MUSIC RESTART
+# ============================================
+
+func _on_music_finished() -> void:
+
+	await get_tree().create_timer(MUSIC_GAP).timeout
+
+	main_music.volume_db = MUSIC_SILENT_DB
+	main_music.play()
+
+	var t := create_tween()
+	t.tween_property(main_music, "volume_db", music_base_db, MUSIC_FADE)
+	await t.finished
+
+	music_fading = false
 
 
 # ============================================
