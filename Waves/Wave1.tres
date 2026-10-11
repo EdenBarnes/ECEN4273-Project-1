@@ -4,8 +4,7 @@
 
 [resource]
 script = ExtResource("1_rpsem")
-EneDamMult = 10
-SpawnMaxEne = 1
+SpawnMaxEne = 10
 Bosshealth = 1
 BossSpeed = 25
 BossSize = 10

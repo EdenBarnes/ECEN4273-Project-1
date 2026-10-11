@@ -775,10 +775,10 @@ horizontal_alignment = 1
 [node name="Slots" type="HBoxContainer" parent="HUDRoot/PerkHUD" unique_id=659924810]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 64.0
-offset_top = 1.0
-offset_right = 104.0
-offset_bottom = 41.0
+offset_left = 48.0
+offset_top = 3.0
+offset_right = 88.0
+offset_bottom = 43.0
 theme_override_constants/separation = 4
 
 [node name="SelectionArrow" type="AnimatedSprite2D" parent="HUDRoot/PerkHUD" unique_id=655732461]
@@ -905,6 +905,7 @@ offset_left = 2.0
 offset_top = 1.0
 offset_right = 54.0
 offset_bottom = 37.0
+scale = Vector2(0.8000009, 0.9587713)
 texture_normal = ExtResource("121_eugfo")
 texture_pressed = ExtResource("122_86bn7")
 texture_hover = ExtResource("123_s0ewi")
