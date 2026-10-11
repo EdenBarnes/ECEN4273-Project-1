@@ -73,7 +73,7 @@ position = Vector2(774, 159)
 position = Vector2(626, 574)
 
 [node name="DeadTree4" parent="YSortWorld/WorldObjects" unique_id=1466417404 instance=ExtResource("3_hibaj")]
-position = Vector2(1123, 626)
+position = Vector2(1142, 644)
 
 [node name="DeadTree5" parent="YSortWorld/WorldObjects" unique_id=739251095 instance=ExtResource("3_hibaj")]
 position = Vector2(1419, 849)
@@ -145,13 +145,13 @@ position = Vector2(296, 670)
 position = Vector2(470, 627)
 
 [node name="Rock7" parent="YSortWorld/WorldObjects" unique_id=1341816064 instance=ExtResource("5_344ge")]
-position = Vector2(325, 361)
+position = Vector2(328, 399)
 
 [node name="Rock8" parent="YSortWorld/WorldObjects" unique_id=811668924 instance=ExtResource("5_344ge")]
-position = Vector2(727, 204)
+position = Vector2(756, 233)
 
 [node name="Rock9" parent="YSortWorld/WorldObjects" unique_id=1607145913 instance=ExtResource("5_344ge")]
-position = Vector2(745, 453)
+position = Vector2(682, 419)
 
 [node name="Rock10" parent="YSortWorld/WorldObjects" unique_id=2146230093 instance=ExtResource("5_344ge")]
 position = Vector2(1165, 529)
@@ -160,7 +160,7 @@ position = Vector2(1165, 529)
 position = Vector2(1473, 333)
 
 [node name="Rock2" parent="YSortWorld/WorldObjects" unique_id=1809472112 instance=ExtResource("6_ynf5e")]
-position = Vector2(668, 769)
+position = Vector2(645, 795)
 
 [node name="Rock4" parent="YSortWorld/WorldObjects" unique_id=1213669100 instance=ExtResource("6_ynf5e")]
 position = Vector2(1143, 961)

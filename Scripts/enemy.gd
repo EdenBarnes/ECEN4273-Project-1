@@ -26,9 +26,13 @@ signal health_changed(current_health: int, max_health: int)
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 
-@onready var raycast_center: RayCast2D = $RayCast2D_Center
-@onready var raycast_left: RayCast2D = $RayCast2D_Left
-@onready var raycast_right: RayCast2D = $RayCast2D_Right
+# ============================================
+# OBSTACLE AVOIDANCE RAYCASTS
+# ============================================
+
+@onready var raycast_left: RayCast2D = $AvoidLeft
+@onready var raycast_center: RayCast2D = $AvoidCenter
+@onready var raycast_right: RayCast2D = $AvoidRight
 
 # Fetched in _ready after the tree is (re)activated
 var state_machine: AnimationNodeStateMachinePlayback
@@ -86,11 +90,11 @@ var avoid_clear_time: float = 0.0  # how long rays have been free
 const AVOID_RELEASE_TIME: float = 0.5
 
 # Collision-aware wall following and recovery.
-@export var avoidance_padding: float = 4.0
-@export var wall_follow_time: float = 0.65
+@export var avoidance_padding: float = 0.0
+@export var wall_follow_time: float = 0.25
+@export var escape_time: float = 0.5
 @export var stuck_check_time: float = 0.55
 @export var stuck_min_movement: float = 4.0
-@export var escape_time: float = 0.85
 
 var wall_follow_left: float = 0.0
 var escape_left: float = 0.0

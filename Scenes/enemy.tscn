@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cbu4lbvgdddaq"]
 
 [ext_resource type="Script" uid="uid://cn74ytj0mpwqn" path="res://Scripts/enemy.gd" id="1_epg4t"]
+[ext_resource type="Resource" uid="uid://dficclghwks3y" path="res://Enemies/walker_data.tres" id="2_287tu"]
 [ext_resource type="Texture2D" uid="uid://game12nh78op" path="res://resources/sprites/Zombie/Boss/idle.png" id="2_afpow"]
 [ext_resource type="AnimationLibrary" uid="uid://bbkg6gduuv34h" path="res://Enemies/boss_anims.res" id="3_287tu"]
 
@@ -168,6 +169,7 @@ size = Vector2(12, 14)
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_epg4t")
+data = ExtResource("2_287tu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723469502]
 position = Vector2(0, -2)
@@ -202,11 +204,11 @@ shape = SubResource("RectangleShape2D_xadyu")
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=705128790]
 
-[node name="RayCast2D_Center" type="RayCast2D" parent="." unique_id=1833984044]
+[node name="AvoidLeft" type="RayCast2D" parent="." unique_id=1848602142]
 collision_mask = 8
 
-[node name="RayCast2D_Left" type="RayCast2D" parent="." unique_id=1248180121]
+[node name="AvoidCenter" type="RayCast2D" parent="." unique_id=117748803]
 collision_mask = 8
 
-[node name="RayCast2D_Right" type="RayCast2D" parent="." unique_id=2065972641]
+[node name="AvoidRight" type="RayCast2D" parent="." unique_id=604639571]
 collision_mask = 8
