@@ -2,12 +2,14 @@ extends Node2D
 
 
 # ============================================
-# ENEMY SCENES
+# ENEMY DATA
 # ============================================
 
 const ENEMY_SCENE = preload("res://Scenes/enemy.tscn")
-const SPRINTER_SCENE = preload("res://Scenes/Sprinter.tscn")
-const BIG_SCENE = preload("res://Scenes/BigGuy.tscn")
+
+const WALKER_DATA: EnemyData = preload("res://Enemies/walker_data.tres")
+const SPRINTER_DATA: EnemyData = preload("res://Enemies/sprinter_data.tres")
+const BIG_GUY_DATA: EnemyData = preload("res://Enemies/big_guy_data.tres")
 
 
 # ============================================
@@ -40,7 +42,7 @@ var boss_wave_active: bool = false
 @export_category("Map Settings")
 @export var map_size: Vector2 = Vector2(1536.0, 1024.0)
 @export var edge_padding: float = 10.0
-
+@export var top_boundary_offset: float = 20.0
 
 # ============================================
 # READY
@@ -165,38 +167,30 @@ func get_regular_enemy_count() -> int:
 # ============================================
 
 func spawn_enemy() -> void:
-	var zomb: int = randi_range(1, 100)
+	var type_data: EnemyData = pick_enemy_data()
 	var spawn_position: Vector2 = get_random_spawn_position()
 
-	# ============================================
-	# NORMAL ZOMBIE
-	# ============================================
+	var enemy = ENEMY_SCENE.instantiate()
+	enemy.data = type_data          # must be set before add_child so _ready sees it
 
-	if zomb <= wave_Data.normalper:
-		var enemy = ENEMY_SCENE.instantiate()
+	enemies_container.add_child(enemy)
+	enemy.global_position = spawn_position
 
-		enemies_container.add_child(enemy)
-		enemy.global_position = spawn_position
 
-	# ============================================
-	# SPRINTER
-	# ============================================
+func pick_enemy_data() -> EnemyData:
+	var roll: int = randi_range(1, 100)
 
-	elif zomb <= wave_Data.normalper + wave_Data.Sprintper:
-		var sprinter = SPRINTER_SCENE.instantiate()
+	if roll <= wave_Data.normalper:
+		return WALKER_DATA
 
-		enemies_container.add_child(sprinter)
-		sprinter.global_position = spawn_position
+	if roll <= wave_Data.normalper + wave_Data.Sprintper:
+		return SPRINTER_DATA
 
-	# ============================================
-	# BIG GUY
-	# ============================================
+	if roll <= wave_Data.normalper + wave_Data.Sprintper + wave_Data.bigper:
+		return BIG_GUY_DATA
 
-	elif zomb <= wave_Data.normalper + wave_Data.Sprintper + wave_Data.bigper:
-		var big_guy = BIG_SCENE.instantiate()
-
-		enemies_container.add_child(big_guy)
-		big_guy.global_position = spawn_position
+	# Percentages didn't add up to 100: fall back to a walker instead of spawning nothing
+	return WALKER_DATA
 
 
 # ============================================
@@ -231,7 +225,7 @@ func get_random_edge_position() -> Vector2:
 
 		0:
 			spawn_position.x = randf_range(edge_padding, map_size.x - edge_padding)
-			spawn_position.y = edge_padding
+			spawn_position.y = edge_padding + top_boundary_offset
 
 		# ========================================
 		# RIGHT
