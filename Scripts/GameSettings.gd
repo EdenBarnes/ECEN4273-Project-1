@@ -14,7 +14,7 @@ var wave_Data: Waves2 = load("res://Waves/Wave1.tres")
 var PLAYER_SPEED: float = 150.0
 var PLAYER_SIZE: float = 1.0
 var PLAYER_MAX_HEALTH: int = 100
-var PLAYER_INVULNERABILITY_DURATION: float = 2.0
+var PLAYER_INVULNERABILITY_DURATION: float = 0.2
 var PLAYER_HURT_DURATION: float = 0.1
 
 # ============================================
@@ -45,19 +45,30 @@ var ENEMY_SIZE: float = 2.0
 var ENEMY_MAX_HEALTH: int = 100
 var ENEMY_HURT_DURATION: float = 0.5
 
-var ENEMY_ATTACK_DISTANCE: float = 20.0
+var ENEMY_ATTACK_DISTANCE: float = 40.0
 var ENEMY_ATTACK_DAMAGE: int = 10
 var ENEMY_ATTACK_DURATION: float = 1.0
 
-var ENEMY_SEPARATION_RADIUS: float = 35.0
-var ENEMY_SEPARATION_STRENGTH: float = 0.30
+var ENEMY_SEPARATION_RADIUS: float = 25.0
+var ENEMY_SEPARATION_STRENGTH: float = 2.0
+
+var ENEMY_ALIGNMENT_RADIUS: float = 60.0
+var ENEMY_ALIGNMENT_STRENGTH: float = 0.6
+
+var ENEMY_COHESION_RADIUS: float = 100.0
+var ENEMY_COHESION_STRENGTH: float = 0.5
+
+var ENEMY_SEEK_GOAL_STRENGTH: float = 1.0
+var ENEMY_SEEK_GOAL_RADIUS: float = 300.0
+var ENEMY_SEEK_FAR_MIN: float = 0.01
+var ENEMY_SEEK_FALLOFF: float = 2.0
+
+var ENEMY_OBSTACLE_AVOID_DISTANCE: float = 25.0
+var ENEMY_OBSTACLE_AVOID_STRENGTH: float = 0.8
 
 var MAX_ENEMIES: int = 20
 var ENEMY_SPAWN_INTERVAL: float = 0.75
 var ENEMY_SPAWN_DISTANCE: float = 50.0
-
-var ENEMY_OBSTACLE_AVOID_DISTANCE: float = 20.0
-var ENEMY_OBSTACLE_AVOID_STRENGTH: float = 0.75
 
 # ============================================
 # BULLET SETTINGS

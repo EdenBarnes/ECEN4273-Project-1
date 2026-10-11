@@ -86,6 +86,7 @@ var step_players: Array[AudioStreamPlayer] = []
 var step_voice: int = 0
 var step_timer: float = 0.0
 var last_step: int = -1
+const FOOTSTEP_VOLUME: float = -16.0
 
 # ============================================
 # HURT / LOW HEALTH
@@ -103,13 +104,22 @@ const GRUNTS: Array[AudioStream] = [
 
 const SFX_HEARTBEAT: AudioStream = preload("res://resources/Audio/Player SFX/Heartbeat_loop.wav")
 
-## Heartbeat starts at or below this much health
-const LOW_HEALTH_THRESHOLD: int = 100
+# ============================================
+# HEARTBEAT SETTINGS
+# ============================================
+
+const CRITICAL_HEALTH_THRESHOLD: int = 10
+const HEARTBEAT_HOLD_TIME: float = 2.0
+const HEARTBEAT_FADE_TIME: float = 1.5
+const HEARTBEAT_MIN_VOLUME: float = -12.0
+const HEARTBEAT_MAX_VOLUME: float = 0.5
 
 var grunt_sfx: AudioStreamPlayer = null
 var heartbeat_sfx: AudioStreamPlayer = null
 var last_grunt: int = -1
 var heartbeat_active: bool = false
+var heartbeat_tween: Tween = null
+var heartbeat_id: int = 0
 
 # ============================================
 # PERKS
@@ -350,34 +360,98 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 # ============================================
-# LOW HEALTH HEARTBEAT
+# HEARTBEAT SYSTEM
 # ============================================
-# Call after anything that changes health, so it
-# also stops when the player heals back up.
+
+func get_heartbeat_volume() -> float:
+	var health_percent: float = clampf(float(current_health) / maxf(float(max_health), 1.0), 0.0, 1.0)
+	return lerpf(HEARTBEAT_MAX_VOLUME, HEARTBEAT_MIN_VOLUME, health_percent)
+
+
+# ============================================
+# UPDATE HEARTBEAT (HEALING / HEALTH CHANGES)
 # ============================================
 
 func update_heartbeat() -> void:
-
-	var should_play: bool = (
-		not is_dead
-		and current_health > 0
-		and current_health <= LOW_HEALTH_THRESHOLD
-	)
-
-	if should_play == heartbeat_active:
+	if heartbeat_sfx == null:
 		return
 
-	heartbeat_active = should_play
+	if is_dead or current_health <= 0:
+		stop_heartbeat()
+		return
 
-	if should_play:
+	if current_health <= CRITICAL_HEALTH_THRESHOLD:
+		start_critical_heartbeat()
+	elif heartbeat_active:
+		stop_heartbeat()
+
+
+# ============================================
+# HEARTBEAT ON DAMAGE
+# ============================================
+
+func play_damage_heartbeat() -> void:
+	if heartbeat_sfx == null or is_dead or current_health <= 0:
+		return
+
+	heartbeat_id += 1
+	var this_id: int = heartbeat_id
+
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+
+	heartbeat_sfx.volume_db = get_heartbeat_volume()
+	if not heartbeat_sfx.playing:
 		Sfx.start_loop(heartbeat_sfx)
-	else:
-		Sfx.stop_loop(heartbeat_sfx)
+	heartbeat_active = true
 
+	if current_health <= CRITICAL_HEALTH_THRESHOLD:
+		return
+
+	await get_tree().create_timer(HEARTBEAT_HOLD_TIME).timeout
+	if this_id != heartbeat_id or is_dead or current_health <= CRITICAL_HEALTH_THRESHOLD:
+		return
+
+	heartbeat_tween = create_tween()
+	heartbeat_tween.tween_property(heartbeat_sfx, "volume_db", -60.0, HEARTBEAT_FADE_TIME)
+	await heartbeat_tween.finished
+
+	if this_id == heartbeat_id:
+		stop_heartbeat()
+
+
+# ============================================
+# CONTINUOUS CRITICAL HEARTBEAT
+# ============================================
+
+func start_critical_heartbeat() -> void:
+	if heartbeat_sfx == null:
+		return
+
+	heartbeat_id += 1
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+
+	heartbeat_sfx.volume_db = HEARTBEAT_MAX_VOLUME
+	if not heartbeat_sfx.playing:
+		Sfx.start_loop(heartbeat_sfx)
+	heartbeat_active = true
+
+
+# ============================================
+# STOP HEARTBEAT
+# ============================================
 
 func stop_heartbeat() -> void:
+	heartbeat_id += 1
 	heartbeat_active = false
-	Sfx.stop_loop(heartbeat_sfx)
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+	if heartbeat_sfx != null:
+		Sfx.stop_loop(heartbeat_sfx)
 
 
 # ============================================
@@ -407,6 +481,7 @@ func update_footsteps(delta: float, current_speed: float) -> void:
 	step_voice = (step_voice + 1) % step_players.size()
 
 	Sfx.play(pl, FOOTSTEPS[i], 0.92, 1.08)
+	pl.volume_db = FOOTSTEP_VOLUME
 
 
 # ============================================
@@ -646,6 +721,7 @@ func apply_perks(perks: Array[String]) -> void:
 		current_health = mini(current_health, max_health)
 
 	health_changed.emit(current_health, max_health)
+	update_heartbeat()
 
 	if current_gun != null:
 		current_gun.refresh_perk_stats()
@@ -804,7 +880,7 @@ func take_damage(amount: int) -> void:
 		die()
 		return
 
-	update_heartbeat()
+	play_damage_heartbeat()
 
 	is_locked = true
 	travel_to("hurt")

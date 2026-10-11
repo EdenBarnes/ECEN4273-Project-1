@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://btld4w37swivs"]
 
 [ext_resource type="Texture2D" uid="uid://bkdhcvoyy42s1" path="res://resources/sprites/Prototype_Character/Red/idle.png" id="1_7k104"]
-[ext_resource type="Script" uid="uid://dlkqv0acmbler" path="res://Scripts/sprinter.gd" id="1_g61ib"]
+[ext_resource type="Script" uid="uid://cn74ytj0mpwqn" path="res://Scripts/enemy.gd" id="1_m0jc7"]
+[ext_resource type="Resource" uid="uid://dvisnrmt1fyuc" path="res://Enemies/sprinter_data.tres" id="2_3vyli"]
 [ext_resource type="Texture2D" uid="uid://dsvti7x8qjika" path="res://resources/sprites/Prototype_Character/Red/walk.png" id="2_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://2c4ggcv123s3" path="res://resources/sprites/Prototype_Character/Red/death.png" id="2_iifgy"]
 [ext_resource type="Texture2D" uid="uid://cp8ghp85mdvrh" path="res://resources/sprites/Prototype_Character/Red/hurt.png" id="2_qi2p4"]
@@ -1305,7 +1306,8 @@ size = Vector2(12, 14)
 [node name="Sprinter" type="CharacterBody2D" unique_id=1441784336 groups=["enemies"]]
 collision_layer = 2
 collision_mask = 8
-script = ExtResource("1_g61ib")
+script = ExtResource("1_m0jc7")
+data = ExtResource("2_3vyli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=723469502]
 position = Vector2(0, -1)

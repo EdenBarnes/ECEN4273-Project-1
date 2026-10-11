@@ -1,5 +1,5 @@
-extends Node2D
 
+extends Node2D
 
 # ============================================
 # NODES
@@ -16,7 +16,6 @@ extends Node2D
 var interaction_box: Control = null
 var wave_manager: Node = null
 
-
 # ============================================
 # HEALING SETTINGS
 # ============================================
@@ -25,7 +24,6 @@ var wave_manager: Node = null
 
 @export var max_heals: int = 4
 @export var heal_percent: float = 0.25
-
 
 # ============================================
 # FIRE ANIMATION SETTINGS
@@ -39,7 +37,6 @@ var wave_manager: Node = null
 var fire_frame_timer: float = 0.0
 var last_fire_frame: int = -1
 
-
 # ============================================
 # COST SETTINGS
 # ============================================
@@ -48,9 +45,9 @@ var last_fire_frame: int = -1
 
 @export var starting_cost: int = 15
 @export var cost_increase: int = 25
+@export var restock_cost_per_heal: int = 5
 
 var current_cost: int = 0
-
 
 # ============================================
 # STATE
@@ -62,12 +59,12 @@ var player_in_range: bool = false
 var is_lit: bool = false
 var is_activating: bool = false
 var fire_active: bool = false
+var has_been_lit: bool = false
 
 var heals_remaining: int = 0
 
-
 # ============================================
-# READY
+# SOUNDS
 # ============================================
 
 const SFX_FIRE: AudioStream = preload("res://resources/Audio/World SFX/Fire_whoosh.wav")
@@ -75,11 +72,14 @@ const SFX_HEAL: AudioStream = preload("res://resources/Audio/World SFX/Heal.wav"
 
 var sfx: AudioStreamPlayer = null
 
+# ============================================
+# READY
+# ============================================
 
 func _ready() -> void:
 	sfx = Sfx.make(self)
 
-	current_cost = starting_cost + cost_increase
+	current_cost = starting_cost
 
 	interaction_area.body_entered.connect(_on_body_entered)
 	interaction_area.body_exited.connect(_on_body_exited)
@@ -92,7 +92,6 @@ func _ready() -> void:
 	reset_campfire()
 
 	call_deferred("find_references")
-
 
 # ============================================
 # PROCESS
@@ -107,21 +106,30 @@ func _process(delta: float) -> void:
 	if is_activating:
 		return
 
+	# Refresh text as player health or wave state changes.
+	update_interaction_text()
+
 	if not Input.is_action_just_pressed("interact"):
 		return
 
-	# Lit fires can always be used, even during a wave.
+	# Between waves, a full-health player can restock
+	# a previously purchased campfire.
+	if can_restock():
+		restock_campfire()
+		return
+
+	# A lit campfire can heal during or between waves.
 	if is_lit:
 		use_heal()
 		return
 
-	# Unlit fires can only be purchased between waves.
+	# An unlit campfire can only be purchased
+	# between waves.
 	if not can_light_campfire():
 		update_interaction_text()
 		return
 
 	light_campfire()
-
 
 # ============================================
 # PLAYER DETECTION
@@ -149,7 +157,6 @@ func _on_body_exited(body: Node2D) -> void:
 	if interaction_box != null:
 		interaction_box.hide_text()
 
-
 # ============================================
 # CAN LIGHT CAMPFIRE
 # ============================================
@@ -159,7 +166,6 @@ func can_light_campfire() -> bool:
 		return false
 
 	return wave_manager.is_between_waves()
-
 
 # ============================================
 # LIGHT CAMPFIRE
@@ -185,10 +191,9 @@ func light_campfire() -> void:
 
 	is_activating = true
 	fire_active = true
+	has_been_lit = true
 	heals_remaining = max_heals
 
-	# Select CampfireOn, but let our script control
-	# which frame is displayed.
 	campfire.animation = "CampfireOn"
 	campfire.pause()
 
@@ -199,10 +204,92 @@ func light_campfire() -> void:
 
 	Sfx.play(sfx, SFX_FIRE)
 
+	# Increase cost for the next normal activation.
 	current_cost += cost_increase
 
 	update_interaction_text()
 
+# ============================================
+# RESTOCK HELPERS
+# ============================================
+
+func is_player_full_health() -> bool:
+	if player == null:
+		return false
+
+	var current_hp: int = int(player.get("current_health"))
+	var maximum_hp: int = int(player.get("max_health"))
+
+	return maximum_hp > 0 and current_hp >= maximum_hp
+
+
+func get_restock_cost() -> int:
+	var missing_heals: int = maxi(max_heals - heals_remaining, 0)
+	return missing_heals * restock_cost_per_heal
+
+
+func can_restock() -> bool:
+	if not has_been_lit:
+		return false
+
+	if is_activating:
+		return false
+
+	if not can_light_campfire():
+		return false
+
+	if not is_player_full_health():
+		return false
+
+	return heals_remaining < max_heals
+
+# ============================================
+# RESTOCK CAMPFIRE
+# ============================================
+
+func restock_campfire() -> void:
+	if player == null:
+		return
+
+	if not can_restock():
+		return
+
+	if not player.has_method("remove_coins"):
+		return
+
+	var restock_cost: int = get_restock_cost()
+	var purchase_successful: bool = player.remove_coins(restock_cost)
+
+	if not purchase_successful:
+		if interaction_box != null:
+			interaction_box.show_text("Not Enough Coins")
+		return
+
+	# Restore all available heals.
+	heals_remaining = max_heals
+
+	# Restore the stump animations.
+	stump_1.play("StumpIdle")
+	stump_2.play("StumpIdle")
+	stump_3.play("StumpIdle")
+	stump_4.play("StumpIdle")
+
+	# Relight the fire if all heals had been used.
+	if not is_lit:
+		is_lit = true
+		fire_active = true
+
+		campfire.animation = "CampfireOn"
+		campfire.pause()
+
+		fire_frame_timer = 0.0
+		last_fire_frame = -1
+
+		Sfx.play(sfx, SFX_FIRE)
+	else:
+		Sfx.play(sfx, SFX_HEAL)
+
+	update_interaction_text()
 
 # ============================================
 # RANDOM FIRE ANIMATION
@@ -232,7 +319,6 @@ func update_fire_animation(delta: float) -> void:
 	last_fire_frame = new_frame
 	campfire.frame = new_frame
 
-
 # ============================================
 # STUMP START FINISHED
 # ============================================
@@ -260,7 +346,6 @@ func _on_stump_4_finished() -> void:
 		stump_4.play("StumpIdle")
 		check_activation_finished()
 
-
 # ============================================
 # CHECK ACTIVATION
 # ============================================
@@ -282,7 +367,6 @@ func check_activation_finished() -> void:
 	is_lit = true
 
 	update_interaction_text()
-
 
 # ============================================
 # USE HEAL
@@ -316,7 +400,6 @@ func use_heal() -> void:
 	else:
 		update_interaction_text()
 
-
 # ============================================
 # UPDATE STUMPS
 # ============================================
@@ -333,7 +416,6 @@ func update_stumps() -> void:
 
 	if heals_remaining < 1:
 		stump_1.play("StumpOff")
-
 
 # ============================================
 # TURN OFF CAMPFIRE
@@ -357,7 +439,6 @@ func turn_off_campfire() -> void:
 
 	update_interaction_text()
 
-
 # ============================================
 # RESET CAMPFIRE
 # ============================================
@@ -366,6 +447,7 @@ func reset_campfire() -> void:
 	is_lit = false
 	is_activating = false
 	fire_active = false
+	has_been_lit = false
 	heals_remaining = 0
 
 	fire_frame_timer = 0.0
@@ -378,7 +460,6 @@ func reset_campfire() -> void:
 	stump_3.play("StumpOff")
 	stump_4.play("StumpOff")
 
-
 # ============================================
 # WAVE STATE
 # ============================================
@@ -389,7 +470,6 @@ func _on_wave_countdown_started(_wave_number: int, _duration: float) -> void:
 
 func _on_wave_started(_wave_number: int) -> void:
 	update_interaction_text()
-
 
 # ============================================
 # INTERACTION TEXT
@@ -406,25 +486,40 @@ func update_interaction_text() -> void:
 		interaction_box.show_text("Lighting Campfire...")
 		return
 
-	# Once purchased, healing remains available
-	# during both countdowns and active waves.
-	if is_lit:
+	# During active waves, preserve normal behavior.
+	if not can_light_campfire():
+		if is_lit:
+			interaction_box.show_text(
+				"Heals: " + str(heals_remaining) + " / " + str(max_heals) +
+				"\nPress \"E\" to Heal " + str(int(heal_percent * 100.0)) + "%"
+			)
+		else:
+			interaction_box.show_text("Light Campfire Between Waves!")
+		return
+
+	# Between waves, show restock only if the
+	# player is at full health and heals are missing.
+	if can_restock():
 		interaction_box.show_text(
-			"Heals: " + str(heals_remaining) + " / " + str(max_heals) +
-			"\nPress \"E\" to Heal 25%"
+			"Restock Campfire: " + str(get_restock_cost()) +
+			" Coins\nPress \"E\" to Restock"
 		)
 		return
 
-	# Fire is off and a wave is currently active.
-	if not can_light_campfire():
-		interaction_box.show_text("Light Campfire Between Waves!")
+	# Lit campfire with available heals.
+	if is_lit:
+		interaction_box.show_text(
+			"Heals: " + str(heals_remaining) + " / " + str(max_heals) +
+			"\nPress \"E\" to Heal " + str(int(heal_percent * 100.0)) + "%"
+		)
 		return
 
-	# Fire is off and we are between waves.
+	# Unlit campfire, including one that is
+	# depleted while the player is injured.
 	interaction_box.show_text(
-		"Cost: " + str(current_cost) + " Coins\nPress \"E\" to Light"
+		"Cost: " + str(current_cost) +
+		" Coins\nPress \"E\" to Light"
 	)
-
 
 # ============================================
 # FIND REFERENCES
@@ -445,7 +540,6 @@ func find_references() -> void:
 	wave_manager.wave_started.connect(_on_wave_started)
 
 	update_interaction_text()
-
 
 # ============================================
 # STAGGER STUMP ANIMATIONS

@@ -48,7 +48,7 @@ var perk_hud: Control = null
 @export_category("Cost Settings")
 
 @export var starting_cost: int = 5
-@export var cost_increase: int = 5
+@export var cost_increase: int = 3
 
 var current_cost: int = 0
 
@@ -129,7 +129,7 @@ func _ready() -> void:
 	chain_sfx = Sfx.make(self, SFX_CHAIN)
 	reward_sfx = Sfx.make(self, SFX_REWARD)
 
-	current_cost = starting_cost + cost_increase
+	current_cost = starting_cost
 
 	perk_coin_display.visible = false
 	well_sprite.play("Idle")
@@ -291,6 +291,7 @@ func update_interaction_text() -> void:
 	interaction_box.hide_text()
 
 
+
 # ============================================
 # START WELL INTERACTION
 # ============================================
@@ -315,6 +316,9 @@ func start_well_interaction() -> void:
 			interaction_box.show_text("Not Enough Coins")
 		return
 
+	# Increase cost for the next purchase.
+	current_cost += cost_increase
+
 	wave_manager.pause_wave_countdown()
 
 	lock_player()
@@ -326,6 +330,7 @@ func start_well_interaction() -> void:
 	state = WellState.MOVING_PLAYER
 
 	update_interaction_text()
+
 
 
 # ============================================
