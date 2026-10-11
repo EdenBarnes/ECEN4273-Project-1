@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+# Boss-wave coin restriction (set by spawner before _ready).
+var can_drop_coins: bool = true
+
 
 # ============================================
 # DATA (assign BEFORE add_child so _ready sees it)
@@ -81,6 +84,21 @@ const FACING_MIN_SPEED: float = 10.0
 var avoid_side: float = 0.0        # +1 or -1 once committed, 0 = none
 var avoid_clear_time: float = 0.0  # how long rays have been free
 const AVOID_RELEASE_TIME: float = 0.5
+
+# Collision-aware wall following and recovery.
+@export var avoidance_padding: float = 4.0
+@export var wall_follow_time: float = 0.65
+@export var stuck_check_time: float = 0.55
+@export var stuck_min_movement: float = 4.0
+@export var escape_time: float = 0.85
+
+var wall_follow_left: float = 0.0
+var escape_left: float = 0.0
+var stuck_elapsed: float = 0.0
+var stuck_origin: Vector2 = Vector2.ZERO
+var last_obstacle_normal: Vector2 = Vector2.ZERO
+var avoidance_active: bool = false
+
 
 # Boid update staggering
 const BOID_INTERVAL: int = 3   # recompute boids every Nth physics frame
@@ -174,6 +192,8 @@ func _ready() -> void:
 	# Find player
 	player = get_tree().get_first_node_in_group("player")
 
+	stuck_origin = global_position
+
 	# Rays
 	raycast_center.enabled = true
 	raycast_left.enabled = true
@@ -228,28 +248,47 @@ func apply_data() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_locked:
+		stuck_origin = global_position
+		stuck_elapsed = 0.0
 		return
 
 	if (Engine.get_physics_frames() + _boid_offset) % BOID_INTERVAL == 0:
 		update_boids()
 
-	var steering := Vector2.ZERO
+	var steering: Vector2 = Vector2.ZERO
 	steering += _sep * separation_strength
 	steering += _ali * alignment_strength
 	steering += _coh * cohesion_strength
 	steering += seek_goal() * seek_goal_strength
 
+	# Obstacles take priority over flocking only while needed.
 	update_rays()
-	steering += avoid_obstacles() * obstacle_avoid_strength
+	var avoidance: Vector2 = avoid_obstacles(delta)
+	if avoidance_active:
+		steering = steering * 0.15 + avoidance * maxf(obstacle_avoid_strength, 2.5) * 2.0
+	else:
+		steering += avoidance * obstacle_avoid_strength
 
-	# Steering is unit-scale, so scale it to be meaningful
-	var acceleration := steering * speed * 8.0   # tweak the 8.0 (turn responsiveness)
+	var acceleration: Vector2 = steering * speed * 8.0
 	velocity += acceleration * delta
 
-	var health_speed_multiplier: float = float(current_health) / float(max_health)
-	if health_speed_multiplier <= 0.25:
-		health_speed_multiplier = 0.25
+	
+	# ============================================
+	# HEALTH-BASED MOVEMENT SPEED
+	# ============================================
+
+	var health_ratio: float = float(current_health) / float(max_health)
+	var health_speed_multiplier: float = 1.0
+
+	if data.is_boss:
+		# Boss gets faster as health decreases.
+		health_speed_multiplier = 1.0 + (1.0 - health_ratio) * 1.0
+	else:
+		# Regular zombies keep their original behavior.
+		health_speed_multiplier = maxf(health_ratio, 0.25)
+
 	velocity = velocity.limit_length(speed * health_speed_multiplier)
+
 
 	if velocity.length() > FACING_MIN_SPEED:
 		facing_direction = velocity.normalized()
@@ -259,6 +298,7 @@ func _physics_process(delta: float) -> void:
 		travel_to("idle")
 
 	move_and_slide()
+	update_stuck_detection(delta)
 
 
 # ============================================
@@ -353,65 +393,116 @@ func seek_goal() -> Vector2:
 # OBSTACLE AVOIDANCE
 # ============================================
 
+func get_collision_clearance() -> float:
+	var shape: Shape2D = collision_shape.shape
+	var radius: float = 12.0
+	if shape is CircleShape2D:
+		radius = shape.radius
+	elif shape is CapsuleShape2D:
+		radius = shape.radius
+	elif shape is RectangleShape2D:
+		radius = maxf(shape.size.x, shape.size.y) * 0.5
+	return radius * maxf(absf(global_scale.x), absf(global_scale.y)) + avoidance_padding
+
+
+func setup_avoid_ray(ray: RayCast2D, offset: Vector2, direction: Vector2, distance: float) -> void:
+	# RayCast2D positions and targets are local; convert world coordinates.
+	var world_start: Vector2 = global_position + offset
+	ray.position = to_local(world_start)
+	ray.target_position = to_local(world_start + direction * distance) - ray.position
+	ray.force_raycast_update()
+
+
 func update_rays() -> void:
-	var direction := Vector2.ZERO
+	var direction: Vector2 = velocity.normalized()
 	if player != null:
-		direction = player.global_position - global_position
-	if direction.length_squared() < 0.001:
-		direction = velocity
-	if direction.length_squared() < 0.001:
-		return
+		var toward_player: Vector2 = (player.global_position - global_position).normalized()
+		if direction.length_squared() < 0.01:
+			direction = toward_player
+		else:
+			direction = (direction + toward_player).normalized()
+	if direction.length_squared() < 0.01:
+		direction = movement_direction
 
-	direction = direction.normalized()
-	var reach := obstacle_avoid_distance / scale.x
+	var clearance: float = get_collision_clearance()
+	var reach: float = maxf(obstacle_avoid_distance, clearance * 2.5)
+	var side: Vector2 = Vector2(-direction.y, direction.x)
+	setup_avoid_ray(raycast_center, Vector2.ZERO, direction, reach)
+	setup_avoid_ray(raycast_left, -side * clearance * 0.8, direction, reach)
+	setup_avoid_ray(raycast_right, side * clearance * 0.8, direction, reach)
 
-	raycast_center.target_position = direction * reach
-	raycast_left.target_position = direction.rotated(deg_to_rad(-35)) * reach
-	raycast_right.target_position = direction.rotated(deg_to_rad(35)) * reach
 
+func avoid_obstacles(delta: float) -> Vector2:
+	var hit_count: int = 0
+	var normal_sum: Vector2 = Vector2.ZERO
+	var nearest: float = INF
 
-func avoid_obstacles() -> Vector2:
-	var force := Vector2.ZERO
-	var any_hit := false
-
-	var to_player := Vector2.ZERO
-	if player != null:
-		to_player = (player.global_position - global_position).normalized()
-
-	for ray in [raycast_center, raycast_left, raycast_right]:
+	for ray: RayCast2D in [raycast_center, raycast_left, raycast_right]:
 		if not ray.is_colliding():
 			continue
-		any_hit = true
+		hit_count += 1
+		normal_sum += ray.get_collision_normal()
+		nearest = minf(nearest, ray.global_position.distance_to(ray.get_collision_point()))
 
-		var point: Vector2 = ray.get_collision_point()
-		var normal: Vector2 = ray.get_collision_normal()
-		var distance := global_position.distance_to(point)
-		var strength := 1.0 - clampf(distance / obstacle_avoid_distance, 0.0, 1.0)
-
-		var tangent := Vector2(-normal.y, normal.x)
-
-		# Commit to a side the first time we hit something
-		if avoid_side == 0.0:
-			var d := tangent.dot(to_player)
-			if absf(d) > 0.1:
-				avoid_side = signf(d)
-			else:
-				# Head-on: pick based on current velocity, else randomly
-				var v := tangent.dot(velocity)
-				avoid_side = signf(v) if absf(v) > 1.0 else (1.0 if randf() < 0.5 else -1.0)
-
-		force += (tangent * avoid_side * 0.9 + normal * 0.2) * strength
-
-	# Release the commitment only after being clear for a while
-	var dt := get_physics_process_delta_time()
-	if any_hit:
+	var hit: bool = hit_count > 0
+	if hit:
+		last_obstacle_normal = normal_sum.normalized()
 		avoid_clear_time = 0.0
+		wall_follow_left = wall_follow_time
+		if avoid_side == 0.0:
+			var tangent: Vector2 = Vector2(-last_obstacle_normal.y, last_obstacle_normal.x)
+			var toward_player: Vector2 = Vector2.ZERO
+			if player != null:
+				toward_player = (player.global_position - global_position).normalized()
+			var preference: float = tangent.dot(toward_player)
+			avoid_side = signf(preference) if absf(preference) > 0.15 else (1.0 if randf() < 0.5 else -1.0)
 	else:
-		avoid_clear_time += dt
-		if avoid_clear_time > AVOID_RELEASE_TIME:
+		avoid_clear_time += delta
+		wall_follow_left = maxf(0.0, wall_follow_left - delta)
+		if avoid_clear_time >= AVOID_RELEASE_TIME and wall_follow_left <= 0.0 and escape_left <= 0.0:
 			avoid_side = 0.0
 
-	return force.limit_length(2.0)
+	escape_left = maxf(0.0, escape_left - delta)
+	avoidance_active = hit or wall_follow_left > 0.0 or escape_left > 0.0
+	if not avoidance_active:
+		return Vector2.ZERO
+
+	var normal: Vector2 = last_obstacle_normal
+	if normal.length_squared() < 0.01:
+		return Vector2.ZERO
+	var tangent: Vector2 = Vector2(-normal.y, normal.x) * avoid_side
+	var outward: float = 0.55
+	if hit:
+		var reach: float = maxf(obstacle_avoid_distance, get_collision_clearance() * 2.5)
+		outward += 0.65 * (1.0 - clampf(nearest / reach, 0.0, 1.0))
+	if escape_left > 0.0:
+		outward = 1.4
+	return (tangent + normal * outward).normalized()
+
+
+func update_stuck_detection(delta: float) -> void:
+	if player == null or is_dead:
+		return
+	if global_position.distance_to(player.global_position) <= attack_distance:
+		stuck_origin = global_position
+		stuck_elapsed = 0.0
+		return
+
+	stuck_elapsed += delta
+	if stuck_elapsed < stuck_check_time:
+		return
+
+	var moved: float = global_position.distance_to(stuck_origin)
+	if moved < stuck_min_movement and (avoidance_active or velocity.length() > 5.0):
+		avoid_side = -avoid_side if avoid_side != 0.0 else (1.0 if randf() < 0.5 else -1.0)
+		wall_follow_left = wall_follow_time
+		escape_left = escape_time
+		if last_obstacle_normal.length_squared() < 0.01:
+			last_obstacle_normal = (global_position - player.global_position).normalized()
+		velocity = (Vector2(-last_obstacle_normal.y, last_obstacle_normal.x) * avoid_side + last_obstacle_normal).normalized() * speed * 0.5
+
+	stuck_origin = global_position
+	stuck_elapsed = 0.0
 
 
 # ============================================
@@ -595,6 +686,8 @@ func travel_to(state_name: String) -> void:
 # ============================================
 
 func drop_coins() -> void:
+	if not can_drop_coins and not data.is_boss:
+		return
 	var amount: int = randi_range(data.coin_drop_min, data.coin_drop_max)
 	var coins_container: Node2D = get_tree().current_scene.get_node("YSortWorld/Coins")
 

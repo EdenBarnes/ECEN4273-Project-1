@@ -34,6 +34,10 @@ var enemies_left_to_spawn: int = 0
 # refill while the boss is alive
 var boss_wave_active: bool = false
 
+# Only the first 50 regular zombies spawned in each boss wave drop coins.
+@export var boss_wave_coin_spawn_limit: int = 50
+var boss_wave_spawn_count: int = 0
+
 
 # ============================================
 # MAP SETTINGS
@@ -61,6 +65,7 @@ func start_spawning_wave(new_wave_data: Resource) -> void:
 
 	enemies_left_to_spawn = wave_Data.SpawnMaxEne
 	boss_wave_active = wave_Data.Bossspawn
+	boss_wave_spawn_count = 0
 
 	spawn_timer.wait_time = wave_Data.SpawnInterval
 	spawn_timer.start()
@@ -172,6 +177,9 @@ func spawn_enemy() -> void:
 
 	var enemy = ENEMY_SCENE.instantiate()
 	enemy.data = type_data          # must be set before add_child so _ready sees it
+	if boss_wave_active:
+		enemy.can_drop_coins = boss_wave_spawn_count < boss_wave_coin_spawn_limit
+		boss_wave_spawn_count += 1
 
 	enemies_container.add_child(enemy)
 	enemy.global_position = spawn_position
