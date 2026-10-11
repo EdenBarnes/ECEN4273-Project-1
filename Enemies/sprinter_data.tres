@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dvisnrmt1fyuc"]
+
+[ext_resource type="AnimationLibrary" uid="uid://d3o3p202puhpe" path="res://Enemies/sprinter_anims.res" id="1_3iuoi"]
+[ext_resource type="Script" uid="uid://i64huwqt4x0o" path="res://Scripts/enemy_data.gd" id="1_wtlb3"]
+
+[resource]
+script = ExtResource("1_wtlb3")
+display_name = "Sprinter"
+speed_mult = 1.25
+health_mult = 0.5
+damage_mult = 0.5
+attack_distance_mult = 0.5
+size_mult = 0.75
+coin_drop_min = 2
+coin_drop_max = 3
+animation_library = ExtResource("1_3iuoi")
+metadata/_custom_type_script = "uid://i64huwqt4x0o"
