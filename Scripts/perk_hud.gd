@@ -292,7 +292,8 @@ func update_rarity_display() -> void:
 	match current_rarity.to_upper():
 		"COMMON":
 			rarity_label.text = "COMMON COIN"
-			rarity_label.add_theme_color_override("font_color", Color("#3f6403"))
+			rarity_label.add_theme_color_override("font_color", Color("#3F64C3"))
+		
 
 		"EPIC":
 			rarity_label.text = "EPIC COIN"
@@ -300,7 +301,7 @@ func update_rarity_display() -> void:
 
 		"LEGENDARY":
 			rarity_label.text = "LEGENDARY COIN"
-			rarity_label.add_theme_color_override("font_color", Color("#bb043c"))
+			rarity_label.add_theme_color_override("font_color", Color("#FFD23F"))
 
 		_:
 			rarity_label.text = "UNKNOWN COIN"
