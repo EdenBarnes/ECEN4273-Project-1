@@ -48,7 +48,7 @@ var perk_hud: Control = null
 @export_category("Cost Settings")
 
 @export var starting_cost: int = 5
-@export var cost_increase: int = 5
+@export var cost_increase: int = 3
 
 var current_cost: int = 0
 
@@ -118,8 +118,18 @@ var selected_rarity: String = ""
 # READY
 # ============================================
 
+const SFX_CHAIN: AudioStream = preload("res://resources/Audio/World SFX/Well_chain_loop.wav")
+const SFX_REWARD: AudioStream = preload("res://resources/Audio/World SFX/Reward_jingle.wav")
+
+var chain_sfx: AudioStreamPlayer = null
+var reward_sfx: AudioStreamPlayer = null
+
+
 func _ready() -> void:
-	current_cost = starting_cost + cost_increase
+	chain_sfx = Sfx.make(self, SFX_CHAIN)
+	reward_sfx = Sfx.make(self, SFX_REWARD)
+
+	current_cost = starting_cost
 
 	perk_coin_display.visible = false
 	well_sprite.play("Idle")
@@ -281,6 +291,7 @@ func update_interaction_text() -> void:
 	interaction_box.hide_text()
 
 
+
 # ============================================
 # START WELL INTERACTION
 # ============================================
@@ -305,6 +316,9 @@ func start_well_interaction() -> void:
 			interaction_box.show_text("Not Enough Coins")
 		return
 
+	# Increase cost for the next purchase.
+	current_cost += cost_increase
+
 	wave_manager.pause_wave_countdown()
 
 	lock_player()
@@ -316,6 +330,7 @@ func start_well_interaction() -> void:
 	state = WellState.MOVING_PLAYER
 
 	update_interaction_text()
+
 
 
 # ============================================
@@ -475,6 +490,9 @@ func start_well_animation() -> void:
 	else:
 		well_sprite.play("RightSide")
 
+	# Loops for however long the crank animation runs
+	Sfx.start_loop(chain_sfx)
+
 	update_interaction_text()
 
 
@@ -488,6 +506,9 @@ func _on_well_animation_finished() -> void:
 
 	if well_sprite.animation != "LeftSide" and well_sprite.animation != "RightSide":
 		return
+
+	Sfx.stop_loop(chain_sfx)
+	Sfx.play(reward_sfx, null, 1.0, 1.0)
 
 	start_coin_arc()
 

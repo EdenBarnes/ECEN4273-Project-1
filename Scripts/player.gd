@@ -54,8 +54,72 @@ var max_health: int = 100
 var current_health: int = 100
 
 # Death sequence timing
-const DEATH_ANIM_HOLD: float = 2.0
+const DEATH_ANIM_HOLD: float = 0.5
 const DEATH_FADE_DURATION: float = 2.0
+
+# ============================================
+# FOOTSTEPS
+# ============================================
+# 11 recorded steps picked at random, so a walk
+# cycle never repeats the same sample twice in
+# a row. Two players so one step can ring out
+# under the next.
+
+const FOOTSTEPS: Array[AudioStream] = [
+	preload("res://resources/Audio/World SFX/Footstep_1.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_2.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_3.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_4.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_5.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_6.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_7.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_8.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_9.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_10.wav"),
+	preload("res://resources/Audio/World SFX/Footstep_11.wav"),
+]
+
+# Seconds between steps at normal walking speed
+const STEP_INTERVAL: float = 0.42
+
+var step_players: Array[AudioStreamPlayer] = []
+var step_voice: int = 0
+var step_timer: float = 0.0
+var last_step: int = -1
+const FOOTSTEP_VOLUME: float = -16.0
+
+# ============================================
+# HURT / LOW HEALTH
+# ============================================
+
+const GRUNTS: Array[AudioStream] = [
+	preload("res://resources/Audio/Player SFX/Grunt_1.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_2.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_3.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_4.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_5.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_6.wav"),
+	preload("res://resources/Audio/Player SFX/Grunt_7.wav"),
+]
+
+const SFX_HEARTBEAT: AudioStream = preload("res://resources/Audio/Player SFX/Heartbeat_loop.wav")
+
+# ============================================
+# HEARTBEAT SETTINGS
+# ============================================
+
+const CRITICAL_HEALTH_THRESHOLD: int = 10
+const HEARTBEAT_HOLD_TIME: float = 2.0
+const HEARTBEAT_FADE_TIME: float = 1.5
+const HEARTBEAT_MIN_VOLUME: float = -12.0
+const HEARTBEAT_MAX_VOLUME: float = 0.5
+
+var grunt_sfx: AudioStreamPlayer = null
+var heartbeat_sfx: AudioStreamPlayer = null
+var last_grunt: int = -1
+var heartbeat_active: bool = false
+var heartbeat_tween: Tween = null
+var heartbeat_id: int = 0
 
 # ============================================
 # PERKS
@@ -136,6 +200,16 @@ func _ready() -> void:
 	# ============================================
 
 	anim_tree.active = true
+
+	# ============================================
+	# FOOTSTEP PLAYERS
+	# ============================================
+
+	for _i: int in range(2):
+		step_players.append(Sfx.make(self))
+
+	grunt_sfx = Sfx.make(self)
+	heartbeat_sfx = Sfx.make(self, SFX_HEARTBEAT)
 
 	# ============================================
 	# HURT TIMER SETUP
@@ -255,14 +329,19 @@ func _physics_process(delta: float) -> void:
 		movement_direction = input_vector.normalized()
 		velocity = movement_direction * current_speed
 		travel_to("walk")
+		update_footsteps(delta, current_speed)
 
 	elif is_dashing:
 		velocity = movement_direction * current_speed
 		travel_to("walk")
+		update_footsteps(delta, current_speed)
 
 	else:
 		velocity = Vector2.ZERO
 		travel_to("idle")
+
+		# Next step lands as soon as they move again
+		step_timer = 0.0
 
 	# ============================================
 	# SHOOTING
@@ -279,6 +358,131 @@ func _physics_process(delta: float) -> void:
 		current_gun.reload()
 
 	move_and_slide()
+
+# ============================================
+# HEARTBEAT SYSTEM
+# ============================================
+
+func get_heartbeat_volume() -> float:
+	var health_percent: float = clampf(float(current_health) / maxf(float(max_health), 1.0), 0.0, 1.0)
+	return lerpf(HEARTBEAT_MAX_VOLUME, HEARTBEAT_MIN_VOLUME, health_percent)
+
+
+# ============================================
+# UPDATE HEARTBEAT (HEALING / HEALTH CHANGES)
+# ============================================
+
+func update_heartbeat() -> void:
+	if heartbeat_sfx == null:
+		return
+
+	if is_dead or current_health <= 0:
+		stop_heartbeat()
+		return
+
+	if current_health <= CRITICAL_HEALTH_THRESHOLD:
+		start_critical_heartbeat()
+	elif heartbeat_active:
+		stop_heartbeat()
+
+
+# ============================================
+# HEARTBEAT ON DAMAGE
+# ============================================
+
+func play_damage_heartbeat() -> void:
+	if heartbeat_sfx == null or is_dead or current_health <= 0:
+		return
+
+	heartbeat_id += 1
+	var this_id: int = heartbeat_id
+
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+
+	heartbeat_sfx.volume_db = get_heartbeat_volume()
+	if not heartbeat_sfx.playing:
+		Sfx.start_loop(heartbeat_sfx)
+	heartbeat_active = true
+
+	if current_health <= CRITICAL_HEALTH_THRESHOLD:
+		return
+
+	await get_tree().create_timer(HEARTBEAT_HOLD_TIME).timeout
+	if this_id != heartbeat_id or is_dead or current_health <= CRITICAL_HEALTH_THRESHOLD:
+		return
+
+	heartbeat_tween = create_tween()
+	heartbeat_tween.tween_property(heartbeat_sfx, "volume_db", -60.0, HEARTBEAT_FADE_TIME)
+	await heartbeat_tween.finished
+
+	if this_id == heartbeat_id:
+		stop_heartbeat()
+
+
+# ============================================
+# CONTINUOUS CRITICAL HEARTBEAT
+# ============================================
+
+func start_critical_heartbeat() -> void:
+	if heartbeat_sfx == null:
+		return
+
+	heartbeat_id += 1
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+
+	heartbeat_sfx.volume_db = HEARTBEAT_MAX_VOLUME
+	if not heartbeat_sfx.playing:
+		Sfx.start_loop(heartbeat_sfx)
+	heartbeat_active = true
+
+
+# ============================================
+# STOP HEARTBEAT
+# ============================================
+
+func stop_heartbeat() -> void:
+	heartbeat_id += 1
+	heartbeat_active = false
+	if heartbeat_tween != null and heartbeat_tween.is_valid():
+		heartbeat_tween.kill()
+		heartbeat_tween = null
+	if heartbeat_sfx != null:
+		Sfx.stop_loop(heartbeat_sfx)
+
+
+# ============================================
+# FOOTSTEPS
+# ============================================
+
+func update_footsteps(delta: float, current_speed: float) -> void:
+
+	step_timer -= delta
+
+	if step_timer > 0.0:
+		return
+
+	# Faster movement means faster steps
+	var rate: float = maxf(current_speed, 1.0) / maxf(speed, 1.0)
+	step_timer = STEP_INTERVAL / maxf(rate, 0.1)
+
+	# Never the same sample twice running
+	var i: int = randi() % FOOTSTEPS.size()
+
+	if i == last_step:
+		i = (i + 1) % FOOTSTEPS.size()
+
+	last_step = i
+
+	var pl: AudioStreamPlayer = step_players[step_voice]
+	step_voice = (step_voice + 1) % step_players.size()
+
+	Sfx.play(pl, FOOTSTEPS[i], 0.92, 1.08)
+	pl.volume_db = FOOTSTEP_VOLUME
+
 
 # ============================================
 # DASH
@@ -517,6 +721,7 @@ func apply_perks(perks: Array[String]) -> void:
 		current_health = mini(current_health, max_health)
 
 	health_changed.emit(current_health, max_health)
+	update_heartbeat()
 
 	if current_gun != null:
 		current_gun.refresh_perk_stats()
@@ -658,11 +863,24 @@ func take_damage(amount: int) -> void:
 	current_health -= amount
 	health_changed.emit(current_health, max_health)
 
+	# Never the same grunt twice running
+	var g: int = randi() % GRUNTS.size()
+
+	if g == last_grunt:
+		g = (g + 1) % GRUNTS.size()
+
+	last_grunt = g
+
+	Sfx.play(grunt_sfx, GRUNTS[g], 0.94, 1.06)
+
 	invulnerability_timer.start(invulnerability_duration)
 
 	if current_health <= 0:
+		stop_heartbeat()
 		die()
 		return
+
+	play_damage_heartbeat()
 
 	is_locked = true
 	travel_to("hurt")
@@ -694,7 +912,7 @@ func die() -> void:
 
 	await fade_to_black(DEATH_FADE_DURATION)
 
-	get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")
+	SceneTransition.change_scene("res://Scenes/death_screen.tscn")
 
 
 # ============================================
@@ -766,5 +984,7 @@ func heal(percent: float) -> bool:
 	current_health = mini(current_health, max_health)
 
 	health_changed.emit(current_health, max_health)
+
+	update_heartbeat()
 
 	return true

@@ -1,7 +1,7 @@
+
 extends Control
 
 signal perk_selection_completed
-
 
 # ============================================
 # NODES
@@ -15,10 +15,10 @@ signal perk_selection_completed
 @onready var new_perk: Control = $NewPerk
 @onready var new_perk_coin: TextureRect = $NewPerk/Coin
 @onready var perk_name_label: Label = $NewPerk/PerkName
+@onready var rarity_label: Label = $NewPerk/Rarity
 @onready var description_label: Label = $NewPerk/Description
 
 @onready var confirm_text: Label = $ConfirmText
-
 
 # ============================================
 # SLOT SETTINGS
@@ -35,7 +35,6 @@ var max_perk_slots: int = 5
 var perk_slots: Array[TextureRect] = []
 var discard_slot: TextureRect = null
 
-
 # ============================================
 # MENU ANIMATION SETTINGS
 # ============================================
@@ -48,7 +47,6 @@ var discard_slot: TextureRect = null
 
 var normal_slots_position: Vector2
 var normal_slots_scale: Vector2
-
 
 # ============================================
 # PERK TEXTURES
@@ -69,7 +67,6 @@ var normal_slots_scale: Vector2
 @export var bullet_texture: Texture2D
 @export var pierce_texture: Texture2D
 
-
 # ============================================
 # STATE
 # ============================================
@@ -77,7 +74,6 @@ var normal_slots_scale: Vector2
 var menu_open: bool = false
 var current_new_perk: String = ""
 var current_rarity: String = ""
-
 
 # ============================================
 # SELECTION STATE
@@ -92,7 +88,6 @@ var selection_enabled: bool = false
 @export var new_coin_offset: Vector2 = Vector2(0.0, 125.0)
 @export var replace_x_offset: Vector2 = Vector2.ZERO
 @export var replace_x_scale: float = 1.25
-
 
 # ============================================
 # READY
@@ -109,7 +104,6 @@ func _ready() -> void:
 	setup_normal_hud()
 	create_perk_slots()
 
-
 # ============================================
 # NORMAL HUD
 # ============================================
@@ -122,7 +116,6 @@ func setup_normal_hud() -> void:
 	confirm_text.visible = false
 
 	visible = true
-
 
 # ============================================
 # CREATE PERK SLOTS
@@ -143,7 +136,6 @@ func create_perk_slots() -> void:
 
 		if slot.has_method("setup"):
 			slot.setup(i, blank_coin_texture)
-
 
 # ============================================
 # ADD PERK SLOT
@@ -166,7 +158,6 @@ func add_perk_slot(amount: int = 1) -> void:
 
 		if slot.has_method("setup"):
 			slot.setup(slot_index, blank_coin_texture)
-
 
 # ============================================
 # OPEN PERK SELECTION
@@ -198,7 +189,6 @@ func open_perk_selection(perk_name: String, rarity: String) -> void:
 	create_discard_slot()
 	animate_slots_to_menu()
 
-
 # ============================================
 # DISCARD SLOT
 # ============================================
@@ -226,7 +216,6 @@ func create_discard_slot() -> void:
 	if "is_empty" in discard_slot:
 		discard_slot.is_empty = true
 
-
 func remove_discard_slot() -> void:
 	if discard_slot == null:
 		return
@@ -234,7 +223,6 @@ func remove_discard_slot() -> void:
 	perk_slots.erase(discard_slot)
 	discard_slot.queue_free()
 	discard_slot = null
-
 
 func is_discard_selected() -> bool:
 	if discard_slot == null:
@@ -244,7 +232,6 @@ func is_discard_selected() -> bool:
 		return false
 
 	return perk_slots[selected_slot_index] == discard_slot
-
 
 # ============================================
 # FIND STARTING SLOT
@@ -259,7 +246,6 @@ func find_starting_slot() -> int:
 			return i
 
 	return 0
-
 
 # ============================================
 # ANIMATE SLOTS TO MENU
@@ -287,7 +273,6 @@ func animate_slots_to_menu() -> void:
 
 	tween.chain().tween_callback(enable_slot_selection)
 
-
 # ============================================
 # UPDATE NEW PERK DISPLAY
 # ============================================
@@ -297,6 +282,30 @@ func update_new_perk_display() -> void:
 	perk_name_label.text = get_perk_display_name(current_new_perk)
 	description_label.text = get_perk_description(current_new_perk)
 
+	update_rarity_display()
+
+# ============================================
+# UPDATE RARITY DISPLAY
+# ============================================
+
+func update_rarity_display() -> void:
+	match current_rarity.to_upper():
+		"COMMON":
+			rarity_label.text = "COMMON COIN"
+			rarity_label.add_theme_color_override("font_color", Color("#3F64C3"))
+		
+
+		"EPIC":
+			rarity_label.text = "EPIC COIN"
+			rarity_label.add_theme_color_override("font_color", Color("#744188"))
+
+		"LEGENDARY":
+			rarity_label.text = "LEGENDARY COIN"
+			rarity_label.add_theme_color_override("font_color", Color("#FFD23F"))
+
+		_:
+			rarity_label.text = "UNKNOWN COIN"
+			rarity_label.add_theme_color_override("font_color", Color.WHITE)
 
 # ============================================
 # GET PERK TEXTURE
@@ -327,7 +336,6 @@ func get_perk_texture(perk_name: String) -> Texture2D:
 
 	return blank_coin_texture
 
-
 # ============================================
 # GET PERK DISPLAY NAME
 # ============================================
@@ -356,7 +364,6 @@ func get_perk_display_name(perk_name: String) -> String:
 			return "PIERCE INCREASE"
 
 	return "UNKNOWN PERK"
-
 
 # ============================================
 # GET PERK DESCRIPTION
@@ -387,7 +394,6 @@ func get_perk_description(perk_name: String) -> String:
 
 	return "No description available."
 
-
 # ============================================
 # ENABLE SLOT SELECTION
 # ============================================
@@ -400,7 +406,6 @@ func enable_slot_selection() -> void:
 	selection_arrow.play()
 
 	update_selection_visuals()
-
 
 # ============================================
 # SELECTION INPUT
@@ -428,7 +433,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-
 # ============================================
 # KEY INPUT
 # ============================================
@@ -440,7 +444,6 @@ func is_key_pressed(event: InputEvent, key: Key) -> bool:
 	var key_event: InputEventKey = event as InputEventKey
 
 	return key_event.pressed and not key_event.echo and key_event.physical_keycode == key
-
 
 # ============================================
 # CHANGE SELECTED SLOT
@@ -459,7 +462,6 @@ func change_selected_slot(direction: int) -> void:
 		selected_slot_index = 0
 
 	update_selection_visuals()
-
 
 # ============================================
 # UPDATE SELECTION VISUALS
@@ -483,7 +485,6 @@ func update_selection_visuals() -> void:
 	update_replace_x(selected_slot, slot_center)
 	update_selection_text()
 
-
 # ============================================
 # POSITION ARROW
 # ============================================
@@ -493,7 +494,6 @@ func position_arrow(slot_center: Vector2) -> void:
 	var local_position: Vector2 = hud_inverse * slot_center
 
 	selection_arrow.position = local_position + arrow_offset
-
 
 # ============================================
 # POSITION NEW PERK COIN
@@ -514,7 +514,6 @@ func position_new_perk(slot_center: Vector2) -> void:
 		coin_local_center.x - coin_size.x * 0.5 + new_coin_offset.x,
 		coin_local_center.y - coin_size.y * 0.5 + new_coin_offset.y
 	)
-
 
 # ============================================
 # UPDATE REPLACE X
@@ -541,7 +540,6 @@ func update_replace_x(selected_slot: TextureRect, slot_center: Vector2) -> void:
 
 	replace_x.position = local_position - x_size * 0.5 + replace_x_offset
 
-
 # ============================================
 # UPDATE SELECTION TEXT
 # ============================================
@@ -557,7 +555,6 @@ func update_selection_text() -> void:
 		confirm_text.text = "A / D to Select\nE to Equip"
 	else:
 		confirm_text.text = "A / D to Select\nE to Replace"
-
 
 # ============================================
 # CONFIRM SELECTED SLOT
@@ -581,7 +578,6 @@ func confirm_selected_slot() -> void:
 
 	place_perk_in_slot(selected_slot)
 
-
 # ============================================
 # PLACE PERK IN SLOT
 # ============================================
@@ -594,7 +590,6 @@ func place_perk_in_slot(selected_slot: TextureRect) -> void:
 
 	apply_equipped_perks()
 	finish_perk_selection()
-
 
 # ============================================
 # APPLY EQUIPPED PERKS
@@ -626,14 +621,12 @@ func apply_equipped_perks() -> void:
 	if player.has_method("apply_perks"):
 		player.apply_perks(equipped)
 
-
 # ============================================
 # DISCARD NEW PERK
 # ============================================
 
 func discard_new_perk() -> void:
 	finish_perk_selection()
-
 
 # ============================================
 # FINISH PERK SELECTION
@@ -662,7 +655,6 @@ func finish_perk_selection() -> void:
 	tween.tween_property(slots_container, "scale", normal_slots_scale, menu_animation_time)
 
 	tween.chain().tween_callback(perk_selection_finished)
-
 
 # ============================================
 # SELECTION FINISHED

@@ -88,7 +88,17 @@ var current_roll_id: int = 0
 # READY
 # ============================================
 
+const SFX_SPIN: AudioStream = preload("res://resources/Audio/World SFX/Box_wheel_spin.wav")
+const SFX_REWARD: AudioStream = preload("res://resources/Audio/World SFX/Reward_jingle.wav")
+
+var spin_sfx: AudioStreamPlayer = null
+var reward_sfx: AudioStreamPlayer = null
+
+
 func _ready() -> void:
+	spin_sfx = Sfx.make(self, SFX_SPIN)
+	reward_sfx = Sfx.make(self, SFX_REWARD)
+
 	interaction_area.body_entered.connect(_on_body_entered)
 	interaction_area.body_exited.connect(_on_body_exited)
 
@@ -286,6 +296,9 @@ func start_weapon_roll() -> void:
 	is_rolling = true
 	selected_weapon = null
 
+	# Loops until the roll lands
+	Sfx.start_loop(spin_sfx)
+
 	weapon_display.visible = true
 
 
@@ -341,6 +354,9 @@ func start_weapon_roll() -> void:
 	weapon_display.frame = final_weapon_index
 
 	is_rolling = false
+
+	Sfx.stop_loop(spin_sfx)
+	Sfx.play(reward_sfx, null, 1.0, 1.0)
 
 	current_cost += cost_increase
 

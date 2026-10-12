@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cexf5up6pia4d"
+path="res://.godot/imported/Reload_mag_insert.wav-d62437ff3d2ab8430498c9d6e591975f.sample"
+
+[deps]
+
+source_file="res://resources/Audio/Gun Noises/Reload_mag_insert.wav"
+dest_files=["res://.godot/imported/Reload_mag_insert.wav-d62437ff3d2ab8430498c9d6e591975f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

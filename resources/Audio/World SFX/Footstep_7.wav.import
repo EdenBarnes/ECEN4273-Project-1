@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bpkfqqiuu5jor"
+path="res://.godot/imported/Footstep_7.wav-f2079e839ac3b201c4848ac275731e7f.sample"
+
+[deps]
+
+source_file="res://resources/Audio/World SFX/Footstep_7.wav"
+dest_files=["res://.godot/imported/Footstep_7.wav-f2079e839ac3b201c4848ac275731e7f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

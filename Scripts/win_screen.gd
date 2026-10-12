@@ -84,15 +84,58 @@ https://snoblin.itch.io/pixel-rpg-free-npc/devlog/1641685/-added-dialog-portrait
 
 [b]SOUND[/b]
 
+Gun sounds from "Free Guns Sounds"
+by moneywithjjcom
+moneywithjjcom.itch.io/free-guns-sounds
+Royalty-free, no attribution required
+
+[b]From Freesound[/b]
+
+"zombie noise2" by iSaria
+freesound.org/s/326262
+Attribution 4.0
+
+"Heart collect/Healing (Retro)"
+by ReincarnatedEchoes
+freesound.org/s/644306
+Attribution 4.0
+
+"Footsteps On Dirt (Retro Style)"
+by SilverIllusionist
+freesound.org/s/672065
+Attribution 4.0
+
+"Fire Whoosh Samples" by mikiko850
+freesound.org/s/848728
+Attribution 4.0
+
+"Wheel Spin sound" by roulettevision
+freesound.org/s/420891
+Attribution 3.0
+
+"ARP Slot Machine Minor" by Johnnie_Holiday
+freesound.org/s/587380
+Creative Commons 0
+
+"cyberpunk_metal" by Bertsz
+freesound.org/s/672783
+Creative Commons 0
+
+"210104_0015 bicycle chain" by clothespeg
+freesound.org/s/614037
+Creative Commons 0
+
 "click" by 1bob
 freesound.org/s/717366
 Creative Commons 0
 
-"zombie noise2" by iSaria
-freesound.org/s/326262
-Creative Commons Attribution 4.0
+"soft button click 7" by FOSSarts
+freesound.org/s/750593
+Creative Commons 0
 
-[Remaining sound credits]
+[TODO - 9 sounds still need their Freesound IDs:
+thunder, zombie growl, both theme tracks, blood
+trickle, siren, coin, grunts, heartbeat]
 
 
 [b]BUILT WITH[/b]
@@ -168,7 +211,7 @@ func _ready() -> void:
 		await win_anim.animation_finished
 		
 	var t := create_tween()
-	t.tween_property(fade_1, "color:a", 1.0, 1.0)
+	t.tween_property(fade_1, "color:a", 1.0, 0.3)
 	await t.finished
 	
 	titlecard.show()
@@ -183,7 +226,7 @@ func _ready() -> void:
 	t3.tween_property(blood_trickling, "volume_db", -40.0, 0.5)
 	
 	var t2 := create_tween()
-	t2.tween_property(fade_2, "color:a", 1.0, 1.0)
+	t2.tween_property(fade_2, "color:a", 1.0, 0.5)
 	await t2.finished
 
 	await _roll_credits()

@@ -1,5 +1,5 @@
-extends Control
 
+extends Control
 
 # ============================================
 # NODES
@@ -7,7 +7,16 @@ extends Control
 
 @onready var ammo_sprite: AnimatedSprite2D = $Ammo
 @onready var ammo_text: Label = $AmmoText
+@onready var gun_1: AnimatedSprite2D = $Gun1
+@onready var gun_2: AnimatedSprite2D = $Gun2
 
+# ============================================
+# WEAPON HUD SETTINGS
+# ============================================
+
+# Assign WeaponData resources in the Inspector.
+# Index 0 = Guns animation frame 0, etc.
+@export var weapon_frames: Array[WeaponData] = []
 
 # ============================================
 # AMMO SETTINGS
@@ -17,9 +26,8 @@ const AMMO_FRAME_COUNT: int = 11
 const EMPTY_FRAME: int = 10
 const EMPTY_ANIMATION_MAX_TIME: float = 0.25
 
-
 # ============================================
-# AMMO VARIABLES
+# VARIABLES
 # ============================================
 
 var current_ammo: int = 0
@@ -27,24 +35,25 @@ var magazine_size: int = 0
 var current_ammo_frame: int = 0
 var is_reloading: bool = false
 
+var player: Node = null
 var current_gun: Gun = null
 var reload_id: int = 0
-
 
 # ============================================
 # READY
 # ============================================
 
 func _ready() -> void:
+	gun_1.hide()
+	gun_2.hide()
 	call_deferred("connect_to_gun")
-
 
 # ============================================
 # CONNECT TO GUN
 # ============================================
 
 func connect_to_gun() -> void:
-	var player: Node = get_tree().get_first_node_in_group("player")
+	player = get_tree().get_first_node_in_group("player")
 
 	if player == null:
 		print("ERROR: WeaponDisplay could not find Player!")
@@ -77,21 +86,82 @@ func connect_to_gun() -> void:
 			current_gun.weapon_instance.get_magazine_size()
 		)
 
+	update_weapon_icons()
 
 # ============================================
 # WEAPON CHANGED
 # ============================================
 
 func weapon_changed() -> void:
-	# Invalidates any old reload animation
+	# Invalidates any old reload animation.
 	reload_id += 1
 	is_reloading = false
 
-	# Stop whatever animation was playing
+	# Stop whatever animation was playing.
 	ammo_sprite.stop()
 	ammo_sprite.speed_scale = 1.0
 	ammo_sprite.animation = "ammo"
 
+	# Update both weapon icons.
+	update_weapon_icons()
+
+# ============================================
+# UPDATE WEAPON ICONS
+# ============================================
+
+func update_weapon_icons() -> void:
+	if player == null:
+		return
+
+	var held_weapon: WeaponInstance = player.get_current_weapon()
+	var other_weapon: WeaponInstance = null
+
+	# Find the weapon that is not currently equipped.
+	if player.current_weapon_slot == 1:
+		other_weapon = player.weapon_slot_2
+	elif player.current_weapon_slot == 2:
+		other_weapon = player.weapon_slot_1
+
+	# Gun1 always displays the equipped weapon.
+	set_weapon_icon(gun_1, held_weapon)
+
+	# Gun2 displays the unequipped weapon.
+	set_weapon_icon(gun_2, other_weapon)
+
+# ============================================
+# SET WEAPON ICON
+# ============================================
+
+func set_weapon_icon(sprite: AnimatedSprite2D, weapon: WeaponInstance) -> void:
+	if weapon == null or weapon.weapon_data == null:
+		sprite.hide()
+		return
+
+	var frame_index: int = weapon_frames.find(weapon.weapon_data)
+
+	if frame_index == -1:
+		sprite.hide()
+		push_warning("WeaponDisplay: WeaponData not found in weapon_frames!")
+		return
+
+	if sprite.sprite_frames == null:
+		sprite.hide()
+		return
+
+	if not sprite.sprite_frames.has_animation("Guns"):
+		sprite.hide()
+		push_warning("WeaponDisplay: Missing Guns animation!")
+		return
+
+	if frame_index >= sprite.sprite_frames.get_frame_count("Guns"):
+		sprite.hide()
+		push_warning("WeaponDisplay: Weapon frame index is out of range!")
+		return
+
+	sprite.stop()
+	sprite.animation = "Guns"
+	sprite.frame = frame_index
+	sprite.show()
 
 # ============================================
 # UPDATE AMMO
@@ -111,7 +181,6 @@ func update_ammo(new_ammo: int, new_magazine_size: int) -> void:
 
 	update_ammo_frame()
 
-
 # ============================================
 # UPDATE AMMO FRAME
 # ============================================
@@ -127,7 +196,6 @@ func update_ammo_frame() -> void:
 	ammo_sprite.animation = "ammo"
 	ammo_sprite.frame = current_ammo_frame
 
-
 # ============================================
 # START RELOAD
 # ============================================
@@ -138,7 +206,7 @@ func start_reload(reload_duration: float) -> void:
 
 	is_reloading = true
 
-	# Give this reload its own ID
+	# Give this reload its own ID.
 	reload_id += 1
 	var this_reload_id: int = reload_id
 
@@ -158,7 +226,7 @@ func start_reload(reload_duration: float) -> void:
 		ammo_sprite.animation = "ammo"
 
 		for frame_number: int in range(starting_frame + 1, EMPTY_FRAME + 1):
-			# Stop if weapon changed
+			# Stop if weapon changed.
 			if this_reload_id != reload_id:
 				return
 
@@ -166,7 +234,7 @@ func start_reload(reload_duration: float) -> void:
 
 			await get_tree().create_timer(time_per_frame).timeout
 
-			# Check again after await
+			# Check again after await.
 			if this_reload_id != reload_id:
 				return
 
@@ -183,7 +251,6 @@ func start_reload(reload_duration: float) -> void:
 
 	var remaining_reload_time: float = reload_duration - empty_time
 	play_reload_animation(remaining_reload_time)
-
 
 # ============================================
 # PLAY RELOAD ANIMATION
@@ -206,7 +273,6 @@ func play_reload_animation(duration: float) -> void:
 		ammo_sprite.speed_scale = 1.0
 
 	ammo_sprite.play("reload")
-
 
 # ============================================
 # FINISH RELOAD

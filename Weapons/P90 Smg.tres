@@ -6,11 +6,11 @@
 [resource]
 script = ExtResource("1_sbfmo")
 weapon_texture = ExtResource("2_sbfmo")
-damage = 25
+damage = 13
 bullet_speed = 600.0
 fire_rate = 0.08
 magazine_size = 50
-reload_time = 0.7
+reload_time = 0.85
 spread_angle = 40.0
 aim_move_speed_multiplier = 0.7
 aim_spread_multiplier = 0.35

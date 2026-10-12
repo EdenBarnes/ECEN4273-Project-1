@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://djr74lsvn2g7n"
+path="res://.godot/imported/Dry_fire.wav-c08bdc03672476b6042f976cc677d100.sample"
+
+[deps]
+
+source_file="res://resources/Audio/Gun Noises/Dry_fire.wav"
+dest_files=["res://.godot/imported/Dry_fire.wav-c08bdc03672476b6042f976cc677d100.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -20,6 +20,7 @@ extends Control
 @onready var buttons: Control = $Buttons
 @onready var main_button: TextureButton = $Buttons/MainButton
 @onready var exit_button: TextureButton = $Buttons/ExitButton
+@onready var restart_button: TextureButton = $Buttons/RestartButton
 
 @onready var ui_hover: AudioStreamPlayer = $UIHover
 @onready var ui_click: AudioStreamPlayer = $UIClick
@@ -69,9 +70,11 @@ func _ready() -> void:
 
 	main_button.pressed.connect(_on_main_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
-
+	restart_button.pressed.connect(_on_restart_pressed)
+	
 	main_button.mouse_entered.connect(_play_hover)
 	exit_button.mouse_entered.connect(_play_hover)
+	restart_button.mouse_entered.connect(_play_hover)
 
 	death_anim.frame = 0
 	death_anim.play()
@@ -182,6 +185,19 @@ func _on_main_pressed() -> void:
 	await get_tree().create_timer(CLICK_PAUSE).timeout
 
 	get_tree().change_scene_to_file("res://Scenes/start_screen.tscn")
+	
+func _on_restart_pressed() -> void:
+
+	if leaving:
+		return
+
+	leaving = true
+	_disable_buttons()
+	_play_click()
+
+	await get_tree().create_timer(CLICK_PAUSE).timeout
+
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 
 func _on_exit_pressed() -> void:

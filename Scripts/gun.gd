@@ -57,6 +57,8 @@ func _ready() -> void:
 	reload_timer.one_shot = true
 	reload_timer.timeout.connect(_on_reload_finished)
 
+	build_audio()
+
 	muzzle_flash.visible = false
 	muzzle_flash.animation_finished.connect(_on_muzzle_flash_finished)
 
@@ -247,6 +249,66 @@ func can_shoot() -> bool:
 
 
 # ============================================
+# SOUND
+# ============================================
+# Built in code so gun.tscn needs no new nodes.
+#
+# Gunfire needs several players: one node can
+# only play one sound at a time, so rapid fire
+# would cut each shot off at the start of the
+# next. A small pool played round-robin lets
+# the tails overlap the way real gunfire does.
+# ============================================
+
+const SFX_SHOT: AudioStream = preload("res://resources/Audio/Gun Noises/Gun_shot_rifle.wav")
+const SFX_RELOAD: AudioStream = preload("res://resources/Audio/Gun Noises/Reload_mag_insert.wav")
+const SFX_EMPTY: AudioStream = preload("res://resources/Audio/Gun Noises/Dry_fire.wav")
+
+const SHOT_VOICES: int = 5
+
+var shot_players: Array[AudioStreamPlayer] = []
+var shot_voice: int = 0
+var mech_player: AudioStreamPlayer = null
+
+
+func build_audio() -> void:
+
+	for _i: int in range(SHOT_VOICES):
+		var p := AudioStreamPlayer.new()
+		p.stream = SFX_SHOT
+		p.bus = "SFX"
+		add_child(p)
+		shot_players.append(p)
+
+	# Reload and dry fire never overlap each
+	# other, so one player is enough
+	mech_player = AudioStreamPlayer.new()
+	mech_player.bus = "SFX"
+	add_child(mech_player)
+
+
+func play_shot() -> void:
+
+	var p: AudioStreamPlayer = shot_players[shot_voice]
+	shot_voice = (shot_voice + 1) % SHOT_VOICES
+
+	# Slight pitch variation stops a held trigger
+	# sounding like a copy-paste loop
+	p.pitch_scale = randf_range(0.94, 1.06)
+	p.play()
+
+
+func play_mech(stream: AudioStream) -> void:
+
+	if mech_player == null:
+		return
+
+	mech_player.stream = stream
+	mech_player.pitch_scale = randf_range(0.97, 1.03)
+	mech_player.play()
+
+
+# ============================================
 # SHOOT
 # ============================================
 
@@ -261,6 +323,8 @@ func shoot(direction: Vector2) -> void:
 		return
 
 	if current_ammo <= 0:
+		# Trigger pulled on an empty magazine
+		play_mech(SFX_EMPTY)
 		reload()
 		return
 
@@ -289,6 +353,7 @@ func shoot(direction: Vector2) -> void:
 	# ============================================
 
 	play_muzzle_flash()
+	play_shot()
 
 	# ============================================
 	# SPAWN BULLETS
@@ -325,6 +390,8 @@ func reload() -> void:
 
 	reload_timer.wait_time = reload_time
 	reload_timer.start()
+
+	play_mech(SFX_RELOAD)
 
 	reload_started.emit(reload_time)
 
