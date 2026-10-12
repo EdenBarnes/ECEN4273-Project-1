@@ -30,9 +30,9 @@ signal health_changed(current_health: int, max_health: int)
 # OBSTACLE AVOIDANCE RAYCASTS
 # ============================================
 
-@onready var raycast_left: RayCast2D = $AvoidLeft
-@onready var raycast_center: RayCast2D = $AvoidCenter
-@onready var raycast_right: RayCast2D = $AvoidRight
+@onready var raycast_left: RayCast2D = $RayCast2D_Left
+@onready var raycast_center: RayCast2D = $RayCast2D_Center
+@onready var raycast_right: RayCast2D = $RayCast2D_Right
 
 # Fetched in _ready after the tree is (re)activated
 var state_machine: AnimationNodeStateMachinePlayback
@@ -95,7 +95,11 @@ const AVOID_RELEASE_TIME: float = 0.5
 @export var escape_time: float = 0.5
 @export var stuck_check_time: float = 0.55
 @export var stuck_min_movement: float = 4.0
+@export var avoidance_blend_speed: float = 6.0   # how quickly avoidance fades in/out
+@export var avoidance_turn_speed: float = 8.0    # how quickly the avoid direction can rotate
 
+var avoidance_weight: float = 0.0
+var smoothed_avoidance: Vector2 = Vector2.ZERO
 var wall_follow_left: float = 0.0
 var escape_left: float = 0.0
 var stuck_elapsed: float = 0.0
@@ -265,18 +269,21 @@ func _physics_process(delta: float) -> void:
 	steering += _coh * cohesion_strength
 	steering += seek_goal() * seek_goal_strength
 
-	# Obstacles take priority over flocking only while needed.
+	# Obstacles blend in smoothly instead of switching flocking off.
 	update_rays()
-	var avoidance: Vector2 = avoid_obstacles(delta)
-	if avoidance_active:
-		steering = steering * 0.15 + avoidance * maxf(obstacle_avoid_strength, 2.5) * 2.0
-	else:
-		steering += avoidance * obstacle_avoid_strength
+	var raw_avoidance: Vector2 = avoid_obstacles(delta)
+	smoothed_avoidance = smoothed_avoidance.lerp(raw_avoidance, 1.0 - exp(-avoidance_turn_speed * delta))
+
+	var target_weight: float = 1.0 if avoidance_active else 0.0
+	avoidance_weight = lerpf(avoidance_weight, target_weight, 1.0 - exp(-avoidance_blend_speed * delta))
+
+	# Flocking/seek fade down (not off) while avoiding.
+	steering *= lerpf(1.0, 0.35, avoidance_weight)
+	steering += smoothed_avoidance * obstacle_avoid_strength * 1.5 * avoidance_weight
 
 	var acceleration: Vector2 = steering * speed * 8.0
 	velocity += acceleration * delta
 
-	
 	# ============================================
 	# HEALTH-BASED MOVEMENT SPEED
 	# ============================================
@@ -292,7 +299,6 @@ func _physics_process(delta: float) -> void:
 		health_speed_multiplier = maxf(health_ratio, 0.25)
 
 	velocity = velocity.limit_length(speed * health_speed_multiplier)
-
 
 	if velocity.length() > FACING_MIN_SPEED:
 		facing_direction = velocity.normalized()
@@ -454,11 +460,11 @@ func avoid_obstacles(delta: float) -> Vector2:
 		avoid_clear_time = 0.0
 		wall_follow_left = wall_follow_time
 		if avoid_side == 0.0:
-			var tangent: Vector2 = Vector2(-last_obstacle_normal.y, last_obstacle_normal.x)
+			var pick_tangent: Vector2 = Vector2(-last_obstacle_normal.y, last_obstacle_normal.x)
 			var toward_player: Vector2 = Vector2.ZERO
 			if player != null:
 				toward_player = (player.global_position - global_position).normalized()
-			var preference: float = tangent.dot(toward_player)
+			var preference: float = pick_tangent.dot(toward_player)
 			avoid_side = signf(preference) if absf(preference) > 0.15 else (1.0 if randf() < 0.5 else -1.0)
 	else:
 		avoid_clear_time += delta
@@ -475,13 +481,21 @@ func avoid_obstacles(delta: float) -> Vector2:
 	if normal.length_squared() < 0.01:
 		return Vector2.ZERO
 	var tangent: Vector2 = Vector2(-normal.y, normal.x) * avoid_side
-	var outward: float = 0.55
+
+	# Mostly slide along the surface; only push away when close.
+	var outward: float = 0.25
 	if hit:
 		var reach: float = maxf(obstacle_avoid_distance, get_collision_clearance() * 2.5)
-		outward += 0.65 * (1.0 - clampf(nearest / reach, 0.0, 1.0))
+		outward += 0.35 * (1.0 - clampf(nearest / reach, 0.0, 1.0))
 	if escape_left > 0.0:
-		outward = 1.4
-	return (tangent + normal * outward).normalized()
+		outward = 0.8
+
+	var result: Vector2 = (tangent + normal * outward).normalized()
+
+	# Fade out during the wall-follow tail instead of cutting off.
+	if not hit and escape_left <= 0.0:
+		result *= wall_follow_left / maxf(wall_follow_time, 0.001)
+	return result
 
 
 func update_stuck_detection(delta: float) -> void:
@@ -503,7 +517,10 @@ func update_stuck_detection(delta: float) -> void:
 		escape_left = escape_time
 		if last_obstacle_normal.length_squared() < 0.01:
 			last_obstacle_normal = (global_position - player.global_position).normalized()
-		velocity = (Vector2(-last_obstacle_normal.y, last_obstacle_normal.x) * avoid_side + last_obstacle_normal).normalized() * speed * 0.5
+
+		# Soft nudge instead of overwriting velocity.
+		var nudge: Vector2 = (Vector2(-last_obstacle_normal.y, last_obstacle_normal.x) * avoid_side + last_obstacle_normal * 0.5).normalized() * speed * 0.5
+		velocity = velocity.lerp(nudge, 0.4)
 
 	stuck_origin = global_position
 	stuck_elapsed = 0.0

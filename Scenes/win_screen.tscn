@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dmksp2qm3ujx3"]
+[gd_scene format=3 uid="uid://f3nti58ar3h0"]
 
 [ext_resource type="Script" uid="uid://5le7ylaba4xd" path="res://Scripts/win_screen.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bar75yhibxhfp" path="res://resources/Game Assets/DeathScreen/Main_Button.png" id="2_main_n"]

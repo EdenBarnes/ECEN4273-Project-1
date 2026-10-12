@@ -177,6 +177,7 @@ func spawn_enemy() -> void:
 
 	var enemy = ENEMY_SCENE.instantiate()
 	enemy.data = type_data          # must be set before add_child so _ready sees it
+
 	if boss_wave_active:
 		enemy.can_drop_coins = boss_wave_spawn_count < boss_wave_coin_spawn_limit
 		boss_wave_spawn_count += 1
