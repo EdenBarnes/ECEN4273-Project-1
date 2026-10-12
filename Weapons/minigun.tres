@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://duhrfs0tp7ytb"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_udcmg"]
+[ext_resource type="Texture2D" uid="uid://8h4k3hhfhakt" path="res://resources/Game Assets/Guns/Minigun.png" id="2_udcmg"]
+
+[resource]
+script = ExtResource("1_udcmg")
+weapon_texture = ExtResource("2_udcmg")
+damage = 15
+bullet_speed = 600.0
+fire_rate = 0.02
+magazine_size = 300
+reload_time = 7.0
+spread_angle = 35.0
+aim_move_speed_multiplier = 1.0
+aim_spread_multiplier = 1.0
+gun_scale = 1.25
+gun_visual_offset = Vector2(15, 6)
+muzzle_position = Vector2(15, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 20.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b2m6pbdpsaksw"]
+
+[ext_resource type="Texture2D" uid="uid://ykc1h8x76pjq" path="res://resources/Background/Single background Assets/Cabin 1.png" id="1_dwpp3"]
+
+[node name="Cabin" type="StaticBody2D" unique_id=875657510 groups=["bullet_obstacle"]]
+collision_layer = 8
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=413636816]
+position = Vector2(0, -69)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_dwpp3")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1004917810]
+position = Vector2(0, 9)
+scale = Vector2(0.6, 0.6)
+polygon = PackedVector2Array(-109, -108, -121.666664, -93.33333, -132, -81, -131, -27, -126, -21, -118.33333, -18.333334, -111, -16, 93, -14, 101, -11, 112, -6, 126, -7, 133, -15, 133, -22, 125, -41.666664, 125, -105)

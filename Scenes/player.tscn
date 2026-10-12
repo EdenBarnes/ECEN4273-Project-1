@@ -2,19 +2,18 @@
 
 [ext_resource type="Script" uid="uid://b3y4t0g4kkn8h" path="res://Scripts/player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://cri676v80pdf3" path="res://resources/sprites/Prototype_Character/Yellow/walk.png" id="1_onrkg"]
+[ext_resource type="Resource" uid="uid://qm6g0uxvduw7" path="res://Weapons/pistol.tres" id="2_3smsa"]
 [ext_resource type="Texture2D" uid="uid://udirm8yx83ix" path="res://resources/sprites/Prototype_Character/Yellow/idle.png" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://dshmatklso3t3" path="res://resources/sprites/Prototype_Character/Yellow/hurt.png" id="3_hqtel"]
 [ext_resource type="Texture2D" uid="uid://25wg4vm1wosf" path="res://resources/sprites/Prototype_Character/Yellow/death.png" id="3_sweqy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yujqa"]
-size = Vector2(22, 28)
+[ext_resource type="PackedScene" uid="uid://dvxppia2e5khl" path="res://Scenes/gun.tscn" id="6_x3wgy"]
 
 [sub_resource type="Animation" id="Animation_hqtel"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -38,7 +37,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -50,7 +49,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -62,7 +61,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -79,7 +78,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -91,7 +90,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -103,7 +102,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -115,7 +114,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -127,7 +126,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -144,7 +143,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -156,7 +155,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -168,7 +167,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -180,7 +179,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -192,7 +191,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -209,7 +208,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -221,7 +220,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -233,7 +232,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -245,7 +244,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -257,7 +256,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -274,7 +273,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -286,7 +285,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -298,7 +297,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -310,7 +309,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -322,7 +321,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -340,7 +339,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -352,7 +351,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -364,7 +363,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -376,7 +375,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -388,7 +387,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -406,7 +405,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -418,7 +417,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -430,7 +429,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -442,7 +441,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -454,7 +453,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -472,7 +471,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -484,7 +483,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -496,7 +495,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -508,7 +507,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -520,7 +519,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -538,7 +537,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -550,7 +549,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -562,7 +561,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -574,7 +573,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -586,7 +585,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -604,7 +603,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -616,7 +615,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -628,7 +627,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -640,7 +639,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -652,7 +651,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -670,7 +669,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -682,7 +681,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -694,7 +693,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -706,7 +705,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -718,7 +717,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -736,7 +735,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -748,7 +747,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -760,7 +759,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -772,7 +771,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -784,7 +783,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -802,7 +801,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -814,7 +813,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -826,7 +825,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -838,7 +837,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -850,7 +849,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -868,7 +867,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -880,7 +879,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -892,7 +891,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -904,7 +903,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -916,7 +915,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -934,7 +933,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -946,7 +945,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -958,7 +957,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -970,7 +969,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -982,7 +981,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1000,7 +999,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1012,7 +1011,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1024,7 +1023,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1036,7 +1035,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1048,7 +1047,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1066,7 +1065,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/path = NodePath("RollPivot/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1078,7 +1077,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("RollPivot/Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1090,7 +1089,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/path = NodePath("RollPivot/Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1102,7 +1101,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/path = NodePath("RollPivot/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1114,7 +1113,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/path = NodePath("RollPivot/Sprite2D:flip_h")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1145,111 +1144,111 @@ _data = {
 &"walk_up": SubResource("Animation_ivps1")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b26j0"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3smsa"]
 animation = &"death_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7ghd"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8erm5"]
 animation = &"death_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvl01"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1ek2"]
 animation = &"death_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ivps1"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tx1dd"]
 animation = &"death_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_urp6f"]
 blend_mode = 1
-blend_point_0/node = SubResource("AnimationNodeAnimation_b26j0")
+blend_point_0/node = SubResource("AnimationNodeAnimation_3smsa")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_0/name = &"death_down"
-blend_point_1/node = SubResource("AnimationNodeAnimation_n7ghd")
+blend_point_1/node = SubResource("AnimationNodeAnimation_8erm5")
 blend_point_1/pos = Vector2(0, -1)
 blend_point_1/name = &"death_up"
-blend_point_2/node = SubResource("AnimationNodeAnimation_nvl01")
+blend_point_2/node = SubResource("AnimationNodeAnimation_f1ek2")
 blend_point_2/pos = Vector2(-0.5, 0)
 blend_point_2/name = &"death_left"
-blend_point_3/node = SubResource("AnimationNodeAnimation_ivps1")
+blend_point_3/node = SubResource("AnimationNodeAnimation_tx1dd")
 blend_point_3/pos = Vector2(0.5, 0)
 blend_point_3/name = &"death_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sweqy"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gymyn"]
 animation = &"hurt_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2hs0m"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pu2lt"]
 animation = &"hurt_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jxqw"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukyrk"]
 animation = &"hurt_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dw050"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7dp3o"]
 animation = &"hurt_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_b26j0"]
 blend_mode = 1
-blend_point_0/node = SubResource("AnimationNodeAnimation_sweqy")
+blend_point_0/node = SubResource("AnimationNodeAnimation_gymyn")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_0/name = &"hurt_down"
-blend_point_1/node = SubResource("AnimationNodeAnimation_2hs0m")
+blend_point_1/node = SubResource("AnimationNodeAnimation_pu2lt")
 blend_point_1/pos = Vector2(0, -1)
 blend_point_1/name = &"hurt_up"
-blend_point_2/node = SubResource("AnimationNodeAnimation_1jxqw")
+blend_point_2/node = SubResource("AnimationNodeAnimation_ukyrk")
 blend_point_2/pos = Vector2(-0.5, 0)
 blend_point_2/name = &"hurt_left"
-blend_point_3/node = SubResource("AnimationNodeAnimation_dw050")
+blend_point_3/node = SubResource("AnimationNodeAnimation_7dp3o")
 blend_point_3/pos = Vector2(0.5, 0)
 blend_point_3/name = &"hurt_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_doop2"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4iuc"]
 animation = &"idle_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5hcft"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fd4e3"]
 animation = &"idle_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nnovl"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qqcod"]
 animation = &"idle_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jmwgi"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_igrcy"]
 animation = &"idle_left"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_2hs0m"]
 blend_mode = 1
-blend_point_0/node = SubResource("AnimationNodeAnimation_doop2")
+blend_point_0/node = SubResource("AnimationNodeAnimation_h4iuc")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_0/name = &"idle_down"
-blend_point_1/node = SubResource("AnimationNodeAnimation_5hcft")
+blend_point_1/node = SubResource("AnimationNodeAnimation_fd4e3")
 blend_point_1/pos = Vector2(0.5, 0)
 blend_point_1/name = &"idle_right"
-blend_point_2/node = SubResource("AnimationNodeAnimation_nnovl")
+blend_point_2/node = SubResource("AnimationNodeAnimation_qqcod")
 blend_point_2/pos = Vector2(0, -1)
 blend_point_2/name = &"idle_up"
-blend_point_3/node = SubResource("AnimationNodeAnimation_jmwgi")
+blend_point_3/node = SubResource("AnimationNodeAnimation_igrcy")
 blend_point_3/pos = Vector2(-0.5, 0)
 blend_point_3/name = &"idle_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g2u8i"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fs7ks"]
 animation = &"walk_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_otto8"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l6n3p"]
 animation = &"walk_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8q82m"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_olqyp"]
 animation = &"walk_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_epc7x"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wpjfl"]
 animation = &"walk_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1jxqw"]
 blend_mode = 1
-blend_point_0/node = SubResource("AnimationNodeAnimation_g2u8i")
+blend_point_0/node = SubResource("AnimationNodeAnimation_fs7ks")
 blend_point_0/pos = Vector2(0, -1)
 blend_point_0/name = &"walk_up"
-blend_point_1/node = SubResource("AnimationNodeAnimation_otto8")
+blend_point_1/node = SubResource("AnimationNodeAnimation_l6n3p")
 blend_point_1/pos = Vector2(-0.5, 0)
 blend_point_1/name = &"walk_left"
-blend_point_2/node = SubResource("AnimationNodeAnimation_8q82m")
+blend_point_2/node = SubResource("AnimationNodeAnimation_olqyp")
 blend_point_2/pos = Vector2(0, 1)
 blend_point_2/name = &"walk_down"
-blend_point_3/node = SubResource("AnimationNodeAnimation_epc7x")
+blend_point_3/node = SubResource("AnimationNodeAnimation_wpjfl")
 blend_point_3/pos = Vector2(0.5, 0)
 blend_point_3/name = &"walk_right"
 
@@ -1299,15 +1298,23 @@ states/walk/node = SubResource("AnimationNodeBlendSpace2D_1jxqw")
 states/walk/position = Vector2(376.24, 162.08)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n7ghd"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_nvl01"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_ivps1"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_sweqy"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_2hs0m"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_1jxqw"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_dw050"), "hurt", "death", SubResource("AnimationNodeStateMachineTransition_b26j0"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_urp6f"), "walk", "death", SubResource("AnimationNodeStateMachineTransition_bwjto"), "death", "End", SubResource("AnimationNodeStateMachineTransition_606se")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xadyu"]
+size = Vector2(22, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yujqa"]
+size = Vector2(22, 28)
+
 [node name="Player" type="CharacterBody2D" unique_id=1057855715 groups=["player"]]
+collision_mask = 8
+up_direction = Vector2(0, 1)
 script = ExtResource("1_i3pqv")
+starting_weapon = ExtResource("2_3smsa")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=761131958]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_yujqa")
+[node name="RollPivot" type="Node2D" parent="." unique_id=316302291]
+position = Vector2(0, -13)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1458304483]
-position = Vector2(72, 2)
+[node name="Sprite2D" type="Sprite2D" parent="RollPivot" unique_id=1458304483]
+position = Vector2(72, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("1_onrkg")
 offset = Vector2(-36, -1)
@@ -1315,12 +1322,12 @@ hframes = 4
 vframes = 3
 frame = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1830945921]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RollPivot/Sprite2D" unique_id=1830945921]
+root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_urp6f")
 
-[node name="AnimationTree" type="AnimationTree" parent="Sprite2D" unique_id=1734748648]
-root_node = NodePath("../..")
+[node name="AnimationTree" type="AnimationTree" parent="RollPivot/Sprite2D" unique_id=1734748648]
+root_node = NodePath("../../..")
 tree_root = SubResource("AnimationNodeStateMachine_bwjto")
 anim_player = NodePath("../AnimationPlayer")
 parameters/death/blend_position = Vector2(0, 0)
@@ -1328,7 +1335,33 @@ parameters/hurt/blend_position = Vector2(0, 0)
 parameters/idle/blend_position = Vector2(0, 0)
 parameters/walk/blend_position = Vector2(0, 0)
 
-[node name="MuzzlePosition" type="Marker2D" parent="." unique_id=1691672719]
-position = Vector2(0, 3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1605113646]
+position = Vector2(-1, -2.5)
+shape = SubResource("RectangleShape2D_xadyu")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1611489389]
+position = Vector2(0, -14)
+collision_layer = 16
+collision_mask = 0
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox" unique_id=761131958]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_yujqa")
 
 [node name="HurtTimer" type="Timer" parent="." unique_id=214020229]
+
+[node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1377066217]
+one_shot = true
+
+[node name="WeaponHolder" type="Node2D" parent="." unique_id=656471027]
+position = Vector2(0, -14)
+
+[node name="Gun" parent="WeaponHolder" unique_id=378236700 instance=ExtResource("6_x3wgy")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1665623308]
+zoom = Vector2(1.5, 1.5)
+limit_left = 0
+limit_top = 0
+limit_right = 1536
+limit_bottom = 1024
+position_smoothing_speed = 1.0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://e04e5t2d10ax"
+path="res://.godot/imported/Grunt_3.wav-47bb9291cfed3cee6eb59ca6af0a94de.sample"
+
+[deps]
+
+source_file="res://resources/Audio/Player SFX/Grunt_3.wav"
+dest_files=["res://.godot/imported/Grunt_3.wav-47bb9291cfed3cee6eb59ca6af0a94de.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

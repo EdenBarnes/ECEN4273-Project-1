@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bqrhy3b1b5glj"
+path="res://.godot/imported/Impact_concrete.wav-da2a466acb3a264e943bd25eb847665e.sample"
+
+[deps]
+
+source_file="res://resources/Audio/Gun Noises/Impact_concrete.wav"
+dest_files=["res://.godot/imported/Impact_concrete.wav-da2a466acb3a264e943bd25eb847665e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

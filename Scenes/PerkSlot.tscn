@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://nmpp6upheje4"]
+
+[ext_resource type="Texture2D" uid="uid://c708q8nybs0fp" path="res://resources/Game Assets/Perk Coins/PerkCoinBlank.png" id="1_bradt"]
+[ext_resource type="Script" uid="uid://blmgykqb70o2" path="res://Scripts/perk_slot.gd" id="2_drbv6"]
+
+[node name="PerkSlot" type="TextureRect" unique_id=550292483]
+custom_minimum_size = Vector2(40, 40)
+texture = ExtResource("1_bradt")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_drbv6")

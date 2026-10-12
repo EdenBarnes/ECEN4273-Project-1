@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Waves2" format=3 uid="uid://c8061x4tgchkh"]
+
+[ext_resource type="Script" uid="uid://oeg837hwnv5f" path="res://Scripts/Waves.gd" id="1_og8o5"]
+
+[resource]
+script = ExtResource("1_og8o5")
+EneSpeedMult = 1.1
+SpawnMaxEne = 25
+StartDelay = 20.0
+normalper = 60
+Sprintper = 25
+bigper = 15
+metadata/_custom_type_script = "uid://oeg837hwnv5f"

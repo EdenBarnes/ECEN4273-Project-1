@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dbru6wi4du3hq"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_iaaic"]
+[ext_resource type="Texture2D" uid="uid://ciuf2mmb5t4q6" path="res://resources/Game Assets/Guns/Small Sniper.png" id="2_iaaic"]
+
+[resource]
+script = ExtResource("1_iaaic")
+weapon_texture = ExtResource("2_iaaic")
+damage = 150
+bullet_speed = 550.0
+fire_rate = 0.65
+pierce = 3
+magazine_size = 4
+reload_time = 2.5
+spread_angle = 25.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.1
+gun_visual_offset = Vector2(12, 1)
+muzzle_position = Vector2(20, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 35.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

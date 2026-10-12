@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ckygy1fi3datr"]
+
+[ext_resource type="Texture2D" uid="uid://c3vymvset8ccr" path="res://resources/Background/Single background Assets/Med Rocks.png" id="1_gmku6"]
+
+[node name="Rock" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -7)
+texture = ExtResource("1_gmku6")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=880128683]
+scale = Vector2(0.46, 0.46)
+polygon = PackedVector2Array(-26, -2, -20, 2, -11, 5, -4, 6, 2, 6, 8, 3, 16, 1, 22, 0, 26, -4, 28, -10, 24, -14, -4, -17, -27, -10)

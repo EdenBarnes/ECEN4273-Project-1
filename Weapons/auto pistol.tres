@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bq8poliqckdlc"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_7xroy"]
+[ext_resource type="Texture2D" uid="uid://bk657lpoky88m" path="res://resources/Game Assets/Guns/Auto Pistol.png" id="2_7xroy"]
+
+[resource]
+script = ExtResource("1_7xroy")
+weapon_texture = ExtResource("2_7xroy")
+damage = 10
+bullet_speed = 550.0
+fire_rate = 0.1
+magazine_size = 15
+reload_time = 1.0
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+aim_spread_multiplier = 0.35
+gun_visual_offset = Vector2(12, 3)
+muzzle_position = Vector2(17, -3)
+muzzle_flash_scale = 0.2
+aim_cone_length = 20.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://fjp6x1xodhkq"]
+
+[ext_resource type="Texture2D" uid="uid://h7jh747r0w21" path="res://resources/Background/Single background Assets/Stump clean.png" id="1_71dc2"]
+
+[node name="Stump" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -6)
+texture = ExtResource("1_71dc2")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1526303891]
+position = Vector2(1.16415266e-10, -1)
+rotation = 1.5723957
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(-5.974403, 16.009577, -9.99359, 4.015989, -10.015981, -9.983994, -4.031982, -19.993578, 5.9552107, -28.009562, 9.974398, -16.015974, 11.999985, -0.019192258, 10.022378, 13.98399, 6.0383773, 23.990374, 4.0415783, 25.99357, -5.974403, 16.009577)

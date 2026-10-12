@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://d2r7m2jsof6mj"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_lyhct"]
+[ext_resource type="Texture2D" uid="uid://cg5fokvorvris" path="res://resources/Game Assets/Guns/Sniper Awp.png" id="2_hkt8j"]
+
+[resource]
+script = ExtResource("1_lyhct")
+weapon_texture = ExtResource("2_hkt8j")
+damage = 300
+bullet_speed = 1000.0
+fire_rate = 0.75
+pierce = 5
+magazine_size = 5
+reload_time = 2.5
+spread_angle = 50.0
+aim_move_speed_multiplier = 0.5
+aim_spread_multiplier = 0.05
+gun_visual_offset = Vector2(11, 4)
+muzzle_position = Vector2(30, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 40.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

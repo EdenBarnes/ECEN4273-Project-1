@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://7i3wn67u5xq6"]
+
+[ext_resource type="Texture2D" uid="uid://cwuo1urnik5h" path="res://resources/Background/Single background Assets/Small Rocks.png" id="1_6sscx"]
+
+[node name="Rock" type="Node2D" unique_id=2136756238]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -5)
+texture = ExtResource("1_6sscx")

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cwhc3dem1x20s"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_ngxoq"]
+[ext_resource type="Texture2D" uid="uid://bc0o550mhtf7n" path="res://resources/Game Assets/Guns/Med Machine Gun.png" id="2_ngxoq"]
+
+[resource]
+script = ExtResource("1_ngxoq")
+weapon_texture = ExtResource("2_ngxoq")
+damage = 20
+bullet_speed = 600.0
+fire_rate = 0.07
+magazine_size = 75
+reload_time = 2.0
+spread_angle = 40.0
+aim_move_speed_multiplier = 0.7
+gun_scale = 1.2
+gun_visual_offset = Vector2(5, 4)
+muzzle_position = Vector2(18, -2)
+muzzle_flash_scale = 0.25
+aim_cone_length = 25.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

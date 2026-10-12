@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://7c76mprbvnba"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_m13r2"]
+[ext_resource type="Texture2D" uid="uid://b8nvevhp3j6vj" path="res://resources/Game Assets/Guns/Long Rifle.png" id="2_m13r2"]
+
+[resource]
+script = ExtResource("1_m13r2")
+weapon_texture = ExtResource("2_m13r2")
+damage = 80
+bullet_speed = 600.0
+fire_rate = 0.4
+pierce = 3
+magazine_size = 8
+reload_time = 1.5
+spread_angle = 15.0
+aim_move_speed_multiplier = 0.7
+gun_scale = 1.1
+gun_visual_offset = Vector2(8, 3)
+muzzle_position = Vector2(20, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 30.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

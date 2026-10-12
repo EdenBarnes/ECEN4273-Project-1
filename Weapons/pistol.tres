@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://qm6g0uxvduw7"]
+
+[ext_resource type="Script" uid="uid://dyiljw4u8w26d" path="res://Scripts/weapon_data.gd" id="1_lk74w"]
+[ext_resource type="Texture2D" uid="uid://vpnkxp6ucglx" path="res://resources/Game Assets/Guns/Starter pistol.png" id="2_kvcm3"]
+
+[resource]
+script = ExtResource("1_lk74w")
+weapon_texture = ExtResource("2_kvcm3")
+magazine_size = 8
+reload_time = 2.0
+spread_angle = 25.0
+aim_move_speed_multiplier = 0.7
+gun_visual_offset = Vector2(15, 1)
+muzzle_position = Vector2(9, 0)
+muzzle_flash_scale = 0.25
+aim_cone_length = 20.0
+metadata/_custom_type_script = "uid://dyiljw4u8w26d"

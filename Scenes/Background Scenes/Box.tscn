@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cadcfhr6xkbp0"]
+
+[ext_resource type="Texture2D" uid="uid://bkptfrig5wka6" path="res://resources/Background/Single background Assets/Box.png" id="1_0f5lh"]
+
+[node name="Box" type="StaticBody2D" unique_id=57350484]
+collision_layer = 8
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=176508685]
+position = Vector2(0, -8)
+texture = ExtResource("1_0f5lh")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=26311215]
+position = Vector2(0.99999994, -1)
+rotation = -1.5715833
+scale = Vector2(0.4, 0.4)
+polygon = PackedVector2Array(-9.980322, -25.00786, -10.009832, 12.4921255, 2.48426, 20.00196, 2.5118032, -14.998027)
