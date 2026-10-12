@@ -154,18 +154,15 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1952410455]
 stream = ExtResource("3_60ddj")
-volume_db = -10.0
 autoplay = true
 bus = &"Music"
 
 [node name="Thunder" type="AudioStreamPlayer" parent="." unique_id=907769142]
 stream = ExtResource("5_nqnrp")
-volume_db = -10.0
 bus = &"SFX"
 
 [node name="ZombieGrowl" type="AudioStreamPlayer" parent="." unique_id=207805503]
 stream = ExtResource("13_357se")
-volume_db = -10.0
 bus = &"SFX"
 
 [node name="Fade" type="ColorRect" parent="." unique_id=1045098044]

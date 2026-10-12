@@ -806,6 +806,5 @@ pauses_game = true
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="." unique_id=1398818543]
 stream = ExtResource("36_hdf80")
-volume_db = -18.0
 autoplay = true
 bus = &"Music"

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dcusi6h6p2n8d"]
 
 [ext_resource type="Script" uid="uid://qh3h3kltl3m8" path="res://Scripts/intro.gd" id="1_b226h"]
-[ext_resource type="AudioStream" uid="uid://ih6750y1v6qa" path="res://resources/Audio/Blood_trickle.wav" id="3_alxvg"]
 [ext_resource type="Texture2D" uid="uid://dw3u0nqqiy6ps" path="res://resources/Game Assets/MainMenu/Intro_sceen.png" id="2_duh1u"]
+[ext_resource type="AudioStream" uid="uid://ih6750y1v6qa" path="res://resources/Audio/Blood_trickle.wav" id="3_alxvg"]
+[ext_resource type="Texture2D" uid="uid://b83415agvmk6b" path="res://resources/Game Assets/MainMenu/Main Menu-Grid.png" id="3_geirw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_alxvg"]
 atlas = ExtResource("2_duh1u")
@@ -32,6 +33,106 @@ region = Rect2(5760, 0, 1152, 648)
 atlas = ExtResource("2_duh1u")
 region = Rect2(6912, 0, 1152, 648)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewknp"]
+atlas = ExtResource("3_geirw")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7jvs"]
+atlas = ExtResource("3_geirw")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgam6"]
+atlas = ExtResource("3_geirw")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itfcf"]
+atlas = ExtResource("3_geirw")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8dlr"]
+atlas = ExtResource("3_geirw")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33jql"]
+atlas = ExtResource("3_geirw")
+region = Rect2(0, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iab25"]
+atlas = ExtResource("3_geirw")
+region = Rect2(1152, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6uv1"]
+atlas = ExtResource("3_geirw")
+region = Rect2(2304, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et3xt"]
+atlas = ExtResource("3_geirw")
+region = Rect2(3456, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfi4t"]
+atlas = ExtResource("3_geirw")
+region = Rect2(4608, 648, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odey0"]
+atlas = ExtResource("3_geirw")
+region = Rect2(0, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yny27"]
+atlas = ExtResource("3_geirw")
+region = Rect2(1152, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pufg"]
+atlas = ExtResource("3_geirw")
+region = Rect2(2304, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kddu7"]
+atlas = ExtResource("3_geirw")
+region = Rect2(3456, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n2py"]
+atlas = ExtResource("3_geirw")
+region = Rect2(4608, 1296, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqcso"]
+atlas = ExtResource("3_geirw")
+region = Rect2(0, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k86p3"]
+atlas = ExtResource("3_geirw")
+region = Rect2(1152, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiwhh"]
+atlas = ExtResource("3_geirw")
+region = Rect2(2304, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl2l6"]
+atlas = ExtResource("3_geirw")
+region = Rect2(3456, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb6eq"]
+atlas = ExtResource("3_geirw")
+region = Rect2(4608, 1944, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ff4s0"]
+atlas = ExtResource("3_geirw")
+region = Rect2(0, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4krp"]
+atlas = ExtResource("3_geirw")
+region = Rect2(1152, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2abu"]
+atlas = ExtResource("3_geirw")
+region = Rect2(2304, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr6kk"]
+atlas = ExtResource("3_geirw")
+region = Rect2(3456, 2592, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhahs"]
+atlas = ExtResource("3_geirw")
+region = Rect2(4608, 2592, 1152, 648)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_duh1u"]
 animations = [{
 "frames": [{
@@ -55,6 +156,81 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b26wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewknp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7jvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgam6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itfcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8dlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33jql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iab25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6uv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et3xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfi4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odey0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yny27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pufg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kddu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n2py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqcso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k86p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiwhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl2l6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb6eq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ff4s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4krp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2abu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr6kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhahs")
 }],
 "loop": 0,
 "name": &"intro",
